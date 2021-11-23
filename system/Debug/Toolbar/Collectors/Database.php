@@ -57,7 +57,7 @@ class Database extends BaseCollector
      * The query instances that have been collected
      * through the DBQuery Event.
      *
-     * @var array
+     * @var Query[]
      */
     protected static $queries = [];
 
@@ -66,7 +66,7 @@ class Database extends BaseCollector
      */
     public function __construct()
     {
-        $this->getConnections();
+        $this->connections = \Config\Database::getConnections();
     }
 
     /**
@@ -83,13 +83,7 @@ class Database extends BaseCollector
         $max = $config->maxQueries ?: 100;
 
         if (count(static::$queries) < $max) {
-            $queryString = $query->getQuery();
-
-            static::$queries[] = [
-                'query'     => $query,
-                'string'    => $queryString,
-                'duplicate' => in_array($queryString, array_column(static::$queries, 'string', null), true),
-            ];
+            static::$queries[] = $query;
         }
     }
 
@@ -116,9 +110,8 @@ class Database extends BaseCollector
             $data[] = [
                 'name'      => 'Query',
                 'component' => 'Database',
-                'start'     => $query['query']->getStartTime(true),
-                'duration'  => $query['query']->getDuration(),
-                'query'     => $query['query']->debugToolbarDisplay(),
+                'start'     => $query->getStartTime(true),
+                'duration'  => $query->getDuration(),
             ];
         }
 
@@ -130,14 +123,10 @@ class Database extends BaseCollector
      */
     public function display(): array
     {
-        $data['queries'] = array_map(static function (array $query) {
-            $isDuplicate = $query['duplicate'] === true;
-
+        $data['queries'] = array_map(static function (Query $query) {
             return [
-                'hover'    => $isDuplicate ? 'This query was called more than once.' : '',
-                'class'    => $isDuplicate ? 'duplicate' : '',
-                'duration' => ((float) $query['query']->getDuration(5) * 1000) . ' ms',
-                'sql'      => $query['query']->debugToolbarDisplay(),
+                'duration' => ((float) $query->getDuration(5) * 1000) . ' ms',
+                'sql'      => $query->debugToolbarDisplay(),
             ];
         }, static::$queries);
 
@@ -159,23 +148,8 @@ class Database extends BaseCollector
      */
     public function getTitleDetails(): string
     {
-        $this->getConnections();
-
-        $queryCount  = count(static::$queries);
-        $uniqueCount = count(array_filter(static::$queries, static function ($query) {
-            return $query['duplicate'] === false;
-        }));
-        $connectionCount = count($this->connections);
-
-        return sprintf(
-            '(%d total Quer%s, %d %s unique across %d Connection%s)',
-            $queryCount,
-            $queryCount > 1 ? 'ies' : 'y',
-            $uniqueCount,
-            $uniqueCount > 1 ? 'of them' : '',
-            $connectionCount,
-            $connectionCount > 1 ? 's' : ''
-        );
+        return '(' . count(static::$queries) . ' Queries across ' . ($countConnection = count($this->connections)) . ' Connection' .
+                ($countConnection > 1 ? 's' : '') . ')';
     }
 
     /**
@@ -194,13 +168,5 @@ class Database extends BaseCollector
     public function icon(): string
     {
         return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADMSURBVEhLY6A3YExLSwsA4nIycQDIDIhRWEBqamo/UNF/SjDQjF6ocZgAKPkRiFeEhoYyQ4WIBiA9QAuWAPEHqBAmgLqgHcolGQD1V4DMgHIxwbCxYD+QBqcKINseKo6eWrBioPrtQBq/BcgY5ht0cUIYbBg2AJKkRxCNWkDQgtFUNJwtABr+F6igE8olGQD114HMgHIxAVDyAhA/AlpSA8RYUwoeXAPVex5qHCbIyMgwBCkAuQJIY00huDBUz/mUlBQDqHGjgBjAwAAACexpph6oHSQAAAAASUVORK5CYII=';
-    }
-
-    /**
-     * Gets the connections from the database config
-     */
-    private function getConnections()
-    {
-        $this->connections = \Config\Database::getConnections();
     }
 }
