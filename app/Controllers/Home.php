@@ -10,4 +10,13 @@ class Home extends BaseController
         echo view('home.php');
         echo view('templates/footer.php');
     }
+
+    public function login()
+    {
+        echo view('login.php');
+    }
+
+    public function register() {
+        echo "UUUUUUUU";
+    }
 }

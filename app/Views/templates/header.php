@@ -12,5 +12,5 @@
 <body>
 
     <header>
-        <p>Se connecter</p>
+        <p class="connect-btn"><a href="<?= base_url("login"); ?>">Se connecter</a></p>
     </header>
