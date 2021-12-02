@@ -1,23 +1,28 @@
-<form action="" method="post">
+<div class="auth">
 
-    <label for="email">Adresse email</label><br/>
-    <input type="email" id="email" name="email"><br/>
+    <form action="" method="post">
 
-    <label for="pseudo">Pseudo</label><br/>
-    <input type="text" id="pseudo" name="pseudo"><br/>
+        <label for="email">Adresse email</label>
+        <input type="email" id="email" name="email">
 
-    <label for="nom">Nom</label><br/>
-    <input type="text" id="nom" name="nom"><br/>
+        <label for="pseudo">Pseudo</label>
+        <input type="text" id="pseudo" name="pseudo">
 
-    <label for="prenom">Prénom</label><br/>
-    <input type="text" id="prenom" name="prenom"><br/>
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom">
 
-    <label for="pwd">Mot de passe</label><br/>
-    <input type="password" id="pwd" name="pwd"><br/>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom">
 
-    <label for="pwd2">Confirmer le mot de passe</label><br/>
-    <input type="password" id="pwd2" name="pwd2"><br/>
+        <label for="pwd">Mot de passe</label>
+        <input type="password" id="pwd" name="pwd">
 
-    <input type="submit" name="submit" value="Créer un compte"/>
+        <label for="pwd2">Confirmer le mot de passe</label>
+        <input type="password" id="pwd2" name="pwd2">
 
-</form>
+        <input type="submit" name="submit" value="Créer un compte"/>
+
+    </form>
+
+</div>
+

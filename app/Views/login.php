@@ -1,11 +1,15 @@
-<form action="" method="post">
+<div class="auth Absolute-Center">
 
-    <label for="email">Adresse email</label><br/>
-    <input type="email" id="email" name="email"><br/>
+    <form action="" method="post">
 
-    <label for="pwd">Mot de passe</label><br/>
-    <input type="password" id="pwd" name="pwd"><br/>
+        <label for="email">Adresse email</label>
+        <input type="email" id="email" name="email">
 
-    <input type="submit" name="submit"/>
+        <label for="pwd">Mot de passe</label>
+        <input type="password" id="pwd" name="pwd">
 
-</form>
+        <input type="submit" name="submit"/>
+
+    </form>
+
+</div>

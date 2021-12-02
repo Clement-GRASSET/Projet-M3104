@@ -23,3 +23,14 @@ header p.connect-btn a {
     border-radius: 8px;
     box-shadow: rgba(0, 208, 255, 0.5) 0 0 50px;
 }
+
+div.auth {
+    position: absolute;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #eaeaea;
+    padding: 50px;
+    border-radius: 10px;
+}

@@ -1,0 +1,28 @@
+form {
+    width: 100%
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 6px 8px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    background: linear-gradient(to bottom right, #00a3e8, #00ffd9);
+    box-shadow: rgba(0, 208, 255, 0.5) 0 0 50px;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+}
