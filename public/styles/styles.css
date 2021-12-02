@@ -3,6 +3,10 @@
     box-sizing: border-box;
 }
 
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
 header {
     margin: 0;
     padding: 50px;
@@ -33,4 +37,15 @@ div.auth {
     background: #eaeaea;
     padding: 50px;
     border-radius: 10px;
+}
+
+div.body {
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #eaeaea;
+    width: 75%;
+    height: 100%;
+    padding: 150px 100px 0 100px;
 }
