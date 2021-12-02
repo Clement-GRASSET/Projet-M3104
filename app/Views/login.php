@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+<form action="" method="post">
 
-<html lang="fr">
+    <label for="email">Adresse email</label><br/>
+    <input type="email" id="email" name="email"><br/>
 
-    <head>
-        <meta charset="utf-8">
-        <title>PROJEEEEEEEEEEEEEEET</title>
-        <link rel="stylesheet" href="/styles/normalize.css">
-        <link rel="stylesheet" href="/styles/styles.css">
-    </head>
+    <label for="pwd">Mot de passe</label><br/>
+    <input type="password" id="pwd" name="pwd"><br/>
 
-    <body>
-        <form action="" method="post">
-            <label for="email">Adresse email</label>
-            <input type="email" id="email" name="email">
-        </form>
-    </body>
+    <input type="submit" name="submit"/>
 
-</html>
+</form>
