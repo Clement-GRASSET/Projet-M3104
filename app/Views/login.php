@@ -1,15 +1,25 @@
-<div class="auth Absolute-Center">
+<?= view('templates/html_open.php') ?>
 
-    <form action="" method="post">
+<div class="Absolute-Center">
 
-        <label for="email">Adresse email</label>
-        <input type="email" id="email" name="email">
+    <div class="auth">
 
-        <label for="pwd">Mot de passe</label>
-        <input type="password" id="pwd" name="pwd">
+        <form action="" method="post">
 
-        <input type="submit" name="submit"/>
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email">
 
-    </form>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password">
+
+            <input type="submit" name="submit"/>
+
+            <p><a href="<?= base_url("/register") ?>">Cliquez ici pour vous inscrire</a></p>
+
+        </form>
+
+    </div>
 
 </div>
+
+<?= view('templates/html_close.php') ?>

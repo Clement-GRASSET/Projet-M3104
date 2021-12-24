@@ -1,28 +1,37 @@
-<div class="auth">
+<?= view('templates/html_open.php') ?>
 
-    <form action="" method="post">
+<div class="Absolute-Center">
 
-        <label for="email">Adresse email</label>
-        <input type="email" id="email" name="email">
+    <div class="auth">
 
-        <label for="pseudo">Pseudo</label>
-        <input type="text" id="pseudo" name="pseudo">
+        <form action="" method="post">
 
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom">
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email">
 
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom">
+            <label for="pseudo">Pseudo</label>
+            <input type="text" id="pseudo" name="pseudo">
 
-        <label for="pwd">Mot de passe</label>
-        <input type="password" id="pwd" name="pwd">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom">
 
-        <label for="pwd2">Confirmer le mot de passe</label>
-        <input type="password" id="pwd2" name="pwd2">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom">
 
-        <input type="submit" name="submit" value="Créer un compte"/>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password">
 
-    </form>
+            <label for="password2">Confirmer le mot de passe</label>
+            <input type="password" id="password2" name="password2">
+
+            <input type="submit" name="submit" value="Créer un compte"/>
+
+            <p><a href="<?= base_url("/login") ?>">Cliquez ici pour vous connecter</a></p>
+
+        </form>
+
+    </div>
 
 </div>
 
+<?= view('templates/html_close.php') ?>

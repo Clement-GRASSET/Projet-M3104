@@ -6,8 +6,8 @@ class Profil extends BaseController
 {
     public function index()
     {
-        echo view('templates/header.php');
+        echo view('templates/html_open.php');
         echo view('profil.php');
-        echo view('templates/footer.php');
+        echo view('templates/html_close.php');
     }
 }
