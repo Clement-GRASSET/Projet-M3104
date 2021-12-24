@@ -79,4 +79,9 @@ class Auth extends BaseController
             return redirect("/");
         }
     }
+
+    public function logout() {
+        $this->session->remove('user');
+        return redirect()->to("/");
+    }
 }

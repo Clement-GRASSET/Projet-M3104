@@ -37,6 +37,11 @@ $routes->get('/login', 'Auth::login');
 $routes->post('/login', 'Auth::login_post');
 $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::register_post');
+$routes->get('/logout', 'Auth::logout');
+
+$routes->get('/my_account', 'BackOfficeController::account');
+$routes->get('/delete_account', 'BackOfficeController::delete_account');
+$routes->post('/delete_account', 'BackOfficeController::delete_account');
 
 /*
  * --------------------------------------------------------------------
