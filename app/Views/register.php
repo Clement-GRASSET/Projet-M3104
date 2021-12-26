@@ -1,37 +1,78 @@
-<?= view('templates/html_open.php') ?>
+<?= view('templates/html_connexion_open.php') ?>
+<div class="limiter">
+    <div class="container">
+        <div class="wrap">
+            <div class="pic p-t-120">
+                <img src="https://media.discordapp.net/attachments/912817562306359356/912821861644107826/nazi_gay.png" alt="Logo">
+            </div>
 
-<div class="Absolute-Center">
+            <form class="form" action="" method="post">
+					<span class="form-title">
+						Register
+					</span>
 
-    <div class="auth">
+                <div class="wrap-input100">
+                    <input class="input100" type="text" name="email" placeholder="Email" id="email">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+                </div>
 
-        <form action="" method="post">
+                <div class="wrap-input100">
+                    <input class="input100" type="text" name="pseudo" placeholder="Pseudo" id="pseudo">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+                </div>
 
-            <label for="email">Adresse email</label>
-            <input type="email" id="email" name="email">
+                <div class="wrap-input100">
+                    <input class="input100" type="text" name="nom" placeholder="Nom" id="nom">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-address-card" aria-hidden="true"></i>
+						</span>
+                </div>
 
-            <label for="pseudo">Pseudo</label>
-            <input type="text" id="pseudo" name="pseudo">
+                <div class="wrap-input100">
+                    <input class="input100" type="text" name="prenom" placeholder="Prenom" id="prenom">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-address-card" aria-hidden="true"></i>
+						</span>
+                </div>
 
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom">
+                <div class="wrap-input100">
+                    <input class="input100" type="password" name="pass" placeholder="Password" id="password">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+                </div>
 
-            <label for="prenom">Prénom</label>
-            <input type="text" id="prenom" name="prenom">
+                <div class="wrap-input100">
+                    <input class="input100" type="password" name="password2" placeholder="Confirm Password" id="password2">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+                </div>
 
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password">
+                <div class="container-form-btn">
+                    <button class="form-btn">
+                        Créer un Compte
+                    </button>
+                </div>
 
-            <label for="password2">Confirmer le mot de passe</label>
-            <input type="password" id="password2" name="password2">
-
-            <input type="submit" name="submit" value="Créer un compte"/>
-
-            <p><a href="<?= base_url("/login") ?>">Cliquez ici pour vous connecter</a></p>
-
-        </form>
-
+                <div class="text-center p-t-5 p-b-35">
+                    <a class="txt2" href="<?= base_url("/login") ?>">
+                        Deja un Compte ?
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-
 </div>
-
 <?= view('templates/html_close.php') ?>
