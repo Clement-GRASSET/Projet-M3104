@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-class BackOfficeController extends BaseController
+class Account extends BaseController
 {
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -20,13 +20,23 @@ class BackOfficeController extends BaseController
         }
     }
 
-    public function account() {
-        $utilisateurModel = new UtilisateurModel();
-        $user = $utilisateurModel->find($this->session->user);
-        echo view("my_account", ["user" => $user]);
+    public function messages()
+    {
+        echo view("account/account", ["content"=>view('account/messages')]);
     }
 
-    public function delete_account() {
+    public function homes()
+    {
+        echo view("account/account", ["content"=>view('account/homes')]);
+    }
+
+    public function settings() {
+        $utilisateurModel = new UtilisateurModel();
+        $user = $utilisateurModel->find($this->session->user);
+        echo view("account/account", ["content"=>view('account/settings', ["user" => $user])]);
+    }
+
+    public function delete() {
         $validation = $this->validate([
             "email_confirm" => [
                 "rules" => "required"
@@ -38,10 +48,10 @@ class BackOfficeController extends BaseController
                 $utilisateurModel->delete($this->session->user);
                 return redirect()->to("/logout");
             } else {
-                echo view("delete_account");
+                echo view("account/account", ["content"=>view('account/delete')]);
             }
         } else {
-            echo view("delete_account");
+            echo view("account/account", ["content"=>view('account/delete')]);
         }
     }
 }

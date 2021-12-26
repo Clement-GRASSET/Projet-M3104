@@ -32,6 +32,7 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/homes', 'Home::homes');
 
 $routes->get('/login', 'Auth::login');
 $routes->post('/login', 'Auth::login_post');
@@ -39,9 +40,11 @@ $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::register_post');
 $routes->get('/logout', 'Auth::logout');
 
-$routes->get('/my_account', 'BackOfficeController::account');
-$routes->get('/delete_account', 'BackOfficeController::delete_account');
-$routes->post('/delete_account', 'BackOfficeController::delete_account');
+$routes->get('/account/messages', 'Account::messages');
+$routes->get('/account/homes', 'Account::homes');
+$routes->get('/account/settings', 'Account::settings');
+$routes->get('/account/settings/delete', 'Account::delete');
+$routes->post('/account/settings/delete', 'Account::delete');
 
 /*
  * --------------------------------------------------------------------
