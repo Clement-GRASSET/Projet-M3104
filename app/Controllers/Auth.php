@@ -77,6 +77,9 @@ class Auth extends BaseController
             $utilisateurModel->insert($utilisateur);
             $this->session->user = $utilisateur["U_mail"];
             return redirect("/");
+        } else {
+            var_dump($this->validator->getErrors());
+            echo view('register.php');
         }
     }
 
