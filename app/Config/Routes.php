@@ -33,6 +33,7 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/homes', 'Home::homes');
+$routes->get('/homes/(:any)', 'Home::home_details/$1');
 
 $routes->get('/login', 'Auth::login');
 $routes->post('/login', 'Auth::login_post');
@@ -42,6 +43,8 @@ $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/account/messages', 'Account::messages');
 $routes->get('/account/homes', 'Account::homes');
+$routes->get('/account/homes/add', 'Account::add_home');
+$routes->post('/account/homes/add', 'Account::add_home');
 $routes->get('/account/settings', 'Account::settings');
 $routes->get('/account/settings/delete', 'Account::delete');
 $routes->post('/account/settings/delete', 'Account::delete');

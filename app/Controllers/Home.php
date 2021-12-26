@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AnnonceModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Home extends BaseController
 {
@@ -16,5 +17,15 @@ class Home extends BaseController
         $annonceModel = new AnnonceModel();
         $annonces = $annonceModel->findAll();
         echo view('homes.php', ['annonces'=>$annonces]);
+    }
+
+    public function home_details($id)
+    {
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->find($id);
+        if (!isset($annonce)) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+        var_dump($annonce);
     }
 }

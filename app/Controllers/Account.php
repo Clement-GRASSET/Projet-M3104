@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\AnnonceModel;
 use App\Models\UtilisateurModel;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -22,18 +23,75 @@ class Account extends BaseController
 
     public function messages()
     {
-        echo view("account/account", ["content"=>view('account/messages')]);
+        $this->showView('account/messages');
     }
 
     public function homes()
     {
-        echo view("account/account", ["content"=>view('account/homes')]);
+        $this->showView('account/homes');
+    }
+
+    public function add_home()
+    {
+        if ($this->request->getMethod() === 'post' && $this->validate([
+                'titre' => [
+                    'rules' => 'required'
+                ],
+                'loyer' => [
+                    'rules' => 'required'
+                ],
+                'charges' => [
+                    'rules' => 'required'
+                ],
+                'chauffage' => [
+                    'rules' => 'required'
+                ],
+                'superficie' => [
+                    'rules' => 'required'
+                ],
+                'description' => [
+                    'rules' => 'required'
+                ],
+                'adresse' => [
+                    'rules' => 'required'
+                ],
+                'ville' => [
+                    'rules' => 'required'
+                ],
+                'cp' => [
+                    'rules' => 'required'
+                ],
+                'etat' => [
+                    'rules' => 'required'
+                ],
+            ])) {
+            $annonce = [
+                'A_titre' => 'Test Annonce',
+                'A_cout_loyer' => '399.99',
+                'A_cout_charges' => '19.99',
+                'A_type_chauffage' => 'Li chaudière',
+                'A_superficie' => '50',
+                'A_description' => 'Li logement test',
+                'A_adresse' => '2 rue du goulag',
+                'A_ville' => 'Moskau',
+                'A_CP' => '12345',
+                'A_etat' => 'Mère patrie'
+            ];
+            $annonceModel = new AnnonceModel();
+            $annonceModel->insert($annonce);
+            return redirect()->to('/account/homes');
+        } else {
+            $data = [
+                'errors' => (isset($this->validator)) ? $this->validator->getErrors() : [],
+            ];
+            $this->showView('account/add_home', $data);
+        }
     }
 
     public function settings() {
         $utilisateurModel = new UtilisateurModel();
         $user = $utilisateurModel->find($this->session->user);
-        echo view("account/account", ["content"=>view('account/settings', ["user" => $user])]);
+        $this->showView('account/settings', ["user"=>$user]);
     }
 
     public function delete() {
@@ -48,10 +106,15 @@ class Account extends BaseController
                 $utilisateurModel->delete($this->session->user);
                 return redirect()->to("/logout");
             } else {
-                echo view("account/account", ["content"=>view('account/delete')]);
+                $this->showView('account/delete');
             }
         } else {
-            echo view("account/account", ["content"=>view('account/delete')]);
+            $this->showView('account/delete');
         }
+    }
+
+    private function showView(string $name, array $data = [], array $options = [])
+    {
+        echo view("account/account", ["content"=>view($name, $data, $options)]);
     }
 }
