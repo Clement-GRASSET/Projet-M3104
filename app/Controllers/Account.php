@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AnnonceModel;
 use App\Models\UtilisateurModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -91,6 +92,15 @@ class Account extends BaseController
             ];
             $this->showView('account/add_home', $data);
         }
+    }
+
+    public function edit_home($id)
+    {
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->find($id);
+        if (!isset($annonce))
+            throw PageNotFoundException::forPageNotFound();
+        $this->showView('account/edit_home', ['annonce'=>$annonce]);
     }
 
     public function settings() {
