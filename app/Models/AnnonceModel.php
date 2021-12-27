@@ -19,6 +19,9 @@ class AnnonceModel extends Model
         'A_adresse',
         'A_ville',
         'A_CP',
-        'A_etat'
+        'A_etat',
+        'A_proprietaire',
+        'A_type_maison',
+        'A_id_engie'
     ];
 }

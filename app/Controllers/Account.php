@@ -28,7 +28,9 @@ class Account extends BaseController
 
     public function homes()
     {
-        $this->showView('account/homes');
+        $annonceModel = new AnnonceModel();
+        $annonces = $annonceModel->where(['A_proprietaire'=>$this->session->user])->findAll();
+        $this->showView('account/homes', ['annonces' => $annonces]);
     }
 
     public function add_home()
@@ -61,21 +63,24 @@ class Account extends BaseController
                 'cp' => [
                     'rules' => 'required'
                 ],
-                'etat' => [
+                'typeMaison' => [
                     'rules' => 'required'
                 ],
             ])) {
             $annonce = [
-                'A_titre' => 'Test Annonce',
-                'A_cout_loyer' => '399.99',
-                'A_cout_charges' => '19.99',
-                'A_type_chauffage' => 'Li chaudière',
-                'A_superficie' => '50',
-                'A_description' => 'Li logement test',
-                'A_adresse' => '2 rue du goulag',
-                'A_ville' => 'Moskau',
-                'A_CP' => '12345',
-                'A_etat' => 'Mère patrie'
+                'A_titre' => $this->request->getPost('titre'),
+                'A_cout_loyer' => $this->request->getPost('loyer'),
+                'A_cout_charges' => $this->request->getPost('charges'),
+                'A_type_chauffage' => $this->request->getPost('chauffage'),
+                'A_superficie' => $this->request->getPost('superficie'),
+                'A_description' => $this->request->getPost('description'),
+                'A_adresse' => $this->request->getPost('adresse'),
+                'A_ville' => $this->request->getPost('ville'),
+                'A_CP' => $this->request->getPost('cp'),
+                'A_etat' => 'en cours de rédaction',
+                'A_proprietaire' => $this->session->user,
+                'A_type_maison' => 'T1',
+                'A_id_engie' => null,
             ];
             $annonceModel = new AnnonceModel();
             $annonceModel->insert($annonce);
