@@ -50,14 +50,14 @@ alter table T_discussion add constraint fk_discussion_annonce foreign key (D_ida
 alter table T_discussion add constraint fk_discussion_utilisateur foreign key (D_utilisateur) references T_utilisateur (U_mail);
 
 create table T_message (
-    M_dateheure_message time,
+    M_dateheure_message timestamp default now(),
     M_envoyeur varchar(255),
     M_texte_message varchar(255),
     M_idannonce bigint unsigned,
     M_utilisateur varchar(255)
 );
 
-alter table T_message add constraint pk_message primary key (M_dateheure_message, M_envoyeur);
+alter table T_message add constraint pk_message primary key (M_dateheure_message, M_envoyeur, M_idannonce, M_utilisateur);
 alter table T_message add constraint fk_message_annonce foreign key (M_idannonce) references T_discussion (D_idannonce);
 alter table T_message add constraint fk_message_utilisateur foreign key (M_utilisateur) references T_discussion (D_utilisateur);
 

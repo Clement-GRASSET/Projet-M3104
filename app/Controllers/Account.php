@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AnnonceModel;
+use App\Models\DiscussionModel;
 use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RequestInterface;
@@ -24,7 +25,21 @@ class Account extends BaseController
 
     public function messages()
     {
-        $this->showView('account/messages');
+        $discussionModel = new DiscussionModel();
+        $annonceModel = new AnnonceModel();
+        $discussions = $discussionModel->where(['D_utilisateur'=>$this->session->user])->findAll();
+
+        $data = array();
+        foreach ($discussions as $discussion) {
+            $annonce = $annonceModel->find($discussion['D_idannonce']);
+            $data[] = [
+                'nom'=>'Nom',
+                'prenom'=>'Prenom',
+                'annonce'=>'Annonce',
+                'lien'=>base_url('/account/messages/test')
+            ];
+        }
+        $this->showView('account/messages', ['discussions' => $data]);
     }
 
     public function homes()
