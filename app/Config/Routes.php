@@ -43,6 +43,8 @@ $routes->post('/register', 'Auth::register_post');
 $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/account/messages', 'Account::messages');
+$routes->get('/account/messages/(:any)', 'Account::discussion/$1');
+$routes->post('/account/messages/(:any)', 'Account::discussion/$1');
 $routes->get('/account/homes', 'Account::homes');
 $routes->get('/account/homes/add', 'Account::add_home');
 $routes->post('/account/homes/add', 'Account::add_home');

@@ -39,17 +39,18 @@ alter table T_annonce add constraint fk_annonce_typeMaison foreign key (A_type_m
 alter table T_annonce add constraint fk_annonce_energie foreign key (A_id_engie) references T_energie (E_id_engie);
 
 create table T_discussion (
+    D_iddiscussion serial primary key,
     D_idannonce bigint unsigned,
     D_utilisateur varchar(255),
     D_non_lu_proprietaire boolean,
     D_non_lu_utilisateur boolean
 );
 
-alter table T_discussion add constraint pk_discussion primary key (D_idannonce, D_utilisateur);
 alter table T_discussion add constraint fk_discussion_annonce foreign key (D_idannonce) references T_annonce (A_idannonce);
 alter table T_discussion add constraint fk_discussion_utilisateur foreign key (D_utilisateur) references T_utilisateur (U_mail);
 
 create table T_message (
+    M_idmessage serial primary key,
     M_dateheure_message timestamp default now(),
     M_envoyeur varchar(255),
     M_texte_message varchar(255),
@@ -57,7 +58,6 @@ create table T_message (
     M_utilisateur varchar(255)
 );
 
-alter table T_message add constraint pk_message primary key (M_dateheure_message, M_envoyeur, M_idannonce, M_utilisateur);
 alter table T_message add constraint fk_message_annonce foreign key (M_idannonce) references T_discussion (D_idannonce);
 alter table T_message add constraint fk_message_utilisateur foreign key (M_utilisateur) references T_discussion (D_utilisateur);
 

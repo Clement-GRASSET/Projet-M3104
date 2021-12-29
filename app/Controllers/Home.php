@@ -4,13 +4,23 @@ namespace App\Controllers;
 
 use App\Models\AnnonceModel;
 use App\Models\MessageModel;
+use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Home extends BaseController
 {
     public function index()
     {
-        echo view('index.php');
+        $isLoggedIn = isset($this->session->user);
+        $data = [
+            'isLoggedIn' => $isLoggedIn,
+        ];
+        if ($isLoggedIn) {
+            $utilisateurModel = new UtilisateurModel();
+            $user = $utilisateurModel->find($this->session->user);
+            $data['user'] = $user;
+        }
+        echo view('index.php', $data);
     }
 
     public function homes()
