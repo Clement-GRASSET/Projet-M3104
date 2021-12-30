@@ -53,6 +53,11 @@ $routes->get('/account/settings', 'Account::settings');
 $routes->get('/account/settings/delete', 'Account::delete');
 $routes->post('/account/settings/delete', 'Account::delete');
 
+$routes->get('/admin/users', 'Admin::users');
+$routes->get('/admin/users/(:any)', 'Admin::user/$1');
+$routes->get('/admin/homes', 'Admin::homes');
+$routes->get('/admin/homes/(:any)', 'Admin::home/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
