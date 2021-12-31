@@ -1,13 +1,23 @@
-<?= view('templates/html_open.php') ?>
+<?php
+echo view('templates/html_open', ['styles'=>['dashboard.css']]);
+$links = [
+    ['url' => '/admin/users', 'name' => 'Utilisateurs'],
+    ['url' => '/admin/homes', 'name' => 'Annonces'],
+];
+echo view('templates/dashboard_open', ['links' => $links]);
+?>
 
 <h1>Li utilisateurs</h1>
 
 <?php
 
 foreach ($users as $user) {
-    echo "<p><a href='" . base_url("/admin/users/" . $user['U_mail']) . "'>" . $user['U_pseudo'] . " (" . $user['U_nom'] . " " . $user['U_prenom'] .  ")" . "</a></p>";
+    echo "<a class='link' href='" . base_url("/admin/users/" . $user['U_mail']) . "'>" . $user['U_pseudo'] . " (" . $user['U_nom'] . " " . $user['U_prenom'] .  ")" . "</a>";
 }
 
 ?>
 
-<?= view('templates/html_close.php') ?>
+<?php
+echo view('templates/dashboard_close');
+echo view('templates/html_close');
+?>

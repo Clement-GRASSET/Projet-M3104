@@ -1,3 +1,13 @@
+<?php
+echo view('templates/html_open', ['styles'=>['dashboard.css']]);
+$links = [
+    ['url' => '/account/messages', 'name' => 'Messagerie'],
+    ['url' => '/account/homes', 'name' => 'Mes annonces'],
+    ['url' => '/account/settings', 'name' => 'Paramètres du compte'],
+];
+echo view('templates/dashboard_open', ['links' => $links]);
+?>
+
 <h1>Mon compte</h1>
 
 <table>
@@ -20,3 +30,8 @@
 </table>
 
 <p><a href='<?= base_url('/account/settings/delete') ?>'>Supprimmer mon compte</a></p>
+
+<?php
+echo view('templates/dashboard_close');
+echo view('templates/html_close');
+?>

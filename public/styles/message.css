@@ -1,0 +1,12 @@
+.send-message-form {
+    position: fixed;
+    width: 100%;
+    background-color: #ececec;
+    padding: 20px;
+    display: flex;
+}
+
+.send-message-form input[type=text] {
+    flex-grow: 1;
+    margin-right: 5px;
+}

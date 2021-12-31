@@ -1,4 +1,12 @@
-<?= view('templates/html_open.php') ?>
+<?php
+echo view('templates/html_open', ['styles'=>['dashboard.css']]);
+$links = [
+    ['url' => '/account/messages', 'name' => 'Messagerie'],
+    ['url' => '/account/homes', 'name' => 'Mes annonces'],
+    ['url' => '/account/settings', 'name' => 'Paramètres du compte'],
+];
+echo view('templates/dashboard_open', ['links' => $links]);
+?>
 
 <h1>Confirmez la suppression du compte</h1>
 
@@ -12,4 +20,8 @@
 
 </form>
 
-<?= view('templates/html_close.php') ?>
+<?php
+echo view('templates/dashboard_close');
+echo view('templates/html_close');
+?>
+

@@ -1,0 +1,86 @@
+.dashbaord {
+    border: solid black 1px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 1200px;
+    height: 800px;
+    display: flex;
+}
+
+.dashbaord .links {
+    width: 25%;
+    background: purple;
+    padding: 20px 0;
+}
+
+.dashbaord .content {
+    width: 75%;
+    padding: 50px;
+}
+
+.dashbaord .links .link {
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: white;
+    text-decoration: none;
+    display: block;
+    border-radius: 5px;
+}
+
+.dashbaord .links .link.active {
+    color: #6eff29;
+}
+
+.dashbaord .links .link:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.dashbaord .links .link:active {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.dashbaord .content h1 {
+    font-size: 50px;
+    font-weight: lighter;
+    margin-bottom: 70px;
+}
+
+.dashbaord .content .link {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: rgb(238, 238, 238);
+    color: black;
+    text-decoration: none;
+    transition-duration: 100ms;
+}
+
+.dashbaord .content .link:hover {
+    background-color: rgb(243, 243, 243);
+}
+
+.dashbaord .content .link:active {
+    background-color: rgb(246, 246, 246);
+}
+
+.dashbaord .content .link.accent {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: rgb(103, 0, 255);
+    color: white;
+}
+
+.dashbaord .content .link.accent:hover {
+    background-color: rgb(103, 70, 255);
+}
+
+.dashbaord .content .link.accent:active {
+    background-color: rgb(103, 90, 255);
+}

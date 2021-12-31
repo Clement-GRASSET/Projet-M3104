@@ -1,3 +1,13 @@
+<?php
+echo view('templates/html_open', ['styles'=>['dashboard.css']]);
+$links = [
+    ['url' => '/account/messages', 'name' => 'Messagerie'],
+    ['url' => '/account/homes', 'name' => 'Mes annonces'],
+    ['url' => '/account/settings', 'name' => 'Paramètres du compte'],
+];
+echo view('templates/dashboard_open', ['links' => $links]);
+?>
+
 <h1>Discussion</h1>
 <br/>
 <p>Nom de l'annonce : <?= $annonce['A_titre'] ?></p>
@@ -16,9 +26,15 @@ foreach ($messages as $message) {
 
 ?>
 
-<form action="" method="post">
+<form class="send-message-form" action="" method="post">
 
     <input type="text" name="message" placeholder="Message">
     <input type="submit" value="Envoyer">
 
 </form>
+
+<?php
+echo view('templates/dashboard_close');
+echo view('templates/html_close');
+?>
+

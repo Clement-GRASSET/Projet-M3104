@@ -56,7 +56,7 @@ class Account extends BaseController
                 'lien' => base_url('/account/messages/'.$discussion['D_iddiscussion']),
             ];
         }
-        $this->showView('account/messages', ['discussions' => $data]);
+        echo view('account/messages', ['discussions' => $data]);
     }
 
     public function discussion($id)
@@ -103,7 +103,7 @@ class Account extends BaseController
 
         $messages = $messageModel->where(['M_idannonce'=>$discussion['D_idannonce'], 'M_utilisateur'=>$discussion['D_utilisateur']])->findAll();
 
-        $this->showView('account/discussion', [
+        echo view('account/discussion', [
             'annonce' => $annonce,
             'emetteur' => $emetteur,
             'destinataire' => $destinataire,
@@ -115,7 +115,7 @@ class Account extends BaseController
     {
         $annonceModel = new AnnonceModel();
         $annonces = $annonceModel->where(['A_proprietaire'=>$this->session->user])->findAll();
-        $this->showView('account/homes', ['annonces' => $annonces]);
+        echo view('account/homes', ['annonces' => $annonces]);
     }
 
     public function add_home()
@@ -174,7 +174,7 @@ class Account extends BaseController
             $data = [
                 'errors' => (isset($this->validator)) ? $this->validator->getErrors() : [],
             ];
-            $this->showView('account/add_home', $data);
+            echo view('account/add_home', $data);
         }
     }
 
@@ -184,13 +184,13 @@ class Account extends BaseController
         $annonce = $annonceModel->find($id);
         if (!isset($annonce))
             throw PageNotFoundException::forPageNotFound();
-        $this->showView('account/edit_home', ['annonce'=>$annonce]);
+        echo view('account/edit_home', ['annonce'=>$annonce]);
     }
 
     public function settings() {
         $utilisateurModel = new UtilisateurModel();
         $user = $utilisateurModel->find($this->session->user);
-        $this->showView('account/settings', ["user"=>$user]);
+        echo view('account/settings', ["user"=>$user]);
     }
 
     public function delete() {
@@ -205,15 +205,10 @@ class Account extends BaseController
                 $utilisateurModel->delete($this->session->user);
                 return redirect()->to("/logout");
             } else {
-                $this->showView('account/delete');
+                echo view('account/delete');
             }
         } else {
-            $this->showView('account/delete');
+            echo view('account/delete');
         }
-    }
-
-    private function showView(string $name, array $data = [], array $options = [])
-    {
-        echo view("account/account", ["content"=>view($name, $data, $options)]);
     }
 }
