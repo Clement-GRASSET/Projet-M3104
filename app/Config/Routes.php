@@ -54,7 +54,10 @@ $routes->get('/account/settings/delete', 'Account::delete');
 $routes->post('/account/settings/delete', 'Account::delete');
 
 $routes->get('/admin/users', 'Admin::users');
+$routes->get('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
+$routes->get('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
 $routes->get('/admin/users/(:any)', 'Admin::user/$1');
+$routes->post('/admin/users/(:any)', 'Admin::user/$1');
 $routes->get('/admin/homes', 'Admin::homes');
 $routes->get('/admin/homes/(:any)', 'Admin::home/$1');
 

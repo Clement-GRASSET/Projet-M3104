@@ -33,11 +33,52 @@ class Admin extends Account
     public function user($mail)
     {
         $utilisateurModel = new UtilisateurModel();
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('update'))) {
+                $validation = $this->validate([
+                    'pseudo' => [
+                        'rules' => 'required',
+                    ],
+                    'nom' => [
+                        'rules' => 'required',
+                    ],
+                    'prenom' => [
+                        'rules' => 'required',
+                    ],
+                ]);
+                if ($validation) {
+                    $user = [
+                        'U_pseudo' => $this->request->getPost('pseudo'),
+                        'U_nom' => $this->request->getPost('nom'),
+                        'U_prenom' => $this->request->getPost('prenom'),
+                        'U_admin' => !empty($this->request->getPost('admin')) || $this->session->user === $mail,
+                    ];
+                    $utilisateurModel->update($mail, $user);
+                }
+            } else if (!empty($this->request->getPost('block'))) {
+                die('block');
+            } else if (!empty($this->request->getPost('unblock'))) {
+                die('unblock');
+            }
+        }
         $utilisateur = $utilisateurModel->find($mail);
         if (empty($utilisateur)) {
             throw PageNotFoundException::forPageNotFound();
         }
-        var_dump($utilisateur);
+        echo view('admin/user', ['user' => $utilisateur, 'me' => $mail===$this->session->user]);
+    }
+
+    public function user_mail($mail)
+    {
+        echo "Mail : " . $mail;
+    }
+
+    public function user_delete($mail)
+    {
+        if ($mail === $this->session->user) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+        echo "Delete : " . $mail;
     }
 
     public function homes()
@@ -54,7 +95,7 @@ class Admin extends Account
         if (empty($annonce)) {
             throw PageNotFoundException::forPageNotFound();
         }
-        var_dump($annonce);
+        echo view('admin/home', ['home' => $annonce]);
     }
 
 }
