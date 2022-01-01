@@ -14,10 +14,19 @@ class Auth extends BaseController
     public function login_post() {
         $validation = $this->validate([
             "email" => [
-                "rules" => "required|valid_email"
+                "rules" => "required|valid_email|login[email,password]",
+                "errors" => [
+                    "required" => "Vous devez renseigner une adresse email",
+                    "valid_email" => "L'adresse email est incorrecte",
+                    "login" => "Adresse email ou mot de passe incorrect"
+                ]
             ],
             "password" => [
-                "rules" => "required"
+                "rules" => "required|login[email,password]",
+                "errors" => [
+                    "required" => "Vous devez renseigner un mot de passe",
+                    "login" => "Adresse email ou mot de passe incorrect"
+                ]
             ]
         ]);
         if ($validation) {
@@ -34,8 +43,7 @@ class Auth extends BaseController
                 echo view('login.php');
             }
         } else {
-            var_dump($this->validator->getErrors());
-            echo view('login.php');
+            echo view('login.php', ['errors'=>$this->validator->getErrors()]);
         }
     }
 
@@ -78,8 +86,7 @@ class Auth extends BaseController
             $this->session->user = $utilisateur["U_mail"];
             return redirect("/");
         } else {
-            var_dump($this->validator->getErrors());
-            echo view('register.php');
+            echo view('register.php', ['errors'=>$this->validator->getErrors()]);
         }
     }
 

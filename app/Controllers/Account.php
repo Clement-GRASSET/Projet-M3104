@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Models\AnnonceModel;
 use App\Models\DiscussionModel;
+use App\Models\EnergieModel;
 use App\Models\MessageModel;
+use App\Models\TypeMaisonModel;
 use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RequestInterface;
@@ -151,6 +153,9 @@ class Account extends BaseController
                 'typeMaison' => [
                     'rules' => 'required'
                 ],
+                'typeEnergie' => [
+                    'rules' => 'required'
+                ],
         ])) {
             $annonce = [
                 'A_titre' => $this->request->getPost('titre'),
@@ -164,15 +169,21 @@ class Account extends BaseController
                 'A_CP' => $this->request->getPost('cp'),
                 'A_etat' => 'en cours de rédaction',
                 'A_proprietaire' => $this->session->user,
-                'A_type_maison' => 'T1',
-                'A_id_engie' => null,
+                'A_type_maison' => $this->request->getPost('typeMaison'),
+                'A_id_engie' => $this->request->getPost('typeEnergie'),
             ];
             $annonceModel = new AnnonceModel();
             $annonceModel->insert($annonce);
             return redirect()->to('/account/homes');
         } else {
+            $energieModel = new EnergieModel();
+            $typeMaisonModel = new TypeMaisonModel();
+            $energies = $energieModel->findAll();
+            $typesMaison = $typeMaisonModel->findAll();
             $data = [
                 'errors' => (isset($this->validator)) ? $this->validator->getErrors() : [],
+                'energies' => $energies,
+                'typesMaison' => $typesMaison,
             ];
             echo view('account/add_home', $data);
         }
@@ -181,10 +192,73 @@ class Account extends BaseController
     public function edit_home($id)
     {
         $annonceModel = new AnnonceModel();
-        $annonce = $annonceModel->find($id);
+        $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
         if (!isset($annonce))
             throw PageNotFoundException::forPageNotFound();
-        echo view('account/edit_home', ['annonce'=>$annonce]);
+        if ($this->request->getMethod() === 'post' && $this->validate([
+                'titre' => [
+                    'rules' => 'required'
+                ],
+                'loyer' => [
+                    'rules' => 'required'
+                ],
+                'charges' => [
+                    'rules' => 'required'
+                ],
+                'chauffage' => [
+                    'rules' => 'required'
+                ],
+                'superficie' => [
+                    'rules' => 'required'
+                ],
+                'description' => [
+                    'rules' => 'required'
+                ],
+                'adresse' => [
+                    'rules' => 'required'
+                ],
+                'ville' => [
+                    'rules' => 'required'
+                ],
+                'cp' => [
+                    'rules' => 'required'
+                ],
+                'typeMaison' => [
+                    'rules' => 'required'
+                ],
+                'typeEnergie' => [
+                    'rules' => 'required'
+                ],
+            ])) {
+            $annonce_data = [
+                'A_titre' => $this->request->getPost('titre'),
+                'A_cout_loyer' => $this->request->getPost('loyer'),
+                'A_cout_charges' => $this->request->getPost('charges'),
+                'A_type_chauffage' => $this->request->getPost('chauffage'),
+                'A_superficie' => $this->request->getPost('superficie'),
+                'A_description' => $this->request->getPost('description'),
+                'A_adresse' => $this->request->getPost('adresse'),
+                'A_ville' => $this->request->getPost('ville'),
+                'A_CP' => $this->request->getPost('cp'),
+                'A_etat' => 'en cours de rédaction',
+                'A_proprietaire' => $this->session->user,
+                'A_type_maison' => $this->request->getPost('typeMaison'),
+                'A_id_engie' => $this->request->getPost('typeEnergie'),
+            ];
+            $annonceModel->update($id, $annonce_data);
+            $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
+        }
+        $energieModel = new EnergieModel();
+        $typeMaisonModel = new TypeMaisonModel();
+        $energies = $energieModel->findAll();
+        $typesMaison = $typeMaisonModel->findAll();
+        $data = [
+            'errors' => (isset($this->validator)) ? $this->validator->getErrors() : [],
+            'energies' => $energies,
+            'typesMaison' => $typesMaison,
+            'annonce' => $annonce,
+        ];
+        echo view('account/edit_home', $data);
     }
 
     public function settings() {

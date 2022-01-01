@@ -17,6 +17,7 @@
     width: 75%;
     background: rgb(248, 248, 248);
     padding: 50px;
+    overflow-y: auto;
 }
 
 .dashbaord .links .link {
@@ -94,7 +95,9 @@
     margin: 5px 0;
 }
 
-.dashbaord .content form input:not([type=submit]):not([type=checkbox]) {
+.dashbaord .content form input:not([type=submit]):not([type=checkbox]),
+.dashbaord .content form textarea,
+.dashbaord .content form select {
     width: 100%;
     max-width: 400px;
     text-align: left;

@@ -1,7 +1,7 @@
 create table T_utilisateur (
     U_mail varchar(255) primary key,
     U_mdp char(64),
-    U_pseudo varchar(255),
+    U_pseudo varchar(255) unique,
     U_nom varchar(255),
     U_prenom varchar(255),
     U_admin boolean
@@ -71,9 +71,12 @@ create table T_photo (
 alter table T_photo add constraint fk_photo_annonce foreign key (P_idannonce) references T_annonce (A_idannonce);
 
 insert into T_typeMaison (T_type, T_description) values
-('T1', ''),
-('T2', ''),
-('T3', ''),
-('T4', ''),
-('T5', ''),
-('T6', '');
+('T1', 'Type T1'),
+('T2', 'Type T2'),
+('T3', 'Type T3'),
+('T4', 'Type T4'),
+('T5', 'Type T5'),
+('T6', 'Type T6');
+
+insert into T_energie (E_description) values
+('Fioul'), ('Gaz'), ('Electrique')
