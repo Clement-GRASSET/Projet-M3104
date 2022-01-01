@@ -11,9 +11,12 @@ class Home extends BaseController
 {
     public function index()
     {
+        $annonceModel = new AnnonceModel();
+        $annonces = $annonceModel->findAll(6);
         $isLoggedIn = isset($this->session->user);
         $data = [
             'isLoggedIn' => $isLoggedIn,
+            'annonces' => $annonces
         ];
         if ($isLoggedIn) {
             $utilisateurModel = new UtilisateurModel();
