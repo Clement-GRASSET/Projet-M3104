@@ -9,8 +9,8 @@
 
 .dashbaord .links {
     width: 25%;
-    background: purple;
-    padding: 20px 0;
+    background: linear-gradient(to bottom right, rgb(118, 0, 157), rgb(90, 0, 173));
+    padding: 40px 0;
 }
 
 .dashbaord .content {
@@ -21,27 +21,35 @@
 }
 
 .dashbaord .links .link {
-    margin: 20px auto;
-    width: 80%;
+    margin: 5px auto;
+    width: 100%;
     text-align: center;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
     color: white;
     text-decoration: none;
     display: block;
-    border-radius: 5px;
+    transition-duration: 200ms;
 }
 
 .dashbaord .links .link.active {
-    color: #6eff29;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 .dashbaord .links .link:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dashbaord .links .link.active:hover {
+    background-color: rgba(255, 255, 255, 0.45);
 }
 
 .dashbaord .links .link:active {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.dashbaord .links .link.active:active {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .dashbaord .content h1 {

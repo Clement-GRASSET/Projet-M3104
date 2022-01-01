@@ -41,11 +41,13 @@ class Account extends BaseController
 
         $annonces = $annonceModel->where(['A_proprietaire'=>$this->session->user])->findAll();
         foreach ($annonces as $annonce) {
-            $discussion = $discussionModel->where(['D_idannonce'=>$annonce['A_idannonce']])->findAll()[0];
-            $destinataire = $utilisateurModel->find($discussion['D_utilisateur']);
-            $discussion['nom_destinataire'] = $destinataire['U_nom'];
-            $discussion['prenom_destinataire'] = $destinataire['U_prenom'];
-            $discussions[] = $discussion;
+            $discussion = $discussionModel->where(['D_idannonce'=>$annonce['A_idannonce']])->first();
+            if (!empty($discussion)) {
+                $destinataire = $utilisateurModel->find($discussion['D_utilisateur']);
+                $discussion['nom_destinataire'] = $destinataire['U_nom'];
+                $discussion['prenom_destinataire'] = $destinataire['U_prenom'];
+                $discussions[] = $discussion;
+            }
         }
 
         $data = array();

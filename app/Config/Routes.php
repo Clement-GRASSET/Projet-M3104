@@ -51,6 +51,7 @@ $routes->post('/account/homes/add', 'Account::add_home');
 $routes->get('/account/homes/(:any)', 'Account::edit_home/$1');
 $routes->post('/account/homes/(:any)', 'Account::edit_home/$1');
 $routes->get('/account/settings', 'Account::settings');
+$routes->post('/account/settings', 'Account::settings');
 $routes->get('/account/settings/delete', 'Account::delete');
 $routes->post('/account/settings/delete', 'Account::delete');
 

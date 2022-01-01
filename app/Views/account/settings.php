@@ -10,26 +10,44 @@ echo view('templates/dashboard_open', ['links' => $links]);
 
 <h1>Mon compte</h1>
 
-<table>
-    <tr>
-        <td>Nom</td>
-        <td><?=$user['U_nom']?></td>
-    </tr>
-    <tr>
-        <td>Prénom</td>
-        <td><?=$user['U_prenom']?></td>
-    </tr>
-    <tr>
-        <td>Pseudo</td>
-        <td><?=$user['U_pseudo']?></td>
-    </tr>
-    <tr>
-        <td>Adresse email</td>
-        <td><?=$user['U_mail']?></td>
-    </tr>
-</table>
+<h2>Modifier mes informations</h2>
 
-<p><a href='<?= base_url('/account/settings/delete') ?>'>Supprimmer mon compte</a></p>
+<form action="" method="post">
+
+    <label for="email">Adresse email</label><br/>
+    <input type="email" id="email" name="email" value="<?=$user['U_mail']?>" disabled><br/>
+
+    <label for="pseudo">Pseudo</label><br/>
+    <input type="text" id="pseudo" name="pseudo" value="<?=$user['U_pseudo']?>"><br/>
+
+    <label for="nom">Nom</label><br/>
+    <input type="text" id="nom" name="nom" value="<?=$user['U_nom']?>"><br/>
+
+    <label for="prenom">Prénom</label><br/>
+    <input type="text" id="prenom" name="prenom" value="<?=$user['U_prenom']?>"><br/>
+
+    <input type="submit" value="Modifier" class="button" name="update">
+
+</form>
+
+<h2>Modifier mon mot de passe</h2>
+
+<form action="" method="post">
+
+    <label for="password_old">Ancien mot de passe</label><br/>
+    <input type="password" id="password_old" name="password_old"><br/>
+
+    <label for="password_new1">Nouveau mot de passe</label><br/>
+    <input type="password" id="password_new1" name="password_new1"><br/>
+
+    <label for="password_new2">Confirmer le nouveau mot de passe</label><br/>
+    <input type="password" id="password_new2" name="password_new2"><br/>
+
+    <input type="submit" value="Modifier" class="button" name="update_password">
+
+</form>
+
+<a class="button" href='<?= base_url('/account/settings/delete') ?>'>Supprimmer mon compte</a>
 
 <?php
 echo view('templates/dashboard_close');
