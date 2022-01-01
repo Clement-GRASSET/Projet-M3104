@@ -1,5 +1,5 @@
 .dashbaord {
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
     width: 1200px;
     height: 800px;
@@ -15,7 +15,7 @@
 
 .dashbaord .content {
     width: 75%;
-    background: rgb(248, 248, 248);
+    background: linear-gradient(to bottom right, rgb(248, 248, 248), rgb(253, 252, 255));
     padding: 50px;
     overflow-y: auto;
 }
@@ -111,8 +111,9 @@
     text-align: left;
     padding: 5px;
     outline: none;
-    border: solid black 1px;
+    border: solid rgba(0,0,0,0.3) 1px;
     border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .button {

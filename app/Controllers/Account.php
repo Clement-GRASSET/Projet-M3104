@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Classes\ValidationErrors;
 use App\Models\AnnonceModel;
 use App\Models\DiscussionModel;
 use App\Models\EnergieModel;
@@ -15,6 +16,79 @@ use Psr\Log\LoggerInterface;
 
 class Account extends BaseController
 {
+
+    private $annonceValidation = [
+        'titre' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner un titre'
+            ]
+        ],
+        'loyer' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner un loyer'
+            ]
+        ],
+        'charges' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner les charges'
+            ]
+        ],
+        'chauffage' => [
+            'rules' => 'required|typeChauffage',
+            'errors' => [
+                'required' => 'Vous devez renseigner un type de chauffage',
+                'typeChauffage' => 'Le type de chauffage est invalide'
+            ]
+        ],
+        'superficie' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner une superficie'
+            ]
+        ],
+        'description' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner une description'
+            ]
+        ],
+        'adresse' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner une adresse'
+            ]
+        ],
+        'ville' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner une ville'
+            ]
+        ],
+        'cp' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Vous devez renseigner un code postal'
+            ]
+        ],
+        'typeMaison' => [
+            'rules' => 'required|typeMaison',
+            'errors' => [
+                'required' => 'Vous devez renseigner un type de maison',
+                'typeMaison' => 'Le type de maison est invalide'
+            ]
+        ],
+        'typeEnergie' => [
+            'rules' => 'requiredif[$_POST["chauffage"]==="individuel"]|typeEnergie',
+            'errors' => [
+                'requiredif' => 'Vous devez renseigner un type d\'énergie',
+                'typeEnergie' => 'Le type d\'énergie est invalide'
+            ]
+        ],
+    ];
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -124,41 +198,7 @@ class Account extends BaseController
 
     public function add_home()
     {
-        if ($this->request->getMethod() === 'post' && $this->validate([
-                'titre' => [
-                    'rules' => 'required'
-                ],
-                'loyer' => [
-                    'rules' => 'required'
-                ],
-                'charges' => [
-                    'rules' => 'required'
-                ],
-                'chauffage' => [
-                    'rules' => 'required'
-                ],
-                'superficie' => [
-                    'rules' => 'required'
-                ],
-                'description' => [
-                    'rules' => 'required'
-                ],
-                'adresse' => [
-                    'rules' => 'required'
-                ],
-                'ville' => [
-                    'rules' => 'required'
-                ],
-                'cp' => [
-                    'rules' => 'required'
-                ],
-                'typeMaison' => [
-                    'rules' => 'required'
-                ],
-                'typeEnergie' => [
-                    'rules' => 'required'
-                ],
-        ])) {
+        if ($this->request->getMethod() === 'post' && $this->validate($this->annonceValidation)) {
             $annonce = [
                 'A_titre' => $this->request->getPost('titre'),
                 'A_cout_loyer' => $this->request->getPost('loyer'),
@@ -172,7 +212,7 @@ class Account extends BaseController
                 'A_etat' => 'en cours de rédaction',
                 'A_proprietaire' => $this->session->user,
                 'A_type_maison' => $this->request->getPost('typeMaison'),
-                'A_id_engie' => $this->request->getPost('typeEnergie'),
+                'A_id_engie' => ($this->request->getPost('chauffage') === 'individuel') ? $this->request->getPost('typeEnergie') : 'null',
             ];
             $annonceModel = new AnnonceModel();
             $annonceModel->insert($annonce);
@@ -183,7 +223,7 @@ class Account extends BaseController
             $energies = $energieModel->findAll();
             $typesMaison = $typeMaisonModel->findAll();
             $data = [
-                'errors' => (isset($this->validator)) ? $this->validator->getErrors() : [],
+                'errors' => new ValidationErrors((isset($this->validator)) ?  $this->validator->getErrors() : []),
                 'energies' => $energies,
                 'typesMaison' => $typesMaison,
             ];
@@ -197,41 +237,7 @@ class Account extends BaseController
         $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
         if (!isset($annonce))
             throw PageNotFoundException::forPageNotFound();
-        if ($this->request->getMethod() === 'post' && $this->validate([
-                'titre' => [
-                    'rules' => 'required'
-                ],
-                'loyer' => [
-                    'rules' => 'required'
-                ],
-                'charges' => [
-                    'rules' => 'required'
-                ],
-                'chauffage' => [
-                    'rules' => 'required'
-                ],
-                'superficie' => [
-                    'rules' => 'required'
-                ],
-                'description' => [
-                    'rules' => 'required'
-                ],
-                'adresse' => [
-                    'rules' => 'required'
-                ],
-                'ville' => [
-                    'rules' => 'required'
-                ],
-                'cp' => [
-                    'rules' => 'required'
-                ],
-                'typeMaison' => [
-                    'rules' => 'required'
-                ],
-                'typeEnergie' => [
-                    'rules' => 'required'
-                ],
-            ])) {
+        if ($this->request->getMethod() === 'post' && $this->validate($this->annonceValidation)) {
             $annonce_data = [
                 'A_titre' => $this->request->getPost('titre'),
                 'A_cout_loyer' => $this->request->getPost('loyer'),
@@ -245,7 +251,7 @@ class Account extends BaseController
                 'A_etat' => 'en cours de rédaction',
                 'A_proprietaire' => $this->session->user,
                 'A_type_maison' => $this->request->getPost('typeMaison'),
-                'A_id_engie' => $this->request->getPost('typeEnergie'),
+                'A_id_engie' => ($this->request->getPost('chauffage') === 'individuel') ? $this->request->getPost('typeEnergie') : null,
             ];
             $annonceModel->update($id, $annonce_data);
             $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
@@ -255,7 +261,7 @@ class Account extends BaseController
         $energies = $energieModel->findAll();
         $typesMaison = $typeMaisonModel->findAll();
         $data = [
-            'errors' => (isset($this->validator)) ? $this->validator->getErrors() : [],
+            'errors' => new ValidationErrors((isset($this->validator)) ?  $this->validator->getErrors() : []),
             'energies' => $energies,
             'typesMaison' => $typesMaison,
             'annonce' => $annonce,

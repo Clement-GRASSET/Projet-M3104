@@ -9,7 +9,7 @@ echo view('templates/dashboard_open', ['links' => $links]);
 ?>
 
 <h1>Discussion</h1>
-<br/>
+
 <p>Nom de l'annonce : <?= $annonce['A_titre'] ?></p>
 <p>Emétteur : <?= $emetteur['U_nom'] . " " . $emetteur['U_prenom'] ?></p>
 <p>Destinataire : <?= $destinataire['U_nom'] . " " . $destinataire['U_prenom'] ?></p>

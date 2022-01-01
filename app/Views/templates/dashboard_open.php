@@ -6,7 +6,7 @@
             <?php
 
             foreach ($links as $link) {
-                $active = current_url() === base_url($link['url']);
+                $active = substr( current_url(), 0, strlen(base_url($link['url'])) ) === base_url($link['url']);
                 echo '<a class="link ' . (($active) ? 'active' : '') . '" href="' . base_url($link['url']) . '">' . $link['name'] . '</a>';
             }
 

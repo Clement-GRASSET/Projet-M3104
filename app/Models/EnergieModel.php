@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class EnergieModel extends Model
 {
     protected $table = 'T_energie';
-    protected $primaryKey = 'T_id_engie';
+    protected $primaryKey = 'E_id_engie';
     protected $useAutoIncrement = true;
     protected $allowedFields = [
 
