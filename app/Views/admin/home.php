@@ -7,7 +7,7 @@ $links = [
 echo view('templates/dashboard_open', ['links' => $links]);
 ?>
 
-<h1>Li maison</h1>
+<h1><?= $annonce['A_titre'] ?></h1>
 
 <?php
 var_dump($annonce);
@@ -27,6 +27,16 @@ switch ($annonce['A_etat']) {
     }
 }
 echo "<a class='button' href='" . base_url('/admin/homes/'.$annonce['A_idannonce'].'/delete') . "'>Supprimer l'annonce</a>";
+
+?>
+
+<h2>Messages</h2>
+
+<?php
+
+foreach ($discussions as $discussion) {
+    echo "<p>" . $discussion['D_utilisateur'] . "<a class='button' href='" . base_url('/admin/homes/'.$annonce['A_idannonce'].'/messages/'.$discussion['D_utilisateur']) . "'>Supprimmer</a>" . "</p>";
+}
 
 ?>
 
