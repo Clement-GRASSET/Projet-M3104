@@ -55,10 +55,6 @@ class Admin extends Account
                     ];
                     $utilisateurModel->update($mail, $user);
                 }
-            } else if (!empty($this->request->getPost('block'))) {
-                die('block');
-            } else if (!empty($this->request->getPost('unblock'))) {
-                die('unblock');
             }
         }
         $utilisateur = $utilisateurModel->find($mail);
@@ -75,10 +71,70 @@ class Admin extends Account
 
     public function user_delete($mail)
     {
-        if ($mail === $this->session->user) {
+        if ($mail === $this->session->user)
             throw PageNotFoundException::forPageNotFound();
+
+        $utilisateurModel = new UtilisateurModel();
+        $utilisateur = $utilisateurModel->find($mail);
+        if (!isset($utilisateur))
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                $utilisateurModel->delete($mail);
+                return redirect()->to('/admin/users/');
+            } else {
+                return redirect()->to('/account/users/'.$mail.'/delete');
+            }
         }
-        echo "Delete : " . $mail;
+
+        echo view('admin/delete_user', ['user'=>$utilisateur]);
+    }
+
+    public function user_block($mail)
+    {
+        $utilisateurModel = new UtilisateurModel();
+        $utilisateur = $utilisateurModel->find($mail);
+        if (!isset($utilisateur))
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                $annonceModel = new AnnonceModel();
+                $annonces = $annonceModel->where(['A_proprietaire'=>$mail, 'A_etat'=>'publiée'])->findAll();
+                foreach ($annonces as $annonce) {
+                    $annonceModel->update($annonce['A_idannonce'], ['A_etat'=>'bloquée']);
+                }
+                return redirect()->to('/admin/users/'.$mail);
+            } else {
+                return redirect()->to('/account/users/'.$mail.'/block');
+            }
+        }
+
+        echo view('admin/block_user', ['user'=>$utilisateur]);
+    }
+
+    public function user_unblock($mail)
+    {
+        $utilisateurModel = new UtilisateurModel();
+        $utilisateur = $utilisateurModel->find($mail);
+        if (!isset($utilisateur))
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                $annonceModel = new AnnonceModel();
+                $annonces = $annonceModel->where(['A_proprietaire'=>$mail, 'A_etat'=>'bloquée'])->findAll();
+                foreach ($annonces as $annonce) {
+                    $annonceModel->update($annonce['A_idannonce'], ['A_etat'=>'publiée']);
+                }
+                return redirect()->to('/admin/users/'.$mail);
+            } else {
+                return redirect()->to('/account/users/'.$mail.'/unblock');
+            }
+        }
+
+        echo view('admin/unblock_user', ['user'=>$utilisateur]);
     }
 
     public function homes()

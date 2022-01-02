@@ -32,16 +32,13 @@ echo view('templates/dashboard_open', ['links' => $links]);
 
 </form>
 
-<form action="" method="post">
-
-    <input class="button" type="submit" value="Bloquer toutes les annonces" name="block">
-    <input class="button" type="submit" value="Débloquer toutes les annonces" name="unblock">
-
-</form>
+<a class="button" href=" <?= base_url('/admin/users/' . $user['U_mail'] . '/block') ?> ">Bloquer toutes les annonces</a>
+<a class="button" href=" <?= base_url('/admin/users/' . $user['U_mail'] . '/unblock') ?> ">Débloquer toutes les annonces</a>
+<br/><br/>
 
 <?= ($me) ?
     "<p class='warning'>Vous ne pouvez pas supprimer votre propre compte</p>" :
-    '<a class="button" href="' . base_url('/admin/users/' . $user['U_mail'] . '/delete') . (($me) ? "disabled" : "") . '">Supprimer l\'utilisateur</a>'
+    '<a class="button" href="' . base_url('/admin/users/' . $user['U_mail'] . '/delete') . '">Supprimer l\'utilisateur</a>'
 ?>
 
 
