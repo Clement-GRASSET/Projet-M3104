@@ -9,10 +9,29 @@ echo view('templates/dashboard_open', ['links' => $links]);
 
 <h1>Li maisons</h1>
 
+
+
 <?php
 
-foreach ($homes as $home) {
-    echo "<a class='link' href='" . base_url("/admin/homes/" . $home['A_idannonce']) . "'>" . $home['A_titre'] . "</a>";
+if (!empty($annonces_bloquées))
+    echo "<h2>Annonces bloquées</h2>";
+
+foreach ($annonces_bloquées as $annonce) {
+    echo "<a class='link' href='" . base_url("/admin/homes/" . $annonce['A_idannonce']) . "'>" . $annonce['A_titre'] . "</a>";
+}
+
+if (!empty($annonces_publiées))
+    echo "<h2>Annonces publiées</h2>";
+
+foreach ($annonces_publiées as $annonce) {
+    echo "<a class='link' href='" . base_url("/admin/homes/" . $annonce['A_idannonce']) . "'>" . $annonce['A_titre'] . "</a>";
+}
+
+if (!empty($annonces_archivées))
+    echo "<h2>Annonces archivées</h2>";
+
+foreach ($annonces_archivées as $annonce) {
+    echo "<a class='link' href='" . base_url("/admin/homes/" . $annonce['A_idannonce']) . "'>" . $annonce['A_titre'] . "</a>";
 }
 
 ?>

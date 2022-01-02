@@ -68,6 +68,12 @@ $routes->get('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
 $routes->get('/admin/users/(:any)', 'Admin::user/$1');
 $routes->post('/admin/users/(:any)', 'Admin::user/$1');
 $routes->get('/admin/homes', 'Admin::homes');
+$routes->get('/admin/homes/(:any)/block', 'Admin::block_home/$1');
+$routes->post('/admin/homes/(:any)/block', 'Admin::block_home/$1');
+$routes->get('/admin/homes/(:any)/unblock', 'Admin::unblock_home/$1');
+$routes->post('/admin/homes/(:any)/unblock', 'Admin::unblock_home/$1');
+$routes->get('/admin/homes/(:any)/delete', 'Admin::delete_home/$1');
+$routes->post('/admin/homes/(:any)/delete', 'Admin::delete_home/$1');
 $routes->get('/admin/homes/(:any)', 'Admin::home/$1');
 
 /*

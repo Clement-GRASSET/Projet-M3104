@@ -58,6 +58,13 @@
     margin-bottom: 70px;
 }
 
+.dashbaord .content h2 {
+    font-size: 25px;
+    font-weight: lighter;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
 .dashbaord .content .link {
     width: 100%;
     display: block;
