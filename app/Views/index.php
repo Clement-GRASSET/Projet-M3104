@@ -26,7 +26,16 @@
     <div class="icons">
         <div id="menu-bars" class="fas fa-bars"></div>
         <a href="#" class="fas fa-heart"></a>
-        <a href="<?= base_url("/login") ?>" class="fas fa-user"> Invité</a>
+        <?php
+        if ($isLoggedIn){
+            echo'<a href="'.base_url("/account/homes").'" class="fas fa-user"> '.$user['U_pseudo'].'</a>';
+            echo'<a href="'.base_url("/logout").'" class="fas fa-sign-out-alt"></a>';
+        }
+        else{
+            echo'<a href="'.base_url("/login").'" class="fas fa-user"> Invité</a>';
+        }
+        ?>
+
     </div>
 
 </header>
@@ -60,105 +69,58 @@
 
     <div class="box-container">
 
-        <div class="box">
+        <?php
+        foreach ($annonces as $annonce) {
+            echo '<div class="box">
             <div class="image-container">
                 <img src="https://www.lepoint.fr/images/2015/03/28/3143741-675779-jpg_2791013_600x314.jpg" alt="">
-                <div class="info">
-                    <h3>il y a 3h</h3>
-                </div>
+                ';
+            if ($isLoggedIn) {
+                if ($annonce['A_proprietaire'] == $user['U_mail']) {
+                    echo '<div class="info"><h3>Votre annonce</h3></div>';
+                }
+            }
+
+                echo '
                 <div class="icons">
-                    <a href="#" class="fas fa-film"><h3>1</h3></a>
                     <a href="#" class="fas fa-camera"><h3>4</h3></a>
                 </div>
             </div>
             <div class="content">
                 <div class="price">
-                    <h3>25,000€/mo</h3>
+                    <h3>';
+            echo ($annonce['A_cout_loyer']+$annonce['A_cout_charges']);
+            echo '€ par mois TCC</h3>
                     <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-envelope"></a>
-                    <a href="#" class="fas fa-phone"></a>
                 </div>
                 <div class="location">
-                    <h3>Poubelle de Luxe</h3>
-                    <p>idéale pour la mere de evan</p>
+                    <h3>';
+            echo $annonce['A_titre'];
+            echo '</h3>
+                    <p>';
+            echo $annonce['A_description'];
+            echo '</p>
                 </div>
                 <div class="details">
-                    <h3> <i class="fas fa-expand"></i> 3500 m² </h3>
-                    <h3> <i class="fas fa-bed"></i> 3 lits </h3>
-                    <h3> <i class="fas fa-bath"></i> 2 salle de bains </h3>
+                    <h3> <i class="fas fa-expand"></i> ';
+            echo $annonce['A_superficie'];
+            echo ' m² </h3>
+                    <h3> <i class="fas fa-money-bill-wave"></i> ';
+            echo $annonce['A_cout_charges'];
+            echo '€ de charges</h3>
                 </div>
                 <div class="buttons">
-                    <a href="#" class="btn">Contacter le Propriétaire</a>
-                    <a href="#" class="btn">Voir l'annonce</a>
+                    <a href="';
+                echo base_url("/homes/".$annonce['A_idannonce']."/contact");
+                echo '" class="btn">Contacter le Propriétaire</a>
+                    <a href="';
+                echo base_url("/homes/".$annonce['A_idannonce']."/");
+                    echo '" class="btn">Voir l\'annonce</a>
                 </div>
             </div>
-        </div>
-        <div class="box">
-            <div class="image-container">
-                <img src="https://www.lepoint.fr/images/2015/03/28/3143741-675779-jpg_2791013_600x314.jpg" alt="">
-                <div class="info">
-                    <h3>il y a 3h</h3>
-                </div>
-                <div class="icons">
-                    <a href="#" class="fas fa-film"><h3>1</h3></a>
-                    <a href="#" class="fas fa-camera"><h3>4</h3></a>
-                </div>
-            </div>
-            <div class="content">
-                <div class="price">
-                    <h3>25,000€/mo</h3>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-envelope"></a>
-                    <a href="#" class="fas fa-phone"></a>
-                </div>
-                <div class="location">
-                    <h3>Poubelle de Luxe</h3>
-                    <p>idéale pour la mere de evan</p>
-                </div>
-                <div class="details">
-                    <h3> <i class="fas fa-expand"></i> 3500 m² </h3>
-                    <h3> <i class="fas fa-bed"></i> 3 lits </h3>
-                    <h3> <i class="fas fa-bath"></i> 2 salle de bains </h3>
-                </div>
-                <div class="buttons">
-                    <a href="#" class="btn">Contacter le Propriétaire</a>
-                    <a href="#" class="btn">Voir l'annonce</a>
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <div class="image-container">
-                <img src="https://www.lepoint.fr/images/2015/03/28/3143741-675779-jpg_2791013_600x314.jpg" alt="">
-                <div class="info">
-                    <h3>il y a 3h</h3>
-                </div>
-                <div class="icons">
-                    <a href="#" class="fas fa-film"><h3>1</h3></a>
-                    <a href="#" class="fas fa-camera"><h3>4</h3></a>
-                </div>
-            </div>
-            <div class="content">
-                <div class="price">
-                    <h3>25,000€/mo</h3>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="fas fa-envelope"></a>
-                    <a href="#" class="fas fa-phone"></a>
-                </div>
-                <div class="location">
-                    <h3>Poubelle de Luxe</h3>
-                    <p>idéale pour la mere de evan</p>
-                </div>
-                <div class="details">
-                    <h3> <i class="fas fa-expand"></i> 3500 m² </h3>
-                    <h3> <i class="fas fa-bed"></i> 3 lits </h3>
-                    <h3> <i class="fas fa-bath"></i> 2 salle de bains </h3>
-                </div>
-                <div class="buttons">
-                    <a href="#" class="btn">Contacter le Propriétaire</a>
-                    <a href="#" class="btn">Voir l'annonce</a>
-                </div>
-            </div>
-        </div>
+        </div>';
+        }
+        ?>
     </div>
 </section>
 
