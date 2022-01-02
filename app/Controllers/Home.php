@@ -30,6 +30,29 @@ class Home extends BaseController
     {
         $annonceModel = new AnnonceModel();
         $annonces = $annonceModel->findAll();
+        $nbAnnonces = sizeof($annonces);
+
+        echo "</br><h2>Partie dans le controleur :</h2></br>";
+
+        echo "<p>Mettre 'page' en parametre post de la page</br>Exemple : localhost:8080/homes?page=2</p></br>";
+
+        echo "nb annonces : " . $nbAnnonces . "/15<br/>";
+        $nbPages = intdiv($nbAnnonces, 15) + 1;
+        echo "nb pages : " . $nbPages . "</br>";
+        $numPage = ($this->request->getGet('page')) ? $this->request->getGet('page') : '1';
+        echo "num pages : " . ($numPage) . "</br>";
+        $begin = ($numPage - 1) * 15 + 1;
+        $end = $numPage * 15;
+        echo "range : [" . $begin . ", " . $end . "]</br>";
+        echo "<br/>annonces :<br/>";
+        foreach ($annonces as $annonce) {
+            echo "<br/>";
+            var_dump($annonce);
+            echo "<br/>";
+        }
+
+        echo "</br><h2>Fin de la partie dans le controleur</h2></br>";
+
         echo view('homes.php', ['annonces'=>$annonces]);
     }
 
