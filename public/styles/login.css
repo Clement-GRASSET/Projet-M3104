@@ -109,7 +109,7 @@ iframe {
     color: #666666;
 }
 
-.txterror {
+.validation_error {
     font-family: Poppins;
     font-size: 15px;
     line-height: 1.5;

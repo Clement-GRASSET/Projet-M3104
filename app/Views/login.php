@@ -27,7 +27,7 @@
                 </div>
                 <?php
                 if (!empty($errors)){
-                    echo '<p class="txterror">
+                    echo '<p class="validation_error">
 						'.$errors['email'].'
 					</p>';
                 }?>
