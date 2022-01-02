@@ -276,6 +276,12 @@ class Account extends BaseController
     }
 
     public function delete() {
+        $utilisateurModel = new UtilisateurModel();
+        $utilisateur = $utilisateurModel->find($this->session->user);
+        if ($utilisateur['U_admin']) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
         $validation = $this->validate([
             "email_confirm" => [
                 "rules" => "required"
@@ -283,7 +289,6 @@ class Account extends BaseController
         ]);
         if ($validation) {
             if ($this->session->user === $this->request->getPost("email_confirm")) {
-                $utilisateurModel = new UtilisateurModel();
                 $utilisateurModel->delete($this->session->user);
                 return redirect()->to("/logout");
             } else {

@@ -47,7 +47,11 @@ echo view('templates/dashboard_open', ['links' => $links]);
 
 </form>
 
-<a class="button" href='<?= base_url('/account/settings/delete') ?>'>Supprimmer mon compte</a>
+<?php if ($user['U_admin'])
+    echo "<p class='warning'>Vous ne pouvez pas supprimer votre compte car vous êtes administrateur</p>";
+else
+    echo "<a class='button' href='" . base_url('/account/settings/delete') . "'>Supprimmer mon compte</a>";
+?>
 
 <?php
 echo view('templates/dashboard_close');
