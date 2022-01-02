@@ -43,7 +43,7 @@ class Auth extends BaseController
                 echo view('login.php');
             }
         } else {
-            echo view('login.php', ['errors'=>$this->validator->getErrors()]);
+            echo view('login.php', ['errors'=> (isset($this->validator)) ? $this->validator->getErrors() : [] ]);
         }
     }
 
@@ -54,10 +54,10 @@ class Auth extends BaseController
     public function register_post() {
         $validation = $this->validate([
             "email" => [
-                "rules" => "required|valid_email"
+                "rules" => "required|valid_email|is_unique[T_utilisateur.U_mail]"
             ],
             "pseudo" => [
-                "rules" => "required"
+                "rules" => "required|is_unique[T_utilisateur.U_pseudo]"
             ],
             "nom" => [
                 "rules" => "required"
@@ -86,7 +86,7 @@ class Auth extends BaseController
             $this->session->user = $utilisateur["U_mail"];
             return redirect("/");
         } else {
-            echo view('register.php', ['errors'=>$this->validator->getErrors()]);
+            echo view('register.php', ['errors'=> (isset($this->validator)) ? $this->validator->getErrors() : [] ]);
         }
     }
 

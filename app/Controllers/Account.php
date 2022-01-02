@@ -212,7 +212,7 @@ class Account extends BaseController
                 'A_etat' => 'en cours de rédaction',
                 'A_proprietaire' => $this->session->user,
                 'A_type_maison' => $this->request->getPost('typeMaison'),
-                'A_id_engie' => ($this->request->getPost('chauffage') === 'individuel') ? $this->request->getPost('typeEnergie') : 'null',
+                'A_id_engie' => ($this->request->getPost('chauffage') === 'individuel') ? $this->request->getPost('typeEnergie') : null,
             ];
             $annonceModel = new AnnonceModel();
             $annonceModel->insert($annonce);

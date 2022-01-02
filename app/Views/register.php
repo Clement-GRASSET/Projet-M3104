@@ -11,6 +11,8 @@
 						Register
 					</span>
 
+                <?php var_dump($errors); ?>
+
                 <div class="wrap-input100">
                     <input class="input100" type="text" name="email" placeholder="Email" id="email">
                     <span class="focus-input100"></span>

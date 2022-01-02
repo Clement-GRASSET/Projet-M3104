@@ -11,7 +11,7 @@
 						Login Page
 					</span>
 
-                <?php if (isset($errors)) { var_dump($errors); } ?>
+                <?php var_dump($errors); ?>
 
                 <div class="wrap-input100">
                     <input class="input100" type="text" id="email" name="email" placeholder="Email"  required>
