@@ -8,7 +8,7 @@ class Auth extends BaseController
 {
     public function login()
     {
-        echo view('login.php');
+        echo view('login.php', ['errors' => []]);
     }
 
     public function login_post() {
@@ -30,46 +30,57 @@ class Auth extends BaseController
             ]
         ]);
         if ($validation) {
-            $utilisateurModel = new UtilisateurModel();
-            $result = $utilisateurModel->where([
-                "U_mail" => $this->request->getPost("email"),
-                "U_mdp" => hash("sha256", $this->request->getPost("password")),
-            ])->findAll();
-            var_dump($result);
-            if (!empty($result)) {
-                $this->session->user = $this->request->getPost("email");
-                return redirect()->to("/");
-            } else {
-                echo view('login.php');
-            }
+            $this->session->user = $this->request->getPost("email");
+            return redirect()->to("/");
         } else {
-            echo view('login.php', ['errors'=> (isset($this->validator)) ? $this->validator->getErrors() : [] ]);
+            echo view('login.php', ['errors' => $this->validator->getErrors()]);
         }
     }
 
     public function register() {
-        echo view('register.php');
+        echo view('register.php', ['errors' => []]);
     }
 
     public function register_post() {
         $validation = $this->validate([
             "email" => [
-                "rules" => "required|valid_email|is_unique[T_utilisateur.U_mail]"
+                "rules" => "required|valid_email|is_unique[T_utilisateur.U_mail]",
+                "errors" => [
+                    "required" => "Vous devez rensigner votre adresse email",
+                    "valid_email" => "Le format de l'adresse email n'est pas valide",
+                    "is_unique" => "Cette adresse email est déja utilisée",
+                ],
             ],
             "pseudo" => [
-                "rules" => "required|is_unique[T_utilisateur.U_pseudo]"
+                "rules" => "required|is_unique[T_utilisateur.U_pseudo]",
+                "errors" => [
+                    "required" => "Vous devez renseigner un pseudo",
+                    "is_unique" => "Ce pseudo email est déja utilisé",
+                ],
             ],
             "nom" => [
-                "rules" => "required"
+                "rules" => "required",
+                "errors" => [
+                    "required" => "Vous devez renseigner votre nom",
+                ],
             ],
             "prenom" => [
-                "rules" => "required"
+                "rules" => "required",
+                "errors" => [
+                    "required" => "Vous devez renseigner votre prénom",
+                ],
             ],
             "password" => [
-                "rules" => "required"
+                "rules" => "required",
+                "errors" => [
+                    "required" => "Vous devez renseigner un mot de passe",
+                ],
             ],
             "password2" => [
-                "rules" => "required|matches[password]"
+                "rules" => "required|matches[password]",
+                "errors" => [
+                    "required" => "Vous devez confirmer votre mot de passe",
+                ],
             ]
         ]);
         if ($validation) {
@@ -86,7 +97,7 @@ class Auth extends BaseController
             $this->session->user = $utilisateur["U_mail"];
             return redirect("/");
         } else {
-            echo view('register.php', ['errors'=> (isset($this->validator)) ? $this->validator->getErrors() : [] ]);
+            echo view('register.php', ['errors' => $this->validator->getErrors()]);
         }
     }
 

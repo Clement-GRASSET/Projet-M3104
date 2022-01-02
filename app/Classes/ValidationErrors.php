@@ -14,7 +14,7 @@ class ValidationErrors {
     function html(string $field) : string
     {
         if (isset($this->errors[$field]))
-            return "<p class='warning'>" . $this->errors[$field] . "</p>";
+            return "<p class='validation_error'>" . $this->errors[$field] . "</p>";
         else
             return "";
     }
