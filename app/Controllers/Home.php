@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\AnnonceModel;
 use App\Models\MessageModel;
-use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Home extends BaseController
@@ -16,16 +15,11 @@ class Home extends BaseController
             ->orderBy('A_idannonce', 'desc')
             ->where(['A_etat'=>'publiée'])
             ->findAll(6);
-        $isLoggedIn = isset($this->session->user);
+
         $data = [
-            'isLoggedIn' => $isLoggedIn,
             'annonces' => $annonces
         ];
-        if ($isLoggedIn) {
-            $utilisateurModel = new UtilisateurModel();
-            $user = $utilisateurModel->find($this->session->user);
-            $data['user'] = $user;
-        }
+        $data = array_merge($data, $this->userInfo);
         echo view('index.php', $data);
     }
 
@@ -49,11 +43,13 @@ class Home extends BaseController
             ->where(['A_etat'=>'publiée'])
             ->findAll(15, $offset);
 
-        echo view('homes.php', [
+        $data = [
             'annonces'=>$annonces,
             'numPage'=>$numPage,
             'nbPages'=>$nbPages,
-        ]);
+        ];
+        $data = array_merge($data, $this->userInfo);
+        echo view('homes.php', $data);
     }
 
     public function home_details($id)
@@ -63,7 +59,9 @@ class Home extends BaseController
         if (!isset($annonce)) {
             throw PageNotFoundException::forPageNotFound();
         }
-        echo view('home_details.php', ['annonce'=>$annonce]);
+        $data = ['annonce'=>$annonce];
+        $data = array_merge($data, $this->userInfo);
+        echo view('home_details.php', $data);
     }
 
     public function home_contact($id)
@@ -89,7 +87,9 @@ class Home extends BaseController
             $messageModel->insert($message);
             return redirect()->to('/homes/'.$id);
         } else {
-            echo view('home_contact.php', ['annonce'=>$annonce]);
+            $data = ['annonce'=>$annonce];
+            $data = array_merge($data, $this->userInfo);
+            echo view('home_contact.php', $data);
         }
     }
 }

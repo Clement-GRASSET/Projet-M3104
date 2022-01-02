@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\UtilisateurModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -39,6 +40,8 @@ class BaseController extends Controller
 
     protected $session;
 
+    protected $userInfo = [];
+
     /**
      * Constructor.
      */
@@ -51,5 +54,13 @@ class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();
+
+        $isLoggedIn = isset($this->session->user);
+        $this->userInfo['isLoggedIn'] = $isLoggedIn;
+        if ($isLoggedIn) {
+            $utilisateurModel = new UtilisateurModel();
+            $user = $utilisateurModel->find($this->session->user);
+            $this->userInfo['user'] = $user;
+        }
     }
 }
