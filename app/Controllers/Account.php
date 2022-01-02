@@ -216,7 +216,8 @@ class Account extends BaseController
             ];
             $annonceModel = new AnnonceModel();
             $annonceModel->insert($annonce);
-            return redirect()->to('/account/homes');
+            $annonce = $annonceModel->where($annonce)->first();
+            return redirect()->to('/account/homes/' . $annonce['A_idannonce']);
         } else {
             $energieModel = new EnergieModel();
             $typeMaisonModel = new TypeMaisonModel();
@@ -231,12 +232,27 @@ class Account extends BaseController
         }
     }
 
+    public function home($id)
+    {
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
+        if (!isset($annonce))
+            throw PageNotFoundException::forPageNotFound();
+        $data = [
+            'annonce' => $annonce,
+        ];
+        echo view('account/home', $data);
+    }
+
     public function edit_home($id)
     {
         $annonceModel = new AnnonceModel();
         $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
         if (!isset($annonce))
             throw PageNotFoundException::forPageNotFound();
+        if ($annonce['A_etat'] !== 'en cours de rédaction' && $annonce['A_etat'] !== 'publiée' && $annonce['A_etat'] !== 'bloquée')
+            throw PageNotFoundException::forPageNotFound();
+
         if ($this->request->getMethod() === 'post' && $this->validate($this->annonceValidation)) {
             $annonce_data = [
                 'A_titre' => $this->request->getPost('titre'),
@@ -267,6 +283,69 @@ class Account extends BaseController
             'annonce' => $annonce,
         ];
         echo view('account/edit_home', $data);
+    }
+
+    public function delete_home($id)
+    {
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
+        if (!isset($annonce))
+            throw PageNotFoundException::forPageNotFound();
+        if ($annonce['A_etat'] !== 'en cours de rédaction')
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                $annonceModel->delete($id);
+                return redirect()->to('/account/homes/');
+            } else {
+                return redirect()->to('/account/homes/'.$id.'/delete');
+            }
+        }
+
+        echo view('account/delete_home', ['annonce'=>$annonce]);
+    }
+
+    public function publish_home($id)
+    {
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
+        if (!isset($annonce))
+            throw PageNotFoundException::forPageNotFound();
+        if ($annonce['A_etat'] !== 'en cours de rédaction')
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                $annonceModel->update($id, ['A_etat'=>'publiée']);
+                return redirect()->to('/account/homes/'.$id);
+            } else {
+                return redirect()->to('/account/homes/'.$id.'/publish');
+            }
+        }
+
+        echo view('account/publish_home', ['annonce'=>$annonce]);
+    }
+
+    public function archive_home($id)
+    {
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
+        if (!isset($annonce))
+            throw PageNotFoundException::forPageNotFound();
+        if ($annonce['A_etat'] !== 'publiée')
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                $annonceModel->update($id, ['A_etat'=>'archivée']);
+                return redirect()->to('/account/homes/'.$id);
+            } else {
+                return redirect()->to('/account/homes/'.$id.'/archive');
+            }
+        }
+
+        echo view('account/archive_home', ['annonce'=>$annonce]);
     }
 
     public function settings() {

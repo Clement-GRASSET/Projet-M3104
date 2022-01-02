@@ -71,7 +71,7 @@ echo view('templates/dashboard_open', ['links' => $links]);
     </select><br/>
     <?= $errors->html('typeEnergie') ?>
 
-    <input class="button" type="submit" value="Créer">
+    <input class="button" type="submit" value="Enregistrer">
 
 </form>
 
