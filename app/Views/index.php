@@ -88,34 +88,25 @@
             </div>
             <div class="content">
                 <div class="price">
-                    <h3>';
-            echo ($annonce['A_cout_loyer']+$annonce['A_cout_charges']);
-            echo '€ par mois TCC</h3>
+                    <h3>'.($annonce['A_cout_loyer']+$annonce['A_cout_charges']).'€ par mois TCC</h3>
                     <a href="#" class="fas fa-heart"></a>
                 </div>
                 <div class="location">
-                    <h3>';
-            echo $annonce['A_titre'];
-            echo '</h3>
-                    <p>';
-            echo $annonce['A_description'];
-            echo '</p>
+                    <h3>'.$annonce['A_titre'].'</h3>
+                    <p>'.$annonce['A_description'].'</p>
                 </div>
                 <div class="details">
-                    <h3> <i class="fas fa-expand"></i> ';
-            echo $annonce['A_superficie'];
-            echo ' m² </h3>
-                    <h3> <i class="fas fa-money-bill-wave"></i> ';
-            echo $annonce['A_cout_charges'];
-            echo '€ de charges</h3>
+                    <h3> <i class="fas fa-expand"></i> '.$annonce['A_superficie'].' m² </h3>
+                    <h3> <i class="fas fa-money-bill-wave"></i> '.
+                    $annonce['A_cout_charges'].'€ de charges</h3>
                 </div>
                 <div class="buttons">
-                    <a href="';
-                echo base_url("/homes/".$annonce['A_idannonce']."/contact");
-                echo '" class="btn">Contacter le Propriétaire</a>
-                    <a href="';
-                echo base_url("/homes/".$annonce['A_idannonce']."/");
-                    echo '" class="btn">Voir l\'annonce</a>
+                    <a href="'.
+                base_url("/homes/".$annonce['A_idannonce']."/contact").
+                '" class="btn">Contacter le Propriétaire</a>
+                    <a href="'.
+                base_url("/homes/".$annonce['A_idannonce']."/").
+                '" class="btn">Voir l\'annonce</a>
                 </div>
             </div>
         </div>';
@@ -134,7 +125,15 @@
             <img src="ressources/images/s-1.png" alt="">
             <h3>Louez votre Maison</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
-            <a href="#" class="btn">J'y vais</a>
+            <a href="
+            <?php
+            if ($isLoggedIn){
+                echo base_url("/account/homes").'" class="btn">J\'y vais</a>';
+            }
+            else{
+                echo base_url("/login").'" class="btn">Je me connecte</a>';
+            }
+            ?>
         </div>
 
         <div class="box">
@@ -148,7 +147,15 @@
             <img src="ressources/images/s-3.png" alt="">
             <h3>rencontrez vos futurs Locataires</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
-            <a href="#" class="btn">Messagerie</a>
+            <a href="
+            <?php
+                if ($isLoggedIn){
+                    echo base_url("/account/messages").'" class="btn">Messagerie</a>';
+                }
+                else{
+                    echo base_url("/login").'" class="btn">Je me connecte</a>';
+                }
+            ?>
         </div>
 
     </div>
