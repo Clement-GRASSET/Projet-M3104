@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AnnonceModel;
+use App\Models\DiscussionModel;
 use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RequestInterface;
@@ -84,7 +85,7 @@ class Admin extends Account
                 $utilisateurModel->delete($mail);
                 return redirect()->to('/admin/users/');
             } else {
-                return redirect()->to('/account/users/'.$mail.'/delete');
+                return redirect()->to('/admin/users/'.$mail.'/delete');
             }
         }
 
@@ -107,7 +108,7 @@ class Admin extends Account
                 }
                 return redirect()->to('/admin/users/'.$mail);
             } else {
-                return redirect()->to('/account/users/'.$mail.'/block');
+                return redirect()->to('/admin/users/'.$mail.'/block');
             }
         }
 
@@ -130,7 +131,7 @@ class Admin extends Account
                 }
                 return redirect()->to('/admin/users/'.$mail);
             } else {
-                return redirect()->to('/account/users/'.$mail.'/unblock');
+                return redirect()->to('/admin/users/'.$mail.'/unblock');
             }
         }
 
@@ -151,12 +152,14 @@ class Admin extends Account
     {
         $annonceModel = new AnnonceModel();
         $annonce = $annonceModel->find($id);
+        $discussionModel = new DiscussionModel();
+        $discussions = $discussionModel->where(['D_idannonce'=>$id])->findAll();
         if (empty($annonce))
             throw PageNotFoundException::forPageNotFound();
         if ($annonce['A_etat'] !== 'publiée' && $annonce['A_etat'] !== 'archivée' && $annonce['A_etat'] !== 'bloquée')
             throw PageNotFoundException::forPageNotFound();
 
-        echo view('admin/home', ['annonce' => $annonce]);
+        echo view('admin/home', ['annonce' => $annonce, 'discussions'=>$discussions]);
     }
 
     public function block_home($id)
@@ -173,7 +176,7 @@ class Admin extends Account
                 $annonceModel->update($id, ['A_etat'=>'bloquée']);
                 return redirect()->to('/admin/homes/'.$id);
             } else {
-                return redirect()->to('/account/homes/'.$id.'/block');
+                return redirect()->to('/admin/homes/'.$id.'/block');
             }
         }
 
@@ -194,7 +197,7 @@ class Admin extends Account
                 $annonceModel->update($id, ['A_etat'=>'publiée']);
                 return redirect()->to('/admin/homes/'.$id);
             } else {
-                return redirect()->to('/account/homes/'.$id.'/unblock');
+                return redirect()->to('/admin/homes/'.$id.'/unblock');
             }
         }
 
@@ -215,11 +218,30 @@ class Admin extends Account
                 $annonceModel->delete($id);
                 return redirect()->to('/admin/homes/');
             } else {
-                return redirect()->to('/account/homes/'.$id.'/delete');
+                return redirect()->to('/admin/homes/'.$id.'/delete');
             }
         }
 
         echo view('admin/delete_home', ['annonce' => $annonce]);
+    }
+
+    public function delete_discussion($id, $mail)
+    {
+        $discussionModel = new DiscussionModel();
+        $discussion = $discussionModel->where(['D_idannonce'=>$id, 'D_utilisateur'=>$mail])->first();
+        if (!isset($discussion))
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                $discussionModel->delete(['D_idannonce'=>$id, 'D_utilisateur'=>$mail]);
+                return redirect()->to('/admin/homes/'.$id);
+            } else {
+                return redirect()->to('/admin/homes/'.$id.'/messages/'.$mail);
+            }
+        }
+
+        echo view('admin/delete_discussion', []);
     }
 
 }

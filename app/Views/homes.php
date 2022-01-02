@@ -8,6 +8,17 @@
 
 foreach ($annonces as $annonce) {
     echo "<a href='" . base_url("/homes/" . $annonce['A_idannonce']) . "'>" . $annonce['A_titre'] . "</a>";
+    echo "<br/>";
+}
+
+?>
+
+<br/>
+<p>Pages :</p>
+<?php
+
+for ($i = 1; $i <= $nbPages; $i++) {
+    echo "<a href='" . base_url('/homes?page='.$i) . "'>" . $i . (($i === $numPage) ? " (Page active)" : "") ."</a> ";
 }
 
 ?>
