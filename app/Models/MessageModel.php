@@ -18,9 +18,8 @@ class MessageModel extends Model
 
     public function insert($data = null, bool $returnID = true)
     {
-
         $discussionModel = new DiscussionModel();
-        $discussion = $discussionModel->where(['D_idannonce'=>$data['M_idannonce'], 'D_utilisateur'=>$data['M_utilisateur']])->find();
+        $discussion = $discussionModel->where(['D_idannonce'=>$data['M_idannonce'], 'D_utilisateur'=>$data['M_utilisateur']])->first();
         if (empty($discussion)) {
             $discussion_data = [
                 'D_idannonce' => $data['M_idannonce'],
@@ -30,6 +29,8 @@ class MessageModel extends Model
             ];
             $discussionModel->insert($discussion_data);
         }
+        $discussion = $discussionModel->where(['D_idannonce'=>$data['M_idannonce'], 'D_utilisateur'=>$data['M_utilisateur']])->first();
+        $discussionModel->update($discussion['D_iddiscussion'], ($data['M_envoyeur'] === $discussion['D_utilisateur']) ? ['D_non_lu_proprietaire'=>true] : ['D_non_lu_utilisateur'=>true]);
         return parent::insert($data, $returnID);
     }
 }

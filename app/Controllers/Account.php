@@ -132,6 +132,7 @@ class Account extends BaseController
                 'prenom' => $discussion['prenom_destinataire'],
                 'annonce' => $annonce['A_titre'],
                 'lien' => base_url('/account/messages/'.$discussion['D_iddiscussion']),
+                'non_lu' => ($discussion['D_utilisateur'] === $this->session->user) ? $discussion['D_non_lu_utilisateur'] : $discussion['D_non_lu_proprietaire'],
             ];
         }
         echo view('account/messages', ['discussions' => $data]);
@@ -155,6 +156,8 @@ class Account extends BaseController
         } else {
             throw PageNotFoundException::forPageNotFound();
         }
+
+        $discussionModel->update($id, ($estProprietaire) ? ['D_non_lu_proprietaire'=>false] : ['D_non_lu_utilisateur'=>false]);
 
         if ($this->request->getMethod() === 'post') {
             $valitation = $this->validate([

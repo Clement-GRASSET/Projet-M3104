@@ -13,7 +13,7 @@ echo view('templates/dashboard_open', ['links' => $links]);
 <?php
 
 foreach ($discussions as $discussion) {
-    echo "<a class='link' href='" . $discussion['lien'] . "'>" . $discussion['nom'] . " " . $discussion['prenom'] . ", " . $discussion['annonce'] . "</a>";
+    echo "<a class='link' href='" . $discussion['lien'] . "'>" . $discussion['nom'] . " " . $discussion['prenom'] . ", " . $discussion['annonce'] . (($discussion['non_lu']) ? ' (Non lu)' : '') . "</a>";
 }
 
 ?>

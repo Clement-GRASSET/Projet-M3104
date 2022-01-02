@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DiscussionModel extends Model
 {
     protected $table = 'T_discussion';
-    protected $primaryKey = 'D_idannonce';
+    protected $primaryKey = 'D_iddiscussion';
     protected $useAutoIncrement = false;
     protected $allowedFields = [
         'D_idannonce',
