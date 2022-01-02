@@ -10,10 +10,7 @@
 					<span class="form-title">
 						Login Page
 					</span>
-
-                <?php var_dump($errors); ?>
-
-                <div class="wrap-input100">
+                <div class="wrap-input100 <?php if (isset($errors['email'])){echo 'alert-validate';}?>">
                     <input class="input100" type="text" id="email" name="email" placeholder="Email"  required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
@@ -21,14 +18,19 @@
 						</span>
                 </div>
 
-                <div class="wrap-input100">
+                <div class="wrap-input100 <?php if (isset($errors['password'])){echo 'alert-validate';}?>">
                     <input class="input100" type="password" id="password" name="password" placeholder="Password" required="required">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
                 </div>
-
+                <?php
+                if (!empty($errors)){
+                    echo '<p class="txterror">
+						'.$errors['email'].'
+					</p>';
+                }?>
                 <div class="container-form-btn">
                     <button class="form-btn" type="submit" name="submit">
                         Connexion

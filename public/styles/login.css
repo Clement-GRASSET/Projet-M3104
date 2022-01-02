@@ -109,6 +109,13 @@ iframe {
     color: #666666;
 }
 
+.txterror {
+    font-family: Poppins;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #ba2323;
+    text-align: center;
+}
 .limiter {
     width: 100%;
     margin: 0 auto;
@@ -330,4 +337,31 @@ iframe {
     .wrap {
         padding: 60px 15px 33px 15px;
     }
+}
+
+
+
+.alert-validate::after {
+    content: "\f06a";
+    font-family: FontAwesome;
+    display: block;
+    position: absolute;
+    color: #c80000;
+    font-size: 15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 13px;
+}
+
+.alert-validate .input100:focus + .focus-input100 + .symbol-input100 {
+    color: #ba2323;
+    padding-left: 28px;
+}
+
+.alert-validate .focus-input100 {
+    color: rgb(186, 35, 35);
 }
