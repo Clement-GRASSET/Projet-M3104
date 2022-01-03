@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UtilisateurModel;
+use App\Controllers\Mailer;
 
 class Auth extends BaseController
 {
@@ -95,6 +96,9 @@ class Auth extends BaseController
             ];
             $utilisateurModel->insert($utilisateur);
             $this->session->user = $utilisateur["U_mail"];
+            require_once(APPPATH.'Controllers/Mailer.php');
+            $Message = new Mailer();
+            $Message->bienvenue("clement.grasset@etu.univ-amu.fr",'SuperFoutre3000');
             return redirect("/");
         } else {
             echo view('register.php', ['errors' => $this->validator->getErrors()]);
