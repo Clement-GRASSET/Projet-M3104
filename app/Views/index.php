@@ -76,7 +76,7 @@
         foreach ($annonces as $annonce) {
             echo '<div class="box">
             <div class="image-container">
-                <img src="https://www.lepoint.fr/images/2015/03/28/3143741-675779-jpg_2791013_600x314.jpg" alt="">
+                <img src="' . '/images/homes/' . ((empty($annonce['A_photos'])) ? 'default.png' : $annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom']) . '" alt="">
                 ';
             if ($isLoggedIn) {
                 if ($annonce['A_proprietaire'] == $user['U_mail']) {
@@ -86,7 +86,7 @@
 
                 echo '
                 <div class="icons">
-                    <a href="#" class="fas fa-camera"><h3>4</h3></a>
+                    <a href="#" class="fas fa-camera"><h3>'. sizeof($annonce['A_photos']) .'</h3></a>
                 </div>
             </div>
             <div class="content">
