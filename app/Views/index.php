@@ -1,8 +1,3 @@
-<?php
-
-use App\Controllers\Mailer;
-
-?>
 <?= view('templates/html_navbar.php') ?>
 
 
