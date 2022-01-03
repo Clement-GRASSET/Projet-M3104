@@ -17,8 +17,11 @@ class Home extends BaseController
             ->findAll(6);
 
         $data = [
-            'annonces' => $annonces
+            'annonces' => []
         ];
+        foreach ($annonces as $annonce) {
+            $data['annonces'][] = $annonceModel->addData($annonce);
+        }
         $data = array_merge($data, $this->userInfo);
         echo view('index.php', $data);
     }
@@ -44,10 +47,13 @@ class Home extends BaseController
             ->findAll(15, $offset);
 
         $data = [
-            'annonces'=>$annonces,
+            'annonces'=>[],
             'numPage'=>$numPage,
             'nbPages'=>$nbPages,
         ];
+        foreach ($annonces as $annonce) {
+            $data['annonces'][] = $annonceModel->addData($annonce);
+        }
         $data = array_merge($data, $this->userInfo);
         echo view('homes.php', $data);
     }

@@ -7,6 +7,7 @@ use App\Models\AnnonceModel;
 use App\Models\DiscussionModel;
 use App\Models\EnergieModel;
 use App\Models\MessageModel;
+use App\Models\PhotoModel;
 use App\Models\TypeMaisonModel;
 use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -241,10 +242,40 @@ class Account extends BaseController
         $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
         if (!isset($annonce))
             throw PageNotFoundException::forPageNotFound();
-        $data = [
-            'annonce' => $annonce,
-        ];
-        echo view('account/home', $data);
+
+        if ($this->request->getPost('add_image') && $this->validate([
+            'titre' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Vous devez renseigner le titre de l\'image',
+                ]
+            ],
+            'image' => [
+                'rules' => 'uploaded[image]|is_image[image]',
+                'errors' => [
+                    'uploaded' => 'Vous devez sélectionner une image',
+                    'is_image' => 'Le fichier choisi n\'est pas une image'
+                ]
+            ]
+        ])) {
+            $image = $this->request->getFile('image');
+            if ($image->isValid() && !$image->hasMoved()) {
+                $photoModel = new PhotoModel();
+                $photo = [
+                    'P_titre' => $this->request->getPost('titre'),
+                    'P_nom' => $image->getRandomName(),
+                    'P_idannonce' => $id,
+                ];
+                $photoModel->insert($photo);
+                $image->move('images/homes/'.$id.'/', $photo['P_nom']);
+            }
+            return redirect()->to('/account/homes/'.$id);
+        }
+
+        echo view('account/home', [
+            'annonce' => $annonceModel->addData($annonce),
+            'errors' => new ValidationErrors((isset($this->validator)) ? $this->validator->getErrors() : [])
+        ]);
     }
 
     public function edit_home($id)
@@ -379,5 +410,30 @@ class Account extends BaseController
         } else {
             echo view('account/delete');
         }
+    }
+
+    public function delete_photo($idannonce, $idphoto)
+    {
+        $photoModel = new PhotoModel();
+        $photo = $photoModel->where(['P_idannonce'=>$idannonce, 'P_id_photo'=>$idphoto])->first();
+        if (!isset($photo))
+            throw PageNotFoundException::forPageNotFound();
+
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->where(['A_idannonce'=>$idannonce, 'A_proprietaire'=>$this->session->user])->first();
+        if (!isset($annonce))
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                unlink('./images/homes/'.$idannonce.'/'.$photo['P_nom']);
+                $photoModel->delete($idphoto);
+                return redirect()->to('/account/homes/'.$idannonce);
+            } else {
+                return redirect()->to('/account/homes/'.$idannonce.'/delete_photo/'.$idphoto);
+            }
+        }
+
+        echo view('account/delete_photo', []);
     }
 }

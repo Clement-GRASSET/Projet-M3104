@@ -65,6 +65,11 @@
     margin-bottom: 20px;
 }
 
+.dashbaord .content p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .dashbaord .content .link {
     width: 100%;
     display: block;
@@ -150,4 +155,46 @@
     color: red;
     font-size: 14px;
     margin-bottom: 10px;
+}
+
+.dashbaord .content .photos {
+    display: flex;
+    height: 300px;
+    width: 100%;
+    overflow: auto;
+}
+
+.dashbaord .content .photos .photo {
+    height: 100%;
+    padding: 10px;
+    margin: 0 10px;
+    background: rgb(238, 238, 238);
+    border-radius: 5px;
+}
+
+.dashbaord .content .photos .photo .title {
+    padding: 5px;
+    width: 100%;
+    display: flex;
+}
+
+.dashbaord .content .photos .photo .title p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0  10px 0 0;
+}
+
+.dashbaord .content .photos .photo img {
+    height: 90%;
+    border-radius: 5px;
+}
+
+.dashbaord .content table {
+    margin: 20px 0 30px 0;
+    padding: 0;
+}
+
+.dashbaord .content table td {
+    padding: 0 50px 10px 0;
 }

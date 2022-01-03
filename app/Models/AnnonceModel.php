@@ -24,4 +24,20 @@ class AnnonceModel extends Model
         'A_type_maison',
         'A_id_engie'
     ];
+
+    public function addData($annonce) : array
+    {
+        $energieModel = new EnergieModel();
+        $photoModel = new PhotoModel();
+        $typeMaisonModel = new TypeMaisonModel();
+
+        if (!empty($annonce['A_id_engie']))
+            $annonce['A_energie'] = $energieModel->find($annonce['A_id_engie'])['E_description'];
+
+        $annonce['A_typeMaison'] = $typeMaisonModel->find($annonce['A_type_maison'])['T_description'];
+
+        $annonce['A_photos'] = $photoModel->where(['P_idannonce'=>$annonce['A_idannonce']])->findAll();
+
+        return $annonce;
+    }
 }
