@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AnnonceModel;
 use App\Models\DiscussionModel;
+use App\Models\PhotoModel;
 use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RequestInterface;
@@ -242,6 +243,26 @@ class Admin extends Account
         }
 
         echo view('admin/delete_discussion', []);
+    }
+
+    public function delete_photo($idannonce, $idphoto)
+    {
+        $photoModel = new PhotoModel();
+        $photo = $photoModel->where(['P_idannonce'=>$idannonce, 'P_id_photo'=>$idphoto])->first();
+        if (!isset($photo))
+            throw PageNotFoundException::forPageNotFound();
+
+        if ($this->request->getMethod() === 'post') {
+            if (!empty($this->request->getPost('confirm'))) {
+                unlink('./images/homes/'.$idannonce.'/'.$photo['P_nom']);
+                $photoModel->delete($idphoto);
+                return redirect()->to('/admin/homes/'.$idannonce);
+            } else {
+                return redirect()->to('/admin/homes/'.$idannonce.'/delete_photo/'.$idphoto);
+            }
+        }
+
+        echo view('admin/delete_photo', []);
     }
 
 }

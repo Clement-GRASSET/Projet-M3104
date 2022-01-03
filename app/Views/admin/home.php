@@ -73,17 +73,19 @@ echo "<a class='button' href='" . base_url('/admin/homes/'.$annonce['A_idannonce
 
 ?>
 
+<h2>Photos</h2>
+
 <?php
 
-if (!empty($annonce['A_photos'])) {
-
-    echo '<h2>Photos</h2>';
+if (empty($annonce['A_photos'])) {
+    echo "<p>Aucune photo</p>";
+} else {
     echo '<div class="photos">';
     foreach ($annonce['A_photos'] as $photo) {
         echo "<div class='photo'>
             <div class='title'>
                 <p>" . $photo['P_titre'] . "</p>
-                <a href='" . base_url('/account/homes/'.$annonce['A_idannonce'].'/delete_photo/'.$photo['P_id_photo']) . "'>Supprimer</a>
+                <a href='" . base_url('/admin/homes/'.$annonce['A_idannonce'].'/delete_photo/'.$photo['P_id_photo']) . "'>Supprimer</a>
             </div>
             <img alt='' src='" . base_url('/images/homes/'.$annonce['A_idannonce'].'/'.$photo['P_nom']) ."'/>
             </div>";

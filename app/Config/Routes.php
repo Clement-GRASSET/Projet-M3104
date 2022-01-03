@@ -76,6 +76,8 @@ $routes->post('/admin/users/(:any)/unblock', 'Admin::user_unblock/$1');
 $routes->get('/admin/users/(:any)', 'Admin::user/$1');
 $routes->post('/admin/users/(:any)', 'Admin::user/$1');
 $routes->get('/admin/homes', 'Admin::homes');
+$routes->get('/admin/homes/(:any)/delete_photo/(:any)', 'Admin::delete_photo/$1/$2');
+$routes->post('/admin/homes/(:any)/delete_photo/(:any)', 'Admin::delete_photo/$1/$2');
 $routes->get('/admin/homes/(:any)/messages/(:any)', 'Admin::delete_discussion/$1/$2');
 $routes->post('/admin/homes/(:any)/messages/(:any)', 'Admin::delete_discussion/$1/$2');
 $routes->get('/admin/homes/(:any)/block', 'Admin::block_home/$1');
