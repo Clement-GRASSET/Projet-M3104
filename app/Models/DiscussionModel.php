@@ -8,7 +8,7 @@ class DiscussionModel extends Model
 {
     protected $table = 'T_discussion';
     protected $primaryKey = 'D_iddiscussion';
-    protected $useAutoIncrement = false;
+    protected $useAutoIncrement = true;
     protected $allowedFields = [
         'D_idannonce',
         'D_utilisateur',

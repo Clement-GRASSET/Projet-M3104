@@ -159,7 +159,7 @@ class Admin extends Account
         if ($annonce['A_etat'] !== 'publiée' && $annonce['A_etat'] !== 'archivée' && $annonce['A_etat'] !== 'bloquée')
             throw PageNotFoundException::forPageNotFound();
 
-        echo view('admin/home', ['annonce' => $annonce, 'discussions'=>$discussions]);
+        echo view('admin/home', ['annonce' => $annonceModel->addData($annonce), 'discussions'=>$discussions]);
     }
 
     public function block_home($id)
