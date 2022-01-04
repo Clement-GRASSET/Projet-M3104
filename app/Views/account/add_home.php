@@ -1,5 +1,6 @@
 <?php
 echo view('templates/html_open', ['styles'=>['dashboard.css']]);
+echo view('templates/html_navbar');
 $links = [
     ['url' => '/account/messages', 'name' => 'Messagerie'],
     ['url' => '/account/homes', 'name' => 'Mes annonces'],
@@ -71,9 +72,17 @@ echo view('templates/dashboard_open', ['links' => $links, 'type' => $type]);
         ?>
     </select><br/>
     <?= $errors->html('typeEnergie') ?>
+    <h2>Ajouter une photo</h2>
 
-    <input class="button" type="submit" value="Enregistrer">
-
+    <form action="" method="post" enctype="multipart/form-data">
+        <label for="titre">Titre de l'image</label><br/>
+        <input type="text" name="titre" id="titre"/><br/>
+        <?= $errors->html('titre') ?>
+        <label for="image">Ajouter une photo</label><br/>
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg"/><br/>
+        <?= $errors->html('image') ?>
+        <input class="button" type="submit" name="add_image" value="Ajouter">
+    </form>
 </form>
 
 <script>
