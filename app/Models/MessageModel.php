@@ -12,25 +12,25 @@ class MessageModel extends Model
     protected $allowedFields = [
         'M_envoyeur',
         'M_texte_message',
-        'M_idannonce',
-        'M_utilisateur'
+        'M_iddiscussion'
     ];
 
-    public function insert($data = null, bool $returnID = true)
+    public function newMessage($message, $idannonce, $utilisateur)
     {
         $discussionModel = new DiscussionModel();
-        $discussion = $discussionModel->where(['D_idannonce'=>$data['M_idannonce'], 'D_utilisateur'=>$data['M_utilisateur']])->first();
+        $discussion = $discussionModel->where(['D_idannonce'=>$idannonce, 'D_utilisateur'=>$utilisateur])->first();
         if (empty($discussion)) {
             $discussion_data = [
-                'D_idannonce' => $data['M_idannonce'],
-                'D_utilisateur' => $data['M_utilisateur'],
+                'D_idannonce' => $idannonce,
+                'D_utilisateur' => $utilisateur,
                 'D_non_lu_proprietaire' => false,
                 'D_non_lu_utilisateur' => false
             ];
             $discussionModel->insert($discussion_data);
+            $discussion = $discussionModel->where(['D_idannonce'=>$idannonce, 'D_utilisateur'=>$utilisateur])->first();
         }
-        $discussion = $discussionModel->where(['D_idannonce'=>$data['M_idannonce'], 'D_utilisateur'=>$data['M_utilisateur']])->first();
-        $discussionModel->update($discussion['D_iddiscussion'], ($data['M_envoyeur'] === $discussion['D_utilisateur']) ? ['D_non_lu_proprietaire'=>true] : ['D_non_lu_utilisateur'=>true]);
-        return parent::insert($data, $returnID);
+        $discussionModel->update($discussion['D_iddiscussion'], ($message['M_envoyeur'] === $discussion['D_utilisateur']) ? ['D_non_lu_proprietaire'=>true] : ['D_non_lu_utilisateur'=>true]);
+        $message['M_iddiscussion'] = $discussion['D_iddiscussion'];
+        $this->insert($message);
     }
 }

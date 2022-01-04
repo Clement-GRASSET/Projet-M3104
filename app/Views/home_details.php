@@ -7,7 +7,7 @@
 
     <?php
     if ($isLoggedIn) {
-        if ($annonce['A_proprietaire']['U_mail'] === $user['U_mail']) {
+        if ($annonce['A_proprietaire']['U_mail'] === $loggedUser['U_mail']) {
     ?>
             <p>Vous visualisez une de vos annonces</p>
             <a class="btn" href="<?= base_url('account/homes/'.$annonce['A_idannonce']) ?>">Voir l'annonce dans mon espace personnel</a>

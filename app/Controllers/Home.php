@@ -88,10 +88,8 @@ class Home extends BaseController
             $message = [
                 'M_envoyeur' => $this->session->user,
                 'M_texte_message' => $this->request->getPost('message'),
-                'M_idannonce' => $id,
-                'M_utilisateur' => $this->session->user
             ];
-            $messageModel->insert($message);
+            $messageModel->newMessage($message, $id, $this->session->user);
             return redirect()->to('/homes/'.$id);
         } else {
             $data = ['annonce'=>$annonce];

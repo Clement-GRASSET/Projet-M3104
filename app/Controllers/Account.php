@@ -150,6 +150,9 @@ class Account extends BaseController
         $messageModel = new MessageModel();
 
         $discussion = $discussionModel->find($id);
+        if (!isset($discussion))
+            throw PageNotFoundException::forPageNotFound();
+
         $annonce = $annonceModel->find($discussion['D_idannonce']);
 
         // Test du droit d'acces aux messages
@@ -174,10 +177,8 @@ class Account extends BaseController
                 $message = [
                     'M_envoyeur' => $this->session->user,
                     'M_texte_message' => $this->request->getPost('message'),
-                    'M_idannonce' => $discussion['D_idannonce'],
-                    'M_utilisateur' => $discussion['D_utilisateur']
                 ];
-                $messageModel->insert($message);
+                $messageModel->newMessage($message, $discussion['D_idannonce'], $discussion['D_utilisateur']);
             }
             return redirect()->back();
         }
@@ -187,7 +188,7 @@ class Account extends BaseController
         $destinataire = $utilisateurModel->find( ($estProprietaire) ? $discussion['D_utilisateur'] : $annonce['A_proprietaire'] );
 
 
-        $messages = $messageModel->where(['M_idannonce'=>$discussion['D_idannonce'], 'M_utilisateur'=>$discussion['D_utilisateur']])->findAll();
+        $messages = $messageModel->where(['M_iddiscussion'=>$discussion['D_iddiscussion']])->findAll();
 
         $this->showView('account/discussion', [
             'annonce' => $annonce,
