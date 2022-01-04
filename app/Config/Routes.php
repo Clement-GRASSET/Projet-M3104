@@ -43,6 +43,7 @@ $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::register_post');
 $routes->get('/logout', 'Auth::logout');
 
+$routes->get('/account', 'Account::index');
 $routes->get('/account/messages', 'Account::messages');
 $routes->get('/account/messages/(:any)', 'Account::discussion/$1');
 $routes->post('/account/messages/(:any)', 'Account::discussion/$1');
@@ -66,6 +67,7 @@ $routes->post('/account/settings', 'Account::settings');
 $routes->get('/account/settings/delete', 'Account::delete');
 $routes->post('/account/settings/delete', 'Account::delete');
 
+$routes->get('/admin', 'Admin::index');
 $routes->get('/admin/users', 'Admin::users');
 $routes->get('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
 $routes->get('/admin/users/(:any)/delete', 'Admin::user_delete/$1');

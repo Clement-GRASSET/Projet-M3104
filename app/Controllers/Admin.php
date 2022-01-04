@@ -71,6 +71,10 @@ class Admin extends Account
         echo "Mail : " . $mail;
     }
 
+    public function index(){
+        return redirect()->to("/admin/users");
+    }
+
     public function user_delete($mail)
     {
         if ($mail === $this->session->user)

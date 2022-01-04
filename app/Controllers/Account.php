@@ -101,6 +101,10 @@ class Account extends BaseController
         }
     }
 
+    public function index(){
+        return redirect()->to("/account/messages");
+    }
+
     public function messages()
     {
         $discussionModel = new DiscussionModel();

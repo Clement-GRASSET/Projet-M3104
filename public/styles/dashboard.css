@@ -20,6 +20,7 @@
     background: linear-gradient(to bottom right, rgb(49, 49, 49), rgb(49, 49, 49));
     padding: 20px 0;
     padding-left: .9rem;
+
 }
 .dashbaord .links .title{
     text-align: center;
@@ -43,12 +44,15 @@
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
     border-radius: 5rem 0rem 0rem 5rem;
-    margin-right: ;
+
     text-decoration: none;
     display: block;
     transition-duration: 200ms;
 }
-
+#bottom {
+    background-color: rgb(162, 40, 40);
+    color: white;
+}
 .dashbaord .links .link.active {
     background-color: rgba(255, 255, 255, 0.25);
 }
