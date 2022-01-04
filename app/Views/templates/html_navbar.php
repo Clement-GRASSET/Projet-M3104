@@ -11,10 +11,10 @@
         <div id="menu-bars" class="fas fa-bars"></div>
         <?php
         if ($isLoggedIn){
-            echo'<a href="'.base_url("/account/homes").'"><i class="fas fa-user"></i> '.$user['U_pseudo'].'</a>';
+            echo'<a href="'.base_url("/account").'"><i class="fas fa-user"></i> '.$user['U_pseudo'].'</a>';
 
             if ($user['U_admin']){
-                echo'<a href="'.base_url("/admin/users").'"><i class="fas fa-tools"></i> Admin</a>';
+                echo'<a href="'.base_url("/admin").'"><i class="fas fa-tools"></i> Admin</a>';
             }
 
             echo'<a href="'.base_url("/logout").'"><i class="fas fa-sign-out-alt"></i></a>';
