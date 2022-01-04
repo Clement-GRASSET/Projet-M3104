@@ -5,7 +5,8 @@ $links = [
     ['url' => '/account/homes', 'name' => 'Mes annonces'],
     ['url' => '/account/settings', 'name' => 'Paramètres du compte'],
 ];
-echo view('templates/dashboard_open', ['links' => $links]);
+$type = 'Mon Compte';
+echo view('templates/dashboard_open', ['links' => $links, 'type' => $type]);
 ?>
 
     <h1>Archiver <?= $annonce['A_titre'] ?></h1>

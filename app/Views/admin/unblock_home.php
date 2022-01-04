@@ -4,7 +4,8 @@ $links = [
     ['url' => '/admin/users', 'name' => 'Utilisateurs'],
     ['url' => '/admin/homes', 'name' => 'Annonces'],
 ];
-echo view('templates/dashboard_open', ['links' => $links]);
+$type = 'Admin Panel';
+echo view('templates/dashboard_open', ['links' => $links, 'type' => $type]);
 ?>
 
 <h1>Débloquer <?= $annonce['A_titre'] ?></h1>
