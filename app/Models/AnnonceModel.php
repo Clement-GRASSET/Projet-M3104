@@ -30,6 +30,7 @@ class AnnonceModel extends Model
         $energieModel = new EnergieModel();
         $photoModel = new PhotoModel();
         $typeMaisonModel = new TypeMaisonModel();
+        $utilisateurModel = new UtilisateurModel();
 
         if (!empty($annonce['A_id_engie']))
             $annonce['A_energie'] = $energieModel->find($annonce['A_id_engie'])['E_description'];
@@ -37,6 +38,8 @@ class AnnonceModel extends Model
         $annonce['A_typeMaison'] = $typeMaisonModel->find($annonce['A_type_maison'])['T_description'];
 
         $annonce['A_photos'] = $photoModel->where(['P_idannonce'=>$annonce['A_idannonce']])->findAll();
+
+        $annonce['A_proprietaire'] = $utilisateurModel->where(['U_mail'=>$annonce['A_proprietaire']])->first();
 
         return $annonce;
     }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AnnonceModel;
 use App\Models\MessageModel;
+use App\Models\PhotoModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Home extends BaseController
@@ -61,11 +62,11 @@ class Home extends BaseController
     public function home_details($id)
     {
         $annonceModel = new AnnonceModel();
-        $annonce = $annonceModel->find($id);
+        $annonce = $annonceModel->where(['A_etat'=>'publiée'])->find($id);
         if (!isset($annonce)) {
             throw PageNotFoundException::forPageNotFound();
         }
-        $data = ['annonce'=>$annonce];
+        $data = ['annonce'=>$annonceModel->addData($annonce)];
         $data = array_merge($data, $this->userInfo);
         echo view('home_details.php', $data);
     }
@@ -73,7 +74,7 @@ class Home extends BaseController
     public function home_contact($id)
     {
         $annonceModel = new AnnonceModel();
-        $annonce = $annonceModel->find($id);
+        $annonce = $annonceModel->where(['A_etat'=>'publiée'])->find($id);
         if (!isset($annonce) || !isset($this->session->user)) {
             throw PageNotFoundException::forPageNotFound();
         }
@@ -97,5 +98,27 @@ class Home extends BaseController
             $data = array_merge($data, $this->userInfo);
             echo view('home_contact.php', $data);
         }
+    }
+
+    public function home_photo($idannonce)
+    {
+        $annonceModel = new AnnonceModel();
+        $annonce = $annonceModel->where(['A_etat'=>'publiée'])->find($idannonce);
+        if (!isset($annonce) || !isset($this->session->user))
+            throw PageNotFoundException::forPageNotFound();
+
+        $idphoto = $this->request->getGet('id');
+        $photoModel = new PhotoModel();
+        $photo = $photoModel->where(['P_idannonce'=>$idannonce, 'P_id_photo'=>$idphoto])->first();
+        if (!isset($photo))
+            throw PageNotFoundException::forPageNotFound();
+
+        $photos = $photoModel->where(['P_idannonce'=>$idannonce])->findAll();
+
+        $data = ['photo'=>$photo, 'photos'=>$photos, 'annonce'=>$annonce];
+        $data = array_merge($data, $this->userInfo);
+
+        echo view('home_photo', $data);
+
     }
 }

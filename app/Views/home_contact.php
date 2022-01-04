@@ -1,12 +1,16 @@
-<?= view('templates/html_open.php') ?>
+<?= view('templates/html_open', ['styles'=>['homes.css'], 'fontAwesome'=>true]) ?>
+<?= view('templates/html_navbar.php') ?>
 
-<h1>Envoyer un message</h1>
+<div class="content">
 
-<form action="" method="post">
+    <h1>Envoyer un message</h1>
 
-    <textarea name="message"></textarea>
-    <input type="submit" value="Envoyer">
+    <form action="" method="post" class="contact-form">
 
-</form>
+        <textarea name="message"></textarea>
+        <input type="submit" value="Envoyer">
+
+    </form>
 
 <?= view('templates/html_close.php') ?>
+

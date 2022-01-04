@@ -35,6 +35,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/homes', 'Home::homes');
 $routes->get('/homes/(:any)/contact', 'Home::home_contact/$1');
 $routes->post('/homes/(:any)/contact', 'Home::home_contact/$1');
+$routes->get('/homes/(:any)/photo', 'Home::home_photo/$1');
 $routes->get('/homes/(:any)', 'Home::home_details/$1');
 $routes->get('/login', 'Auth::login');
 $routes->post('/login', 'Auth::login_post');
