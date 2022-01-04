@@ -12,15 +12,19 @@ echo view('templates/dashboard_open');
 
     <label for="email">Adresse email</label><br/>
     <input type="email" id="email" name="email" value="<?=$user['U_mail']?>" disabled><br/>
+    <?= $errors->html('email') ?>
 
     <label for="pseudo">Pseudo</label><br/>
     <input type="text" id="pseudo" name="pseudo" value="<?=$user['U_pseudo']?>"><br/>
+    <?= $errors->html('pseudo') ?>
 
     <label for="nom">Nom</label><br/>
     <input type="text" id="nom" name="nom" value="<?=$user['U_nom']?>"><br/>
+    <?= $errors->html('nom') ?>
 
     <label for="prenom">Prénom</label><br/>
     <input type="text" id="prenom" name="prenom" value="<?=$user['U_prenom']?>"><br/>
+    <?= $errors->html('prenom') ?>
 
     <input type="submit" value="Modifier" class="button" name="update">
 
@@ -30,14 +34,13 @@ echo view('templates/dashboard_open');
 
 <form action="" method="post">
 
-    <label for="password_old">Ancien mot de passe</label><br/>
-    <input type="password" id="password_old" name="password_old"><br/>
-
     <label for="password_new1">Nouveau mot de passe</label><br/>
     <input type="password" id="password_new1" name="password_new1"><br/>
+    <?= $errors->html('password_new1') ?>
 
     <label for="password_new2">Confirmer le nouveau mot de passe</label><br/>
     <input type="password" id="password_new2" name="password_new2"><br/>
+    <?= $errors->html('password_new2') ?>
 
     <input type="submit" value="Modifier" class="button" name="update_password">
 

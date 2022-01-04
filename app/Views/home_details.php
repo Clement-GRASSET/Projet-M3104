@@ -84,8 +84,13 @@
         </tr>
     </table>
 
-    <br/>
-    <a class="btn" href="<?= base_url("/homes/" . $annonce['A_idannonce'] . "/contact") ?>">Contacter le propriétaire</a>
+    <?php
+    if ($isLoggedIn && $annonce['A_proprietaire']['U_mail'] !== $loggedUser['U_mail']) {
+        ?>
+        <a class="btn" href="<?= base_url("/homes/" . $annonce['A_idannonce'] . "/contact") ?>">Contacter le propriétaire</a>
+        <?php
+    }
+    ?>
 
 </div>
 

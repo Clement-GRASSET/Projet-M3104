@@ -75,7 +75,7 @@ class Home extends BaseController
     {
         $annonceModel = new AnnonceModel();
         $annonce = $annonceModel->where(['A_etat'=>'publiée'])->find($id);
-        if (!isset($annonce) || !isset($this->session->user)) {
+        if (!isset($annonce) || !isset($this->session->user) || $annonce['A_proprietaire'] === $this->session->user) {
             throw PageNotFoundException::forPageNotFound();
         }
         $valitation = $this->validate([

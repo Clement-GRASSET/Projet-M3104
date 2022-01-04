@@ -379,8 +379,29 @@ class Account extends BaseController
 
     public function settings() {
         $utilisateurModel = new UtilisateurModel();
+        $mail = $this->session->user;
+
+        if ($this->request->getPost('update') && $this->validate([
+            'pseudo' => 'required',
+            'nom' => 'required',
+            'prenom' => 'required',
+        ])) {
+            $utilisateurModel->update($mail, [
+                'U_pseudo'=>$this->request->getPost('pseudo'),
+                'U_nom'=>$this->request->getPost('nom'),
+                'U_prenom'=>$this->request->getPost('prenom'),
+            ]);
+        }
+
+        if ($this->request->getPost('update_password') && $this->validate([
+                'password_new1' => 'required',
+                'password_new2' => 'required|matches[password_new1]',
+            ])) {
+            $utilisateurModel->update($mail, ['U_mdp'=>hash('sha256', $this->request->getPost('password_new2'))]);
+        }
+
         $user = $utilisateurModel->find($this->session->user);
-        $this->showView('account/settings', ["user"=>$user]);
+        $this->showView('account/settings', ["user" => $user, "errors" => new ValidationErrors( (isset($this->validator)) ? $this->validator->getErrors() : [] )]);
     }
 
     public function delete() {
