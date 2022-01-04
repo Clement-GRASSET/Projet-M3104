@@ -1,6 +1,6 @@
 <?php
 echo view('templates/html_open', ['styles'=>['dashboard.css']]);
-$links = [
+echo view('templates/html_navbar'); = [
     ['url' => '/account/messages', 'name' => 'Messagerie'],
     ['url' => '/account/homes', 'name' => 'Mes annonces'],
     ['url' => '/account/settings', 'name' => 'Paramètres du compte'],

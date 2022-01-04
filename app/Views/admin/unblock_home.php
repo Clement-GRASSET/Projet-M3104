@@ -1,5 +1,6 @@
 <?php
 echo view('templates/html_open', ['styles'=>['dashboard.css']]);
+echo view('templates/html_navbar');
 $links = [
     ['url' => '/admin/users', 'name' => 'Utilisateurs'],
     ['url' => '/admin/homes', 'name' => 'Annonces'],
