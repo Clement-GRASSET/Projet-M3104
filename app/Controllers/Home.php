@@ -24,7 +24,7 @@ class Home extends BaseController
             $data['annonces'][] = $annonceModel->addData($annonce);
         }
         $data = array_merge($data, $this->userInfo);
-        echo view('index.php', $data);
+        $this->showView('index.php', $data);
     }
 
     public function homes()
@@ -56,7 +56,7 @@ class Home extends BaseController
             $data['annonces'][] = $annonceModel->addData($annonce);
         }
         $data = array_merge($data, $this->userInfo);
-        echo view('homes.php', $data);
+        $this->showView('homes.php', $data);
     }
 
     public function home_details($id)
@@ -68,7 +68,7 @@ class Home extends BaseController
         }
         $data = ['annonce'=>$annonceModel->addData($annonce)];
         $data = array_merge($data, $this->userInfo);
-        echo view('home_details.php', $data);
+        $this->showView('home_details.php', $data);
     }
 
     public function home_contact($id)
@@ -96,7 +96,7 @@ class Home extends BaseController
         } else {
             $data = ['annonce'=>$annonce];
             $data = array_merge($data, $this->userInfo);
-            echo view('home_contact.php', $data);
+            $this->showView('home_contact.php', $data);
         }
     }
 
@@ -118,7 +118,7 @@ class Home extends BaseController
         $data = ['photo'=>$photo, 'photos'=>$photos, 'annonce'=>$annonce];
         $data = array_merge($data, $this->userInfo);
 
-        echo view('home_photo', $data);
+        $this->showView('home_photo', $data);
 
     }
 }

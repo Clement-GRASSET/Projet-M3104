@@ -5,6 +5,15 @@
 
     <h1><?= $annonce['A_titre'] ?> - Photos</h1>
 
-    <img src='<?= base_url('/images/homes/'.$annonce['A_idannonce'].'/'.$photo['P_nom']) ?>'>
+    <div class="photos">
+        <img src='<?= base_url('/images/homes/'.$annonce['A_idannonce'].'/'.$photo['P_nom']) ?>'>
+        <div class="selector">
+            <?php foreach ($photos as $p) { ?>
+            <a href="<?= base_url('/homes/'.$annonce['A_idannonce'].'/photo?id='.$p['P_id_photo']) ?>">
+                <img alt="Photo" src="<?= base_url('/images/homes/'.$annonce['A_idannonce'].'/'.$p['P_nom']) ?>">
+            </a>
+            <?php } ?>
+        </div>
+    </div>
 
     <?= view('templates/html_close.php') ?>

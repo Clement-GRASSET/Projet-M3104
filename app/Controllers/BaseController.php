@@ -63,4 +63,10 @@ class BaseController extends Controller
             $this->userInfo['user'] = $user;
         }
     }
+
+    protected function showView(string $name, array $data = [], array $options = [])
+    {
+        $data = array_merge($data, $this->userInfo);
+        echo view($name, $data, $options);
+    }
 }
