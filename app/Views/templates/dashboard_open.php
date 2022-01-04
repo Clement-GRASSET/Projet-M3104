@@ -11,7 +11,6 @@
                 echo '<a class="link ' . (($active) ? 'active' : '') . '" href="' . base_url($link['url']) . '">' . $link['name'] . '</a>';
 
             }
-            echo '<a class="link" href="" id="bottom"><i class="fas fa-sign-out-alt"></i>Deconnexion</a>';
             ?>
 
         </div>
