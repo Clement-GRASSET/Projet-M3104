@@ -83,7 +83,7 @@
 
         <div class="box">
             <img src="<?= base_url("/images/s-1.png") ?>" alt="">
-            <h3>Louez votre Maison</h3>
+            <h3>Louez votre maison</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
             <a href="
             <?php
@@ -98,14 +98,14 @@
 
         <div class="box">
             <img src="<?= base_url("/images/s-3.png") ?>" alt="">
-            <h3>Découvrez la Maison Idéale</h3>
+            <h3>Découvrez la maison idéale</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
             <a href="<?= base_url("/homes") ?>" class="btn">Rechercher des maintenant</a>
         </div>
 
         <div class="box">
             <img src="<?= base_url("/images/s-3.png") ?>" alt="">
-            <h3>rencontrez vos futurs Locataires</h3>
+            <h3>Rencontrez vos futurs Locataires</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
             <a href="
             <?php

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
+:root{
+    --color: #c558bd;
+    --light-red:#f9edeb;
+}
+
 * {
     font-family: 'Nunito', sans-serif;
     margin:0; padding:0;
@@ -40,27 +45,6 @@ a {
 
 a:hover {
     color: rgb(0, 157, 255);
-}
-
-header {
-    margin: 0;
-    padding: 50px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-header p {
-    margin: 0;
-}
-
-header p.connect-btn a {
-    background: linear-gradient(to bottom right, #00a3e8, #00ffd9);
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    padding: 15px 25px;
-    border-radius: 8px;
-    box-shadow: rgba(0, 208, 255, 0.5) 0 0 50px;
 }
 
 .Absolute-Center {

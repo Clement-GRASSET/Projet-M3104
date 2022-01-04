@@ -1,15 +1,18 @@
-<?= view('templates/html_open.php') ?>
+<?= view('templates/html_open', ['styles'=>[''], 'fontAwesome'=>true]) ?>
+<?= view('templates/html_navbar.php') ?>
 
-<?php var_dump($annonce); ?>
 
-<p><a href="<?= base_url("/homes/" . $annonce['A_idannonce'] . "/contact") ?>">Contacter le propriétaire</a></p>
+<br/><br/><br/><br/><br/><br/><br/>
 
-<div id="map"></div>
+<div>
 
-<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&v=weekly"
-        async
-></script>
+    <?php var_dump($annonce); ?>
+
+    <br/><br/>
+    <p><a href="<?= base_url("/homes/" . $annonce['A_idannonce'] . "/contact") ?>">Contacter le propriétaire</a></p>
+
+</div>
+
+
 
 <?= view('templates/html_close.php') ?>
