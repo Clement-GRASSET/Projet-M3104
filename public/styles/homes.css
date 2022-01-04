@@ -22,20 +22,36 @@ p {
     margin-bottom: 5px;
 }
 
-.photos {
+.photo, .photos {
     background: black;
-}
-
-.photos a {
     display: block;
 }
 
-.photos a img {
+.photo img {
     display: block;
-    width: auto;
-    max-width: 100%;
+    width: 100%;
     height: 600px;
     margin: auto;
+    object-position: center;
+    object-fit: contain;
+}
+
+.photos img {
+    display: block;
+    width: 100%;
+    height: 70vh;
+    margin: auto;
+    object-position: center;
+    object-fit: contain;
+}
+
+.photos .selector {
+    display: flex;
+    gap: 10px;
+}
+
+.photos .selector img {
+    height: 100px;
 }
 
 .btn {
@@ -63,6 +79,8 @@ p {
 .annonce .photo {
     width: 400px;
     flex-shrink: 0;
+    object-fit: cover;
+    object-position: center;
 }
 
 .annonce .infos {

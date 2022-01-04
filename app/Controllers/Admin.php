@@ -29,7 +29,7 @@ class Admin extends Account
     {
         $utilisateurModel = new UtilisateurModel();
         $utilisateurs = $utilisateurModel->findAll();
-        echo view('admin/users.php', ['users' => $utilisateurs]);
+        $this->showView('admin/users.php', ['users' => $utilisateurs]);
     }
 
     public function user($mail)
@@ -63,7 +63,7 @@ class Admin extends Account
         if (empty($utilisateur)) {
             throw PageNotFoundException::forPageNotFound();
         }
-        echo view('admin/user', ['user' => $utilisateur, 'me' => $mail===$this->session->user]);
+        $this->showView('admin/user', ['user' => $utilisateur, 'me' => $mail===$this->session->user]);
     }
 
     public function user_mail($mail)
@@ -94,7 +94,7 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/delete_user', ['user'=>$utilisateur]);
+        $this->showView('admin/delete_user', ['user'=>$utilisateur]);
     }
 
     public function user_block($mail)
@@ -117,7 +117,7 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/block_user', ['user'=>$utilisateur]);
+        $this->showView('admin/block_user', ['user'=>$utilisateur]);
     }
 
     public function user_unblock($mail)
@@ -140,13 +140,13 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/unblock_user', ['user'=>$utilisateur]);
+        $this->showView('admin/unblock_user', ['user'=>$utilisateur]);
     }
 
     public function homes()
     {
         $annonceModel = new AnnonceModel();
-        echo view('admin/homes.php', [
+        $this->showView('admin/homes.php', [
             'annonces_publiées' => $annonceModel->where(['A_etat'=>'publiée'])->findAll(),
             'annonces_bloquées' => $annonceModel->where(['A_etat'=>'bloquée'])->findAll(),
             'annonces_archivées' => $annonceModel->where(['A_etat'=>'archivée'])->findAll()
@@ -164,7 +164,7 @@ class Admin extends Account
         if ($annonce['A_etat'] !== 'publiée' && $annonce['A_etat'] !== 'archivée' && $annonce['A_etat'] !== 'bloquée')
             throw PageNotFoundException::forPageNotFound();
 
-        echo view('admin/home', ['annonce' => $annonceModel->addData($annonce), 'discussions'=>$discussions]);
+        $this->showView('admin/home', ['annonce' => $annonceModel->addData($annonce), 'discussions'=>$discussions]);
     }
 
     public function block_home($id)
@@ -185,7 +185,7 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/block_home', ['annonce' => $annonce]);
+        $this->showView('admin/block_home', ['annonce' => $annonce]);
     }
 
     public function unblock_home($id)
@@ -206,7 +206,7 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/unblock_home', ['annonce' => $annonce]);
+        $this->showView('admin/unblock_home', ['annonce' => $annonce]);
     }
 
     public function delete_home($id)
@@ -227,7 +227,7 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/delete_home', ['annonce' => $annonce]);
+        $this->showView('admin/delete_home', ['annonce' => $annonce]);
     }
 
     public function delete_discussion($id, $mail)
@@ -246,7 +246,7 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/delete_discussion', []);
+        $this->showView('admin/delete_discussion', []);
     }
 
     public function delete_photo($idannonce, $idphoto)
@@ -266,7 +266,7 @@ class Admin extends Account
             }
         }
 
-        echo view('admin/delete_photo', []);
+        $this->showView('admin/delete_photo', []);
     }
 
 }

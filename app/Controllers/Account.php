@@ -140,7 +140,7 @@ class Account extends BaseController
                 'non_lu' => ($discussion['D_utilisateur'] === $this->session->user) ? $discussion['D_non_lu_utilisateur'] : $discussion['D_non_lu_proprietaire'],
             ];
         }
-        echo view('account/messages', ['discussions' => $data]);
+        $this->showView('account/messages', ['discussions' => $data]);
     }
 
     public function discussion($id)
@@ -189,7 +189,7 @@ class Account extends BaseController
 
         $messages = $messageModel->where(['M_idannonce'=>$discussion['D_idannonce'], 'M_utilisateur'=>$discussion['D_utilisateur']])->findAll();
 
-        echo view('account/discussion', [
+        $this->showView('account/discussion', [
             'annonce' => $annonce,
             'emetteur' => $emetteur,
             'destinataire' => $destinataire,
@@ -201,7 +201,7 @@ class Account extends BaseController
     {
         $annonceModel = new AnnonceModel();
         $annonces = $annonceModel->where(['A_proprietaire'=>$this->session->user])->findAll();
-        echo view('account/homes', ['annonces' => $annonces]);
+        $this->showView('account/homes', ['annonces' => $annonces]);
     }
 
     public function add_home()
@@ -236,7 +236,7 @@ class Account extends BaseController
                 'energies' => $energies,
                 'typesMaison' => $typesMaison,
             ];
-            echo view('account/add_home', $data);
+            $this->showView('account/add_home', $data);
         }
     }
 
@@ -276,7 +276,7 @@ class Account extends BaseController
             return redirect()->to('/account/homes/'.$id);
         }
 
-        echo view('account/home', [
+        $this->showView('account/home', [
             'annonce' => $annonceModel->addData($annonce),
             'errors' => new ValidationErrors((isset($this->validator)) ? $this->validator->getErrors() : [])
         ]);
@@ -320,7 +320,7 @@ class Account extends BaseController
             'typesMaison' => $typesMaison,
             'annonce' => $annonce,
         ];
-        echo view('account/edit_home', $data);
+        $this->showView('account/edit_home', $data);
     }
 
     public function delete_home($id)
@@ -341,7 +341,7 @@ class Account extends BaseController
             }
         }
 
-        echo view('account/delete_home', ['annonce'=>$annonce]);
+        $this->showView('account/delete_home', ['annonce'=>$annonce]);
     }
 
     public function publish_home($id)
@@ -362,7 +362,7 @@ class Account extends BaseController
             }
         }
 
-        echo view('account/publish_home', ['annonce'=>$annonce]);
+        $this->showView('account/publish_home', ['annonce'=>$annonce]);
     }
 
     public function archive_home($id)
@@ -383,13 +383,13 @@ class Account extends BaseController
             }
         }
 
-        echo view('account/archive_home', ['annonce'=>$annonce]);
+        $this->showView('account/archive_home', ['annonce'=>$annonce]);
     }
 
     public function settings() {
         $utilisateurModel = new UtilisateurModel();
         $user = $utilisateurModel->find($this->session->user);
-        echo view('account/settings', ["user"=>$user]);
+        $this->showView('account/settings', ["user"=>$user]);
     }
 
     public function delete() {
@@ -409,10 +409,10 @@ class Account extends BaseController
                 $utilisateurModel->delete($this->session->user);
                 return redirect()->to("/logout");
             } else {
-                echo view('account/delete');
+                $this->showView('account/delete');
             }
         } else {
-            echo view('account/delete');
+            $this->showView('account/delete');
         }
     }
 
@@ -438,6 +438,6 @@ class Account extends BaseController
             }
         }
 
-        echo view('account/delete_photo', []);
+        $this->showView('account/delete_photo', []);
     }
 }

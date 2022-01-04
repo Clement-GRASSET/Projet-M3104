@@ -9,7 +9,7 @@ class Auth extends BaseController
 {
     public function login()
     {
-        echo view('login.php', ['errors' => []]);
+        $this->showView('login.php', ['errors' => []]);
     }
 
     public function login_post() {
@@ -34,12 +34,12 @@ class Auth extends BaseController
             $this->session->user = $this->request->getPost("email");
             return redirect()->to("/");
         } else {
-            echo view('login.php', ['errors' => $this->validator->getErrors()]);
+            $this->showView('login.php', ['errors' => $this->validator->getErrors()]);
         }
     }
 
     public function register() {
-        echo view('register.php', ['errors' => []]);
+        $this->showView('register.php', ['errors' => []]);
     }
 
     public function register_post() {
@@ -101,7 +101,7 @@ class Auth extends BaseController
             $Message->bienvenue($utilisateur['U_mail'],$utilisateur['U_pseudo']);
             return redirect("/");
         } else {
-            echo view('register.php', ['errors' => $this->validator->getErrors()]);
+            $this->showView('register.php', ['errors' => $this->validator->getErrors()]);
         }
     }
 

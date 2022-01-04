@@ -17,14 +17,9 @@
     ?>
 
     <h2>Photos</h2>
-    <div class="photos">
-        <a <?= (empty($annonce['A_photos'])) ? '' : 'href="'.base_url('/homes/'.$annonce['A_idannonce'].'/photo?id='.$annonce['A_photos'][0]['P_id_photo']).'"' ?>>
-            <img src="<?= (empty($annonce['A_photos']) ? base_url('/images/homes/default.png') : base_url('/images/homes/'.$annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom'])) ?>" alt="Photo">
-        </a>
-        <div class="selector">
-
-        </div>
-    </div>
+    <a class="photo" <?= (empty($annonce['A_photos'])) ? '' : 'href="'.base_url('/homes/'.$annonce['A_idannonce'].'/photo?id='.$annonce['A_photos'][0]['P_id_photo']).'"' ?>>
+        <img src="<?= (empty($annonce['A_photos']) ? base_url('/images/homes/default.png') : base_url('/images/homes/'.$annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom'])) ?>" alt="Photo">
+    </a>
 
     <h2>Détails</h2>
 
