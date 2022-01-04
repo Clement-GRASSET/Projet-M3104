@@ -11,22 +11,21 @@
 
     <div class="icons">
         <div id="menu-bars" class="fas fa-bars"></div>
-        <a href="#" class="fas fa-heart"></a>
         <?php
         if ($isLoggedIn){
-            echo'<a href="'.base_url("/account/homes").'" class="fas fa-user"> '.$user['U_pseudo'].'</a>';
-            echo'<a href="'.base_url("/logout").'" class="fas fa-sign-out-alt"></a>';
+            echo'<a href="'.base_url("/account/homes").'"><i class="fas fa-user"></i> '.$user['U_pseudo'].'</a>';
 
             if ($user['U_admin']){
-                echo'<a href="'.base_url("/admin/users").'" class="fas fa-tools"> Admin</a>';
+                echo'<a href="'.base_url("/admin/users").'"><i class="fas fa-tools"></i> Admin</a>';
             }
+
+            echo'<a href="'.base_url("/logout").'"><i class="fas fa-sign-out-alt"></i></a>';
         }
         else{
-            echo'<a href="'.base_url("/login").'" class="fas fa-user"> Invité</a>';
+            echo'<a href="'.base_url("/login").'"><i class="fas fa-user"></i> Invité</a>';
         }
         ?>
 
     </div>
-
 
 </header>

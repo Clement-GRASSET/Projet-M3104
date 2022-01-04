@@ -15,6 +15,7 @@
 
     <link rel="stylesheet" href=<?= base_url("/styles/normalize.css") ?>>
     <link rel="stylesheet" href=<?= base_url("/styles/styles.css") ?>>
+    <link rel="stylesheet" href=<?= base_url("/styles/header.css") ?>>
     <?php
     if(isset($styles))
     {
