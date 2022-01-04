@@ -82,7 +82,7 @@
     <div class="box-container">
 
         <div class="box">
-            <img src="ressources/images/s-1.png" alt="">
+            <img src="<?= base_url("/images/s-1.png") ?>" alt="">
             <h3>Louez votre Maison</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
             <a href="
@@ -97,14 +97,14 @@
         </div>
 
         <div class="box">
-            <img src="ressources/images/s-2.png" alt="">
+            <img src="<?= base_url("/images/s-3.png") ?>" alt="">
             <h3>Découvrez la Maison Idéale</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
             <a href="<?= base_url("/homes") ?>" class="btn">Rechercher des maintenant</a>
         </div>
 
         <div class="box">
-            <img src="ressources/images/s-3.png" alt="">
+            <img src="<?= base_url("/images/s-3.png") ?>" alt="">
             <h3>rencontrez vos futurs Locataires</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
             <a href="
@@ -130,19 +130,15 @@
 
             <div class="box">
                 <h3>Liens rapides</h3>
-                <a href="#">Accueil</a>
-                <a href="#">Carte</a>
+                <a href="<?= base_url("/") ?>">Accueil</a>
                 <a href="<?= base_url("/homes") ?>">Liste des logements</a>
-                <a href="#">XXX</a>
-                <a href="#">Contact</a>
             </div>
 
             <div class="box">
                 <h3>Mon Profil</h3>
-                <a href="#">mon compte</a>
-                <a href="#">mes favoris</a>
-                <a href="#">mes annonces</a>
-                <a href="#">ma messagerie</a>
+                <a href="<?= base_url("/account/messages") ?>">Ma messagerie</a>
+                <a href="<?= base_url("/account/homes") ?>">Mes annonces</a>
+                <a href="<?= base_url("/account/settings") ?>">Mon compte</a>
             </div>
 
             <div class="box">
@@ -150,7 +146,6 @@
                 <a href="https://github.com/">GitHub de Deleuil.M</a>
                 <a href="https://github.com/">GitHub de Grasset.C</a>
                 <a href="https://github.com/">GitHub du Projet</a>
-                <a href="https://nekos.life/lewd">👀</a>
             </div>
 
         </div>

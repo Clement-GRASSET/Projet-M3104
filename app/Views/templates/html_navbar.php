@@ -1,12 +1,10 @@
 <header>
 
-    <a href="#" class="logo">Li <span>Logement</span></a>
+    <a href="<?= base_url("/") ?>" class="logo">Li <span>Logement</span></a>
 
     <nav class="navbar">
-        <a href="#home">Accueil</a>
-        <a href="#services">Carte</a>
-        <a href="#featured">Liste des Logements</a>
-        <a href="#contact">contact</a>
+        <a href="<?= base_url("/") ?>">Accueil</a>
+        <a href="<?= base_url("/homes") ?>">Liste des Logements</a>
     </nav>
 
     <div class="icons">
