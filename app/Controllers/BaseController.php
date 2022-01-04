@@ -55,13 +55,20 @@ class BaseController extends Controller
         // E.g.: $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();
 
-        $isLoggedIn = isset($this->session->user);
-        $this->userInfo['isLoggedIn'] = $isLoggedIn;
-        if ($isLoggedIn) {
+        $isLoggedIn = false;
+        if (isset($this->session->user)) {
             $utilisateurModel = new UtilisateurModel();
             $user = $utilisateurModel->find($this->session->user);
-            $this->userInfo['loggedUser'] = $user;
+            if (isset($user)) {
+                $isLoggedIn = true;
+            } else {
+                $this->session->remove('user');
+            }
+            if ($isLoggedIn) {
+                $this->userInfo['loggedUser'] = $user;
+            }
         }
+        $this->userInfo['isLoggedIn'] = $isLoggedIn;
     }
 
     protected function showView(string $name, array $data = [], array $options = [])
@@ -78,8 +85,12 @@ class BaseController extends Controller
         $email->setSubject($subject);
         $email->setMessage($content);//your message here
 
-        $email->send();
-        $email->printDebugger(['headers']);
+        if (!$email->send()) {
+            $data = $email->printDebugger(['headers']);
+            //print_r($data);
+            //phpinfo();
+            //exit();
+        }
     }
 
 }

@@ -102,7 +102,7 @@ class Home extends BaseController
     {
         $annonceModel = new AnnonceModel();
         $annonce = $annonceModel->where(['A_etat'=>'publiée'])->find($idannonce);
-        if (!isset($annonce) || !isset($this->session->user))
+        if (!isset($annonce))
             throw PageNotFoundException::forPageNotFound();
 
         $idphoto = $this->request->getGet('id');

@@ -94,9 +94,9 @@ class Auth extends BaseController
                 "U_prenom" => $this->request->getPost("prenom"),
                 "U_admin" => "false"
             ];
+            $this->sendMail($utilisateur['U_mail'],"Bienvenue sur Li Logement", view("mails/mail_welcome", ['pseudo' =>$utilisateur['U_pseudo']]));
             $utilisateurModel->insert($utilisateur);
             $this->session->user = $utilisateur["U_mail"];
-            $this->sendMail($utilisateur['U_mail'],"Bienvenue sur Li Logement", view("mails/mail_welcome", ['pseudo' =>$utilisateur['U_pseudo']]));
             return redirect("/");
         } else {
             $this->showView('register.php', ['errors' => $this->validator->getErrors()]);

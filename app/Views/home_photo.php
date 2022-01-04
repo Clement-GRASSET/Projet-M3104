@@ -5,6 +5,8 @@
 
     <h1><?= $annonce['A_titre'] ?> - Photos</h1>
 
+    <h2><?= $photo['P_titre'] ?></h2>
+
     <div class="photos">
         <img src='<?= base_url('/images/homes/'.$annonce['A_idannonce'].'/'.$photo['P_nom']) ?>'>
         <div class="selector">

@@ -90,18 +90,8 @@ class Account extends BaseController
         ],
     ];
 
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    public function index()
     {
-        parent::initController($request, $response, $logger);
-
-        if (!isset($this->session->user)) {
-            $response->redirect("/login");
-            $response->send();
-            exit();
-        }
-    }
-
-    public function index(){
         return redirect()->to("/account/messages");
     }
 
