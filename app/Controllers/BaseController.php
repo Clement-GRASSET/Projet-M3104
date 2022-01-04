@@ -69,4 +69,17 @@ class BaseController extends Controller
         $data = array_merge($data, $this->userInfo);
         echo view($name, $data, $options);
     }
+
+    protected function sendMail(string $address, string $subject, string $content)
+    {
+        $email = \Config\Services::email();
+        $email->setFrom('li.logement.fr@gmail.com', 'Li Logement');
+        $email->setTo($address);
+        $email->setSubject($subject);
+        $email->setMessage($content);//your message here
+
+        $email->send();
+        $email->printDebugger(['headers']);
+    }
+
 }
