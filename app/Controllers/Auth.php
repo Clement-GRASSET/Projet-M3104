@@ -96,9 +96,7 @@ class Auth extends BaseController
             ];
             $utilisateurModel->insert($utilisateur);
             $this->session->user = $utilisateur["U_mail"];
-            require_once(APPPATH.'Controllers/Mailer.php');
-            $Message = new Mailer();
-            $Message->bienvenue($utilisateur['U_mail'],$utilisateur['U_pseudo']);
+            $this->sendMail($utilisateur['U_mail'],"Bienvenue sur Li Logement", view("mails/mail_welcome", ['pseudo' =>$utilisateur['U_pseudo']]));
             return redirect("/");
         } else {
             $this->showView('register.php', ['errors' => $this->validator->getErrors()]);
