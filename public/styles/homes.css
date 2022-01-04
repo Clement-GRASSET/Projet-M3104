@@ -44,9 +44,102 @@ p {
     background-color: #e5e5e5;
 }
 
+.annonce {
+    margin: 20px 0;
+    height: 320px;
+    background: #ffffff;
+    color: black;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 0 20px;
+    transition-duration: 200ms;
+    display: flex;
+    overflow: hidden;
+}
+
+.annonce:hover {
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px;
+}
+
+.annonce .photo {
+    width: 400px;
+    flex-shrink: 0;
+}
+
+.annonce .infos {
+    padding: 50px;
+    display: flex;
+    gap: 50px;
+}
+
+.annonce .infos div {
+    flex-shrink: 1;
+}
+
+.annonce .infos div:nth-of-type(1) {
+    width: 20vw;
+}
+
+.annonce .infos h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.annonce .infos h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.annonce .infos table {
+    margin: 10px 0 20px 0;
+}
+
+.annonce .infos table td {
+    width: 150px;
+    padding: 0 0 2px 0;
+}
+
 .contact-form {
     width: 1000px;
     max-width: 100%;
+}
+
+.pages p {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.page-list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.page-list a {
+    padding: 10px;
+    background-color: #e1e1e1;
+    color: black;
+    border-radius: 5px;
+    width: 40px;
+    text-align: center;
+    transition-duration: 200ms;
+}
+
+.page-list a:hover {
+    filter: brightness(0.9);
+}
+
+.page-list a:active {
+    filter: brightness(0.8);
+}
+
+.page-list a.active {
+    background-color: var(--color);
+    color: white;
 }
 
 .contact-form textarea {
