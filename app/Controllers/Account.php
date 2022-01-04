@@ -441,4 +441,17 @@ class Account extends BaseController
 
         $this->showView('account/delete_photo', []);
     }
+
+    protected function showView(string $name, array $data = [], array $options = [])
+    {
+        $links = [
+            ['url' => '/account/messages', 'name' => 'Messagerie'],
+            ['url' => '/account/homes', 'name' => 'Mes annonces'],
+            ['url' => '/account/settings', 'name' => 'Paramètres du compte'],
+        ];
+        $type = 'Mon Compte';
+        $data = array_merge($data, ['links'=>$links, 'type'=>$type]);
+        parent::showView($name, $data, $options);
+    }
+
 }
