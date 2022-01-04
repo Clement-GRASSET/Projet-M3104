@@ -11,12 +11,18 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-class Admin extends Account
+class Admin extends BaseController
 {
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
+
+        if (!isset($this->session->user)) {
+            $response->redirect("/login");
+            $response->send();
+            exit();
+        }
 
         $utilisateurModel = new UtilisateurModel();
         $utilisateur = $utilisateurModel->find($this->session->user);
@@ -267,6 +273,17 @@ class Admin extends Account
         }
 
         $this->showView('admin/delete_photo', []);
+    }
+
+    protected function showView(string $name, array $data = [], array $options = [])
+    {
+        $links = [
+            ['url' => '/admin/users', 'name' => 'Utilisateurs'],
+            ['url' => '/admin/homes', 'name' => 'Annonces'],
+        ];
+        $type = 'Administration';
+        $data = array_merge($data, ['links'=>$links, 'type'=>$type]);
+        parent::showView($name, $data, $options);
     }
 
 }

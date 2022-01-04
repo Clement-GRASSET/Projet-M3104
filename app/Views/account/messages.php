@@ -1,13 +1,7 @@
 <?php
 echo view('templates/html_open', ['styles'=>['dashboard.css']]);
 echo view('templates/html_navbar');
-$links = [
-    ['url' => '/account/messages', 'name' => 'Messagerie'],
-    ['url' => '/account/homes', 'name' => 'Mes annonces'],
-    ['url' => '/account/settings', 'name' => 'Paramètres du compte'],
-];
-$type = 'Mon Compte';
-echo view('templates/dashboard_open', ['links' => $links, 'type' => $type]);
+echo view('templates/dashboard_open');
 ?>
 
 <h1>Ici c'est li messagerie</h1>

@@ -40,7 +40,7 @@
                     <img src="<?= '/images/homes/' . ((empty($annonce['A_photos'])) ? 'default.png' : $annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom']) ?>" alt="">
 
                     <?php if ($isLoggedIn) {
-                        if ($annonce['A_proprietaire'] == $user['U_mail']) {
+                        if ($annonce['A_proprietaire'] == $loggedUser['U_mail']) {
                             echo '<div class="info"><h3>Votre annonce</h3></div>';
                         }
                     } ?>

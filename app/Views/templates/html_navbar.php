@@ -11,9 +11,9 @@
         <div id="menu-bars" class="fas fa-bars"></div>
         <?php
         if ($isLoggedIn){
-            echo'<a href="'.base_url("/account").'"><i class="fas fa-user"></i> '.$user['U_pseudo'].'</a>';
+            echo'<a href="'.base_url("/account").'"><i class="fas fa-user"></i> '.$loggedUser['U_pseudo'].'</a>';
 
-            if ($user['U_admin']){
+            if ($loggedUser['U_admin']){
                 echo'<a href="'.base_url("/admin").'"><i class="fas fa-tools"></i> Admin</a>';
             }
 

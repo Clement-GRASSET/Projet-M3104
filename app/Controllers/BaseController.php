@@ -60,7 +60,7 @@ class BaseController extends Controller
         if ($isLoggedIn) {
             $utilisateurModel = new UtilisateurModel();
             $user = $utilisateurModel->find($this->session->user);
-            $this->userInfo['user'] = $user;
+            $this->userInfo['loggedUser'] = $user;
         }
     }
 

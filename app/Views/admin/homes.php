@@ -1,12 +1,7 @@
 <?php
 echo view('templates/html_open', ['styles'=>['dashboard.css']]);
 echo view('templates/html_navbar');
-$links = [
-    ['url' => '/admin/users', 'name' => 'Utilisateurs'],
-    ['url' => '/admin/homes', 'name' => 'Annonces'],
-];
-$type = 'Admin Panel';
-echo view('templates/dashboard_open', ['links' => $links, 'type' => $type]);
+echo view('templates/dashboard_open');
 ?>
 
 <h1>Li maisons</h1>
