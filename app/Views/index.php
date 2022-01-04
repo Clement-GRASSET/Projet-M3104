@@ -1,5 +1,5 @@
+<?= view('templates/html_open', ['styles'=>['accueil.css'], 'fontAwesome'=>true]) ?>
 <?= view('templates/html_navbar.php') ?>
-
 
 <section class="home" id="home">
 
@@ -22,6 +22,8 @@
 
     </form>
 
+
+
 </section>
 
 <section class="featured" id="featured">
@@ -32,45 +34,42 @@
 
         <?php
         foreach ($annonces as $annonce) {
-            echo '<div class="box">
-            <div class="image-container">
-                <img src="' . '/images/homes/' . ((empty($annonce['A_photos'])) ? 'default.png' : $annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom']) . '" alt="">
-                ';
-            if ($isLoggedIn) {
-                if ($annonce['A_proprietaire'] == $user['U_mail']) {
-                    echo '<div class="info"><h3>Votre annonce</h3></div>';
-                }
-            }
+            ?>
+            <div class="box">
+                <div class="image-container">
+                    <img src="<?= '/images/homes/' . ((empty($annonce['A_photos'])) ? 'default.png' : $annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom']) ?>" alt="">
 
-                echo '
-                <div class="icons">
-                    <a href="#" class="fas fa-camera"><h3>'. sizeof($annonce['A_photos']) .'</h3></a>
+                    <?php if ($isLoggedIn) {
+                        if ($annonce['A_proprietaire'] == $user['U_mail']) {
+                            echo '<div class="info"><h3>Votre annonce</h3></div>';
+                        }
+                    } ?>
+
+                    <div class="icons">
+                        <div class="icon fas fa-camera">
+                            <p><?= sizeof($annonce['A_photos']) ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="price">
+                        <h3><?= ($annonce['A_cout_loyer']+$annonce['A_cout_charges']) ?>€ par mois</h3>
+                    </div>
+                    <div class="location">
+                        <h3><?= $annonce['A_titre'] ?></h3>
+                        <p><?= $annonce['A_description'] ?></p>
+                    </div>
+                    <div class="details">
+                        <h3><i class="fas fa-expand"></i> <?= $annonce['A_superficie'] ?> m² </h3>
+                        <h3><i class="fas fa-money-bill-wave"></i> <?= $annonce['A_typeMaison'] ?></h3>
+                    </div>
+                    <div class="buttons">
+                        <a href="<?= base_url("/homes/".$annonce['A_idannonce']."/") ?>" class="btn">Voir l'annonce</a>
+                        <a href="<?= base_url("/homes/".$annonce['A_idannonce']."/contact") ?>" class="btn">Contacter le propriétaire</a>
+                    </div>
                 </div>
             </div>
-            <div class="content">
-                <div class="price">
-                    <h3>'.($annonce['A_cout_loyer']+$annonce['A_cout_charges']).'€ par mois TCC</h3>
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="location">
-                    <h3>'.$annonce['A_titre'].'</h3>
-                    <p>'.$annonce['A_description'].'</p>
-                </div>
-                <div class="details">
-                    <h3> <i class="fas fa-expand"></i> '.$annonce['A_superficie'].' m² </h3>
-                    <h3> <i class="fas fa-money-bill-wave"></i> '.
-                    $annonce['A_cout_charges'].'€ de charges</h3>
-                </div>
-                <div class="buttons">
-                    <a href="'.
-                base_url("/homes/".$annonce['A_idannonce']."/contact").
-                '" class="btn">Contacter le Propriétaire</a>
-                    <a href="'.
-                base_url("/homes/".$annonce['A_idannonce']."/").
-                '" class="btn">Voir l\'annonce</a>
-                </div>
-            </div>
-        </div>';
+            <?php
         }
         ?>
     </div>
