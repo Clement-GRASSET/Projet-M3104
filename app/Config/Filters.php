@@ -3,6 +3,8 @@
 namespace Config;
 
 use App\Filters\Admin;
+use App\Filters\Config;
+use App\Filters\DatabaseCheck;
 use App\Filters\Login;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -18,11 +20,13 @@ class Filters extends BaseConfig
      * @var array
      */
     public $aliases = [
-        'csrf'     => CSRF::class,
-        'toolbar'  => DebugToolbar::class,
-        'honeypot' => Honeypot::class,
-        'login'    => Login::class,
-        'admin'    => Admin::class,
+        'csrf'          => CSRF::class,
+        'toolbar'       => DebugToolbar::class,
+        'honeypot'      => Honeypot::class,
+        'login'         => Login::class,
+        'admin'         => Admin::class,
+        'config'        => Config::class,
+        'databaseCheck' => DatabaseCheck::class,
     ];
 
     /**
