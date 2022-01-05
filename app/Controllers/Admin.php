@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Classes\ValidationErrors;
 use App\Models\AnnonceModel;
 use App\Models\DiscussionModel;
 use App\Models\PhotoModel;
@@ -58,7 +59,31 @@ class Admin extends BaseController
 
     public function user_mail($mail)
     {
-        echo "Mail : " . $mail;
+        $utilisateurModel = new UtilisateurModel();
+        $utilisateur = $utilisateurModel->find($mail);
+        if (empty($utilisateur)) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
+        if ($this->request->getPost('message_send') && $this->validate([
+            'subject' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Vous devez renseigner un objet',
+                ]
+            ],
+            'message' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Vous devez saisir un message',
+                ]
+            ]
+        ])) {
+            //$this->sendMail($mail, $this->request->getPost('subject'), view('', ['message'=>$this->request->getPost('message')]));
+            return redirect()->to('/admin/users/'.$mail);
+        }
+
+        $this->showView('admin/contact_user', ['user' => $utilisateur, 'errors' => new ValidationErrors((isset($this->validator) ? $this->validator->getErrors() : []))]);
     }
 
     public function index(){

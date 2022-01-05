@@ -82,6 +82,7 @@ $routes->group('', ['filter'=>'databaseCheck'], function ($routes) {
             $routes->get('/admin', 'Admin::index');
             $routes->get('/admin/users', 'Admin::users');
             $routes->get('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
+            $routes->post('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
             $routes->get('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
             $routes->post('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
             $routes->get('/admin/users/(:any)/block', 'Admin::user_block/$1');

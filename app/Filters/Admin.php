@@ -13,6 +13,9 @@ class Admin implements FilterInterface {
     public function before(RequestInterface $request, $arguments = null)
     {
         $session = \Config\Services::session();
+        if (!isset($session->user))
+            throw PageNotFoundException::forPageNotFound();
+
         $utilisateurModel = new UtilisateurModel();
         $utilisateur = $utilisateurModel->find($session->user);
 
