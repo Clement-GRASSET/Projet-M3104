@@ -58,6 +58,7 @@ class Admin extends BaseController
 
     public function user_mail($mail)
     {
+        return redirect()->to("/admin/mail");
         echo "Mail : " . $mail;
     }
 

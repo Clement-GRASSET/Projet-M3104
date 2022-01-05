@@ -89,7 +89,7 @@ h2,h3{
     background-color: #525252;
 }
 
-main #textarea{
+#textarea{
     border:solid 4px #9053c7;
     background-color: transparent;
     resize:none;
@@ -100,7 +100,7 @@ main #textarea{
     padding:20px;
     font-size:13px;
 }
-main #textarea::placeholder{
+#textarea::placeholder{
     color: #313131;
 }
 main button{
