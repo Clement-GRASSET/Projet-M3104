@@ -8,7 +8,7 @@ use App\Classes\ValidationErrors;
     <div class="container">
         <div class="wrap">
             <div class="pic p-t-120">
-                <img src="https://media.discordapp.net/attachments/912817562306359356/912821861644107826/nazi_gay.png" alt="Logo">
+                <img src="<?= base_url('/images/logo.png') ?>" alt="Logo">
             </div>
 
             <form class="form" action="" method="post">

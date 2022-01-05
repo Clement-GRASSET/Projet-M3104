@@ -3,19 +3,11 @@
 
 <section class="home" id="home">
 
-    <form action="">
+    <form action="<?= base_url('/homes') ?>" method="get">
 
         <h3>Découvez votre Maison Parfaite</h3>
         <div class="inputBox">
-            <input type="search" name="" placeholder="Ville" id="">
-            <select name="" id="">
-                <option value="" disabled hidden selected>Type de logement</option>
-                <option value="Appartement">Appartement</option>
-                <option value="Maison">Maison</option>
-                <option value="Manoir">Manoir</option>
-                <option value="Poubelle">Poubelle</option>
-                <option value="Evan">Mere de Evan</option>
-            </select>
+            <input type="search" name="ville" placeholder="Ville" id="">
         </div>
 
         <input type="submit" value="Rechercher" class="btn">
@@ -37,7 +29,7 @@
             ?>
             <div class="box">
                 <div class="image-container">
-                    <img src="<?= '/images/homes/' . ((empty($annonce['A_photos'])) ? 'default.png' : $annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom']) ?>" alt="">
+                    <img src="<?= base_url('/images/homes/' . ((empty($annonce['A_photos'])) ? 'default.png' : $annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom'])) ?>" alt="">
 
                     <?php if ($isLoggedIn) {
                         if ($annonce['A_proprietaire']['U_mail'] === $loggedUser['U_mail']) {
