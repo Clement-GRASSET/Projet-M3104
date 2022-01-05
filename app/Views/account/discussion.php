@@ -5,7 +5,7 @@ echo view('templates/dashboard_open');
 ?>
 
 <h1>Discussion</h1>
-<h2>Chat avec 
+<h2>Chat avec
     <b><?= (($emetteur['U_mail'] === $loggedUser['U_mail']) ? $destinataire['U_pseudo'] : $emetteur['U_pseudo']) ?></b>
 </h2>
 <h2>Annonce : <?= $annonce['A_titre'] ?> (X messages)</h2>

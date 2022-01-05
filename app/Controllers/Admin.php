@@ -42,6 +42,9 @@ class Admin extends BaseController
                         'U_admin' => !empty($this->request->getPost('admin')) || $this->session->user === $mail,
                     ];
                     $utilisateurModel->update($mail, $user);
+                    $this->sendMail($mail,"Modification des informations de votre compte par un Administrateur",view("mails/mail_type", [
+                        'titre' =>"L'Administrateur a mis a jours les informations de votre compte",
+                        'soustitre'=>"Connectez vous pour plus d'informations"]));
                 }
             }
         }
@@ -49,6 +52,7 @@ class Admin extends BaseController
         if (empty($utilisateur)) {
             throw PageNotFoundException::forPageNotFound();
         }
+
         $this->showView('admin/user', ['user' => $utilisateur, 'me' => $mail===$this->session->user]);
     }
 
@@ -74,6 +78,11 @@ class Admin extends BaseController
         if ($this->request->getMethod() === 'post') {
             if (!empty($this->request->getPost('confirm'))) {
                 $utilisateurModel->delete($mail);
+                $this->sendMail($mail,"Suppression de votre compte par un Administrateur",view("mails/mail_type", [
+                                                    'titre' =>"L'Administrateur a supprimé votre compte",
+                                                    'soustitre'=>"Nous sommes navré de vous l'appremdre, mais l'Administrateur a prit la décision de supprimer votre compte.
+                                                    Cette décision est irrévocable. 
+                                                    Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/users/');
             } else {
                 return redirect()->to('/admin/users/'.$mail.'/delete');
@@ -97,6 +106,10 @@ class Admin extends BaseController
                 foreach ($annonces as $annonce) {
                     $annonceModel->update($annonce['A_idannonce'], ['A_etat'=>'bloquée']);
                 }
+                $this->sendMail($mail,"Blocage de vos annonces par un Administrateur",view("mails/mail_type", [
+                    'titre' =>"L'Administrateur a bloqué toute les annonces de votre compte",
+                    'soustitre'=>"Nous sommes navré de vous l'appremdre, mais l'Administrateur a prit la décision de bloquer les annonces de votre compte. 
+                                                    Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/users/'.$mail);
             } else {
                 return redirect()->to('/admin/users/'.$mail.'/block');
@@ -120,6 +133,10 @@ class Admin extends BaseController
                 foreach ($annonces as $annonce) {
                     $annonceModel->update($annonce['A_idannonce'], ['A_etat'=>'publiée']);
                 }
+                $this->sendMail($mail,"Déblocage de vos annonces par un Administrateur",view("mails/mail_type", [
+                    'titre' =>"L'Administrateur a levé le blocage de vos annonces",
+                    'soustitre'=>"Nous avons le plaisir de vous appremdre que l'Administrateur a prit la décision de lever le verrouillage de vos annonces.
+                                                    Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/users/'.$mail);
             } else {
                 return redirect()->to('/admin/users/'.$mail.'/unblock');
@@ -165,6 +182,10 @@ class Admin extends BaseController
         if ($this->request->getMethod() === 'post') {
             if (!empty($this->request->getPost('confirm'))) {
                 $annonceModel->update($id, ['A_etat'=>'bloquée']);
+                $this->sendMail($annonce['A_proprietaire'],"Blocage de votre annonce ".$annonce['A_titre']." par un Administrateur",view("mails/mail_type", [
+                    'titre' =>"L'Administrateur a bloqué une de vos annonces",
+                    'soustitre'=>"Nous sommes navré de vous l'appremdre, mais l'Administrateur a prit la décision de bloquer votre annonce nommé ".$annonce['A_titre'].".
+                                                    Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/homes/'.$id);
             } else {
                 return redirect()->to('/admin/homes/'.$id.'/block');
@@ -186,6 +207,10 @@ class Admin extends BaseController
         if ($this->request->getMethod() === 'post') {
             if (!empty($this->request->getPost('confirm'))) {
                 $annonceModel->update($id, ['A_etat'=>'publiée']);
+                $this->sendMail($annonce['A_proprietaire'],"Déblocage de votre annonce ".$annonce['A_titre']." par un Administrateur",view("mails/mail_type", [
+                    'titre' =>"L'Administrateur a levé le blocage de votre annonce",
+                    'soustitre'=>"Nous avons le plaisir de vous appremdre que l'Administrateur a prit la décision de lever le verrouillage de votre annonce ".$annonce['A_titre'].".
+                                                    Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/homes/'.$id);
             } else {
                 return redirect()->to('/admin/homes/'.$id.'/unblock');
@@ -207,6 +232,11 @@ class Admin extends BaseController
         if ($this->request->getMethod() === 'post') {
             if (!empty($this->request->getPost('confirm'))) {
                 $annonceModel->delete($id);
+                $this->sendMail($annonce['A_proprietaire'],"Suppression de votre annonce ".$annonce['A_titre']." par un Administrateur",view("mails/mail_type", [
+                    'titre' =>"L'Administrateur a supprimé une de vos annonces",
+                    'soustitre'=>"Nous sommes navré de vous l'appremdre, mais l'Administrateur a prit la décision de supprimer votre annonce nommé ".$annonce['A_titre'].".
+                                                    Cette action est irrévocable.
+                                                    Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/homes/');
             } else {
                 return redirect()->to('/admin/homes/'.$id.'/delete');
@@ -226,6 +256,11 @@ class Admin extends BaseController
         if ($this->request->getMethod() === 'post') {
             if (!empty($this->request->getPost('confirm'))) {
                 $discussionModel->delete(['D_idannonce'=>$id, 'D_utilisateur'=>$mail]);
+                $this->sendMail($annonce['A_proprietaire'],"Suppression des messages de votre annonce ".$annonce['A_titre']." par un Administrateur",view("mails/mail_type", [
+                    'titre' =>"L'Administrateur a supprimé les messafes d'une de vos annonces",
+                    'soustitre'=>"Nous sommes navré de vous l'appremdre, mais l'Administrateur a prit la décision de supprimer les messages de votre annonce nommé ".$annonce['A_titre'].".
+                                                    Cette action est irrévocable.
+                                                    Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/homes/'.$id);
             } else {
                 return redirect()->to('/admin/homes/'.$id.'/messages/'.$mail);
@@ -246,6 +281,7 @@ class Admin extends BaseController
             if (!empty($this->request->getPost('confirm'))) {
                 unlink('./images/homes/'.$idannonce.'/'.$photo['P_nom']);
                 $photoModel->delete($idphoto);
+
                 return redirect()->to('/admin/homes/'.$idannonce);
             } else {
                 return redirect()->to('/admin/homes/'.$idannonce.'/delete_photo/'.$idphoto);
