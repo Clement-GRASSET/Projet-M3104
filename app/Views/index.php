@@ -53,7 +53,7 @@
                     </div>
                     <div class="details">
                         <h3><i class="fas fa-expand"></i> <?= $annonce['A_superficie'] ?> m² </h3>
-                        <h3><i class="fas fa-money-bill-wave"></i> <?= $annonce['A_typeMaison'] ?></h3>
+                        <h3><i class="fas fa-home"></i> <?= $annonce['A_typeMaison'] ?></h3>
                     </div>
                     <div class="buttons">
                         <a href="<?= base_url("/homes/".$annonce['A_idannonce']."/") ?>" class="btn">Voir l'annonce</a>
@@ -78,7 +78,7 @@
         <div class="box">
             <img src="<?= base_url("/images/s-1.png") ?>" alt="">
             <h3>Louez votre maison</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
+            <p>Accédez à votre espace personnel pour utiliser tous les services du site.</p>
             <a href="
             <?php
             if ($isLoggedIn){
@@ -93,21 +93,21 @@
         <div class="box">
             <img src="<?= base_url("/images/s-3.png") ?>" alt="">
             <h3>Découvrez la maison idéale</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
+            <p>Découvrez toutes nos annonces.</p>
             <a href="<?= base_url("/homes") ?>" class="btn">Rechercher des maintenant</a>
         </div>
 
         <div class="box">
             <img src="<?= base_url("/images/s-3.png") ?>" alt="">
             <h3>Rencontrez vos futurs Locataires</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam distinctio ipsa ab cum error quas fuga ad? Perspiciatis, autem officiis?</p>
-            <a href="
+            <p>Utilisez la messagerie pour communiquer avec les annonceurs.</p>
+            <a href=
             <?php
                 if ($isLoggedIn){
-                    echo base_url("/account/messages").'" class="btn">Messagerie</a>';
+                    echo '"' .base_url("/account/messages").'" class="btn">Messagerie</a>';
                 }
                 else{
-                    echo base_url("/login").'" class="btn">Je me connecte</a>';
+                    echo '"' .base_url("/login").'" class="btn">Je me connecte</a>';
                 }
             ?>
         </div>
@@ -137,14 +137,14 @@
 
             <div class="box">
                 <h3>Suivez nous</h3>
-                <a href="https://github.com/">GitHub de Deleuil.M</a>
-                <a href="https://github.com/">GitHub de Grasset.C</a>
-                <a href="https://github.com/">GitHub du Projet</a>
+                <a href="https://github.com/MargameOff">GitHub de Deleuil.M</a>
+                <a href="https://github.com/Clement-GRASSET">GitHub de Grasset.C</a>
+                <a href="https://github.com/Clement-GRASSET/Projet-M3104">GitHub du Projet</a>
             </div>
 
         </div>
 
-        <div class="credit">Li Logement by <span>Li Suitche</span> & <span>Li ZiDraw++</span> | tout ratio contré ! </div>
+        <div class="credit">Li Logement By <span>Clément Grasset</span> & <span>Marius Deleuil</span> | Tout Ratio Contré ! </div>
 
     </div>
 
