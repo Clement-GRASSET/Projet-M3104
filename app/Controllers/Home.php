@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AnnonceModel;
+use App\Models\DiscussionModel;
 use App\Models\MessageModel;
 use App\Models\PhotoModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -90,7 +91,9 @@ class Home extends BaseController
                 'M_texte_message' => $this->request->getPost('message'),
             ];
             $messageModel->newMessage($message, $id, $this->session->user);
-            return redirect()->to('/homes/'.$id);
+            $discussionModel = new DiscussionModel();
+            $discussion = $discussionModel->where(['D_idannonce'=>$id, 'D_utilisateur'=> $this->session->user])->first();
+            return redirect()->to('/account/messages/'.$discussion['D_iddiscussion']);
         } else {
             $data = ['annonce'=>$annonce];
             $data = array_merge($data, $this->userInfo);
