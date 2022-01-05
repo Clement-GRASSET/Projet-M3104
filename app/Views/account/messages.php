@@ -8,8 +8,14 @@ echo view('templates/dashboard_open');
 
 <?php
 
-foreach ($discussions as $discussion) {
-    echo "<a class='link' href='" . $discussion['lien'] . "'>" . $discussion['nom'] . " " . $discussion['prenom'] . ", " . $discussion['annonce'] . (($discussion['non_lu']) ? ' (Non lu)' : '') . "</a>";
+foreach ($discussions as $annonces) {
+
+    echo "<h2>" . $annonces['annonce']['A_titre'] . "</h2>";
+
+    foreach ($annonces['discussions'] as $discussion) {
+        echo "<a class='link" . (($discussion['non_lu']) ? ' new-message' : '') . "' href='" . $discussion['lien'] . "'>" . $discussion['nom'] . " " . $discussion['prenom'] . "</a>";
+    }
+
 }
 
 ?>

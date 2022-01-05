@@ -101,35 +101,70 @@ class Account extends BaseController
         $annonceModel = new AnnonceModel();
         $utilisateurModel = new UtilisateurModel();
 
-        $discussions = $discussionModel->where(['D_utilisateur'=>$this->session->user])->findAll();
-        for ($i = 0; $i < sizeof($discussions); $i++) {
-            $proprietaire = $utilisateurModel->find($annonceModel->find($discussions[$i]['D_idannonce'])['A_proprietaire']);
-            $discussions[$i]['nom_destinataire'] = $proprietaire['U_nom'];
-            $discussions[$i]['prenom_destinataire'] = $proprietaire['U_prenom'];
+        $discussions = [];
+
+        $results = $discussionModel->where(['D_utilisateur'=>$this->session->user])->findAll();
+        for ($i = 0; $i < sizeof($results); $i++) {
+            $proprietaire = $utilisateurModel->find($annonceModel->find($results[$i]['D_idannonce'])['A_proprietaire']);
+            $results[$i]['nom_destinataire'] = $proprietaire['U_nom'];
+            $results[$i]['prenom_destinataire'] = $proprietaire['U_prenom'];
+
+            $id_annonce = $results[$i]['D_idannonce'];
+            $annonce = [
+                'annonce' => $id_annonce,
+                'discussions' => [$results[$i]],
+            ];
+            $discussions[] = $annonce;
+
         }
 
         $annonces = $annonceModel->where(['A_proprietaire'=>$this->session->user])->findAll();
         foreach ($annonces as $annonce) {
-            $discussion = $discussionModel->where(['D_idannonce'=>$annonce['A_idannonce']])->first();
-            if (!empty($discussion)) {
+            $result = $discussionModel->where(['D_idannonce'=>$annonce['A_idannonce']])->findAll();
+            foreach ($result as $discussion) {
                 $destinataire = $utilisateurModel->find($discussion['D_utilisateur']);
                 $discussion['nom_destinataire'] = $destinataire['U_nom'];
                 $discussion['prenom_destinataire'] = $destinataire['U_prenom'];
-                $discussions[] = $discussion;
+
+                $id_annonce = $discussion['D_idannonce'];
+                $data = [
+                    'annonce' => $id_annonce,
+                    'discussions' => [$discussion],
+                ];
+
+                $found = false;
+                for ($j = 0; $j < sizeof($discussions); $j++) {
+                    $d = $discussions[$j];
+
+                    if ($d["annonce"] === $id_annonce) {
+                        $discussions[$j]['discussions'][] = $data['discussions'][0];
+                        $found = true;
+                    }
+                }
+                if (!$found) {
+                    $discussions[] = $data;
+                }
             }
         }
 
         $data = array();
-        foreach ($discussions as $discussion) {
-            $annonce = $annonceModel->find($discussion['D_idannonce']);
-            $data[] = [
-                'nom' => $discussion['nom_destinataire'],
-                'prenom' => $discussion['prenom_destinataire'],
-                'annonce' => $annonce['A_titre'],
-                'lien' => base_url('/account/messages/'.$discussion['D_iddiscussion']),
-                'non_lu' => ($discussion['D_utilisateur'] === $this->session->user) ? $discussion['D_non_lu_utilisateur'] : $discussion['D_non_lu_proprietaire'],
+        foreach ($discussions as $a) {
+            $annonce = $annonceModel->find($a['annonce']);
+            $data2 = [
+                'annonce'=>$annonce,
+                'discussions'=>[],
             ];
+            foreach ($a['discussions'] as $discussion) {
+                $data2['discussions'][] = [
+                    'nom' => $discussion['nom_destinataire'],
+                    'prenom' => $discussion['prenom_destinataire'],
+                    'lien' => base_url('/account/messages/' . $discussion['D_iddiscussion']),
+                    'non_lu' => ($discussion['D_utilisateur'] === $this->session->user) ? $discussion['D_non_lu_utilisateur'] : $discussion['D_non_lu_proprietaire'],
+                ];
+            }
+            $data[] = $data2;
         }
+
         $this->showView('account/messages', ['discussions' => $data]);
     }
 
@@ -303,6 +338,7 @@ class Account extends BaseController
             ];
             $annonceModel->update($id, $annonce_data);
             $annonce = $annonceModel->where(['A_idannonce'=>$id, 'A_proprietaire'=>$this->session->user])->first();
+            return redirect()->to('/account/homes/'.$id);
         }
         $energieModel = new EnergieModel();
         $typeMaisonModel = new TypeMaisonModel();

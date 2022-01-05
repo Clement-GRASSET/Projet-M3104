@@ -79,6 +79,8 @@
 .dashbaord .content h2 {
     font-size: 25px;
     font-weight: lighter;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .dashbaord .content p {
@@ -204,4 +206,8 @@
 .dashbaord .content .photos .photo img {
     height: 90%;
     border-radius: 5px;
+}
+
+.dashbaord .content .new-message {
+    font-weight: bold;
 }
