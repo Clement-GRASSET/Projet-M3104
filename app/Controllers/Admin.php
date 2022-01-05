@@ -79,7 +79,8 @@ class Admin extends BaseController
                 ]
             ]
         ])) {
-            //$this->sendMail($mail, $this->request->getPost('subject'), view('', ['message'=>$this->request->getPost('message')]));
+            $this->sendMail($mail, $this->request->getPost('subject'), view('mails/mail_type', ['titre'=>$this->request->getPost('subject'),
+                'soustitre'=>$this->request->getPost('message')]));
             return redirect()->to('/admin/users/'.$mail);
         }
 

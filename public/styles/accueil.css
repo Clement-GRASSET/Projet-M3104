@@ -76,7 +76,9 @@ section{
     padding:2rem;
     margin: 7rem auto 7rem auto;
 }
-
+#larger{
+    width:90rem;
+}
 .home form h3{
     text-align: center;
     color:#333;
