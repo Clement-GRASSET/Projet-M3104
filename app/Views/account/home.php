@@ -108,6 +108,8 @@ if (!empty($annonce['A_photos'])) {
 
 ?>
 
+<?php if (sizeof($annonce['A_photos']) < 5) { ?>
+
 <h2>Ajouter une photo</h2>
 
 <form action="" method="post" enctype="multipart/form-data">
@@ -119,6 +121,8 @@ if (!empty($annonce['A_photos'])) {
     <?= $errors->html('image') ?>
     <input class="button" type="submit" name="add_image" value="Ajouter">
 </form>
+
+<?php } ?>
 
 <?php
 echo view('templates/dashboard_close');

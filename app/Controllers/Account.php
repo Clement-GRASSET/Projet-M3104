@@ -257,6 +257,9 @@ class Account extends BaseController
             $image = $this->request->getFile('image');
             if ($image->isValid() && !$image->hasMoved()) {
                 $photoModel = new PhotoModel();
+                if ($photoModel->where(['P_idannonce'=>$id])->countAllResults() >= 5) {
+                    return redirect()->to('/account/homes/'.$id);
+                }
                 $photo = [
                     'P_titre' => $this->request->getPost('titre'),
                     'P_nom' => $image->getRandomName(),
