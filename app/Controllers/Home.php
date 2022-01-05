@@ -6,6 +6,7 @@ use App\Models\AnnonceModel;
 use App\Models\DiscussionModel;
 use App\Models\MessageModel;
 use App\Models\PhotoModel;
+use App\Models\TypeMaisonModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Home extends BaseController
@@ -36,22 +37,47 @@ class Home extends BaseController
         $numPage = (int) $numPage;
 
         $annonceModel = new AnnonceModel();
-        $nbAnnonces = $annonceModel->where(['A_etat'=>'publiée'])->countAllResults();
 
-        $nbPages = intdiv($nbAnnonces, 15) + 1;
-        $offset = ($numPage - 1) * 15;
+        $filter = [];
+
+        if ($this->request->getGet('adresse'))
+            $filter['A_adresse'] = $this->request->getGet('adresse');
+
+        if ($this->request->getGet('ville'))
+            $filter['A_ville'] = $this->request->getGet('ville');
+
+        if ($this->request->getGet('type_maison'))
+            $filter['A_type_maison'] = $this->request->getGet('type_maison');
+
+        /*        if ($this->request->getGet('superficie'))
+                    $filter['A_superficie'] = $this->request->getGet('superficie');*/
+
+        if ($this->request->getGet('type_chauffage'))
+            $filter['A_type_chauffage'] = $this->request->getGet('type_chauffage');
+
+        $nbAnnonces = $annonceModel->where(['A_etat'=>'publiée'])->like($filter)->countAllResults();
+
+        $limit = 15;
+        $nbPages = intdiv($nbAnnonces, $limit) + 1;
+        $offset = ($numPage - 1) * $limit;
         if ($offset >= $nbAnnonces && $numPage != 1)
             throw PageNotFoundException::forPageNotFound();
 
         $annonces = $annonceModel
             ->orderBy('A_idannonce', 'desc')
             ->where(['A_etat'=>'publiée'])
-            ->findAll(15, $offset);
+            ->like($filter)
+            ->findAll($limit, $offset);
+
+        $typeMaisonModel = new TypeMaisonModel();
+        $typesMaison = $typeMaisonModel->findAll();
 
         $data = [
             'annonces'=>[],
             'numPage'=>$numPage,
             'nbPages'=>$nbPages,
+            'filter'=>$filter,
+            'typesMaison'=>$typesMaison,
         ];
         foreach ($annonces as $annonce) {
             $data['annonces'][] = $annonceModel->addData($annonce);
