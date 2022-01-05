@@ -11,7 +11,8 @@ class Auth extends BaseController
         $this->showView('login.php', ['errors' => []]);
     }
 
-    public function login_post() {
+    public function login_post()
+    {
         $validation = $this->validate([
             "email" => [
                 "rules" => "required|valid_email|login[email,password]",
@@ -37,11 +38,13 @@ class Auth extends BaseController
         }
     }
 
-    public function register() {
+    public function register()
+    {
         $this->showView('register.php', ['errors' => []]);
     }
 
-    public function register_post() {
+    public function register_post()
+    {
         $validation = $this->validate([
             "email" => [
                 "rules" => "required|valid_email|is_unique[T_utilisateur.U_mail]",
@@ -93,7 +96,7 @@ class Auth extends BaseController
                 "U_prenom" => $this->request->getPost("prenom"),
                 "U_admin" => "false"
             ];
-            $this->sendMail($utilisateur['U_mail'],"Bienvenue sur Li Logement", view("mails/mail_welcome", ['pseudo' =>$utilisateur['U_pseudo']]));
+            $this->sendMail($utilisateur['U_mail'], "Bienvenue sur Li Logement", view("mails/mail_welcome", ['pseudo' => $utilisateur['U_pseudo']]));
             $utilisateurModel->insert($utilisateur);
             $this->session->user = $utilisateur["U_mail"];
             return redirect("/");
@@ -102,8 +105,56 @@ class Auth extends BaseController
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         $this->session->remove('user');
         return redirect()->to("/");
+    }
+
+    public function recovery_pass()
+    {
+        if ($this->request->getMethod() === 'post') {
+            $validation = $this->validate([
+                "email" => [
+                    "rules" => "required|valid_email",
+                    "errors" => [
+                        "required" => "Vous devez renseigner une adresse email",
+                        "valid_email" => "L'adresse email est incorrecte"
+                    ]
+                ]
+            ]);
+            if ($validation) {
+                $utilisateurModel = new UtilisateurModel();
+                $user = $utilisateurModel->find($this->request->getPost('email'));
+                if (isset($user)) {
+                    $newPass = $this->genererChaineAleatoire();
+                    $utilisateurModel->update($this->request->getPost('email'), ['U_mdp' => hash('sha256', $newPass)]);
+                    $this->sendMail($user['U_mail'], "Récupération de votre Mot de Passe", view("mails/mail_type", [
+                        'titre' => "Récupération de votre Mot de Passe",
+                        'soustitre' => "Bonjour, vous avez demandé la récupération de votre mot de passe. <br><br>Voici vos identifiants:<br><br>Login :<b> " . $user['U_mail'] . "</b><br>Mot de Passe Temporaire :<b>" . $newPass . "</b><br><br><br>Pensez à modifier ce Mot de Passe dès votre Connexion."]));
+                    $this->showView('recovery_sended.php', ['message' => 'Mot de Passe Récupéré ! <br>Allez consulter vos mails']);
+                }
+            }
+            else {
+                $this->showView('recovery.php', ['errors' => $this->validator->getErrors()]);
+            }
+        }
+        else {
+            $this->showView('recovery.php', ['errors' => []]);
+        }
+
+
+
+    }
+
+    function genererChaineAleatoire($longueur = 12)
+    {
+        $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $longueurMax = strlen($caracteres);
+        $chaineAleatoire = '';
+        for ($i = 0; $i < $longueur; $i++) {
+            $chaineAleatoire .= $caracteres[rand(0, $longueurMax - 1)];
+        }
+        return $chaineAleatoire;
     }
 }

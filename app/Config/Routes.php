@@ -52,6 +52,8 @@ $routes->group('', ['filter'=>'base'], function ($routes) {
     $routes->post('/login', 'Auth::login_post');
     $routes->get('/register', 'Auth::register');
     $routes->post('/register', 'Auth::register_post');
+    $routes->get('/recovery', 'Auth::recovery_pass');
+    $routes->post('/recovery', 'Auth::recovery_pass');
     $routes->get('/logout', 'Auth::logout');
 
 });
