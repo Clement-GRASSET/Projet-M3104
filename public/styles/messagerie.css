@@ -1,0 +1,130 @@
+
+body{
+    font-family:Arial;
+}
+#container{
+    width:auto;
+
+    padding-top: 1rem;
+    margin:0 auto;
+    font-size:0;
+    border-radius:5px;
+    overflow:hidden;
+}
+#send {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+main{
+    display:inline-block;
+    font-size:15px;
+    vertical-align:top;
+}
+
+h2,h3{
+    margin:0;
+}
+.status{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:7px;
+}
+.green{
+    background-color:#58b666;
+}
+.orange{
+    background-color:#ff725d;
+}
+.blue{
+    background-color:#6fbced;
+    margin-right:0;
+    margin-left:7px;
+}
+
+#chat{
+    height: 500px;
+    max-width: 90%;
+    padding-left:0;
+    margin:0;
+    list-style-type:none;
+    overflow-y:scroll;
+}
+#chat li{
+    padding:10px 30px;
+}
+#chat h2,#chat h3{
+    display:inline-block;
+    font-size:13px;
+    font-weight:normal;
+}
+#chat h3{
+    color:#bbb;
+}
+#chat .entete{
+    margin-bottom:5px;
+}
+
+
+#chat .message{
+    padding:20px;
+    color:#fff;
+    line-height:25px;
+    max-width:90%;
+    display:inline-block;
+    text-align:left;
+    border-radius:20px;
+    white-space:normal;
+    overflow-wrap: break-word;
+}
+#chat .me{
+    text-align:right;
+}
+#chat .you .message{
+    background-color:#9053c7;
+}
+#chat .me .message{
+    background-color: #525252;
+}
+
+main #textarea{
+    border:solid 4px #9053c7;
+    background-color: transparent;
+    resize:none;
+    display:block;
+    width:100%;
+    height:63px;
+    border-radius:65px;
+    padding:20px;
+    font-size:13px;
+}
+main #textarea::placeholder{
+    color: #313131;
+}
+main button{
+    background-color: transparent;
+}
+main #buttona{
+    color:#9053c7;
+    height: auto;
+    border-radius: 15px;
+    padding:20px;
+    font-size: 25px;
+    font-weight:bold;
+    text-align: center;
+    vertical-align: bottom;
+
+}
+.send-message-form {
+    width: 100%;
+    background-color: #ececec;
+    padding: 20px;
+    display: flex;
+}
+
+.send-message-form input[type=text] {
+    flex-grow: 1;
+    margin-right: 5px;
+}

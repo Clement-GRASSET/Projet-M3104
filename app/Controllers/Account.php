@@ -216,6 +216,7 @@ class Account extends BaseController
             $annonceModel = new AnnonceModel();
             $annonceModel->insert($annonce);
             $annonce = $annonceModel->where($annonce)->first();
+
             return redirect()->to('/account/homes/' . $annonce['A_idannonce']);
         } else {
             $energieModel = new EnergieModel();
@@ -293,7 +294,6 @@ class Account extends BaseController
                 'A_adresse' => $this->request->getPost('adresse'),
                 'A_ville' => $this->request->getPost('ville'),
                 'A_CP' => $this->request->getPost('cp'),
-                'A_etat' => 'en cours de rédaction',
                 'A_proprietaire' => $this->session->user,
                 'A_type_maison' => $this->request->getPost('typeMaison'),
                 'A_id_engie' => ($this->request->getPost('chauffage') === 'individuel') ? $this->request->getPost('typeEnergie') : null,

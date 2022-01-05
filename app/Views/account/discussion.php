@@ -1,34 +1,43 @@
 <?php
-echo view('templates/html_open', ['styles'=>['dashboard.css']]);
+echo view('templates/html_open', ['styles' => ['dashboard.css', 'messagerie.css']]);
 echo view('templates/html_navbar');
 echo view('templates/dashboard_open');
 ?>
 
 <h1>Discussion</h1>
+<h2>Chat avec 
+    <b><?= (($emetteur['U_mail'] === $loggedUser['U_mail']) ? $destinataire['U_pseudo'] : $emetteur['U_pseudo']) ?></b>
+</h2>
+<h2>Annonce : <?= $annonce['A_titre'] ?> (X messages)</h2>
+<div id="container">
+    <main>
+        <ul id="chat">
+            <?php
 
-<p>Nom de l'annonce : <?= $annonce['A_titre'] ?></p>
-<p>Emétteur : <?= $emetteur['U_nom'] . " " . $emetteur['U_prenom'] ?></p>
-<p>Destinataire : <?= $destinataire['U_nom'] . " " . $destinataire['U_prenom'] ?></p>
-<br/>
-<h2>Messages</h2>
-<br/>
-<?php
+            foreach ($messages as $message) {
 
-foreach ($messages as $message) {
-    echo (($message['M_envoyeur'] === $emetteur['U_mail']) ? "Moi" : "Pas moi") . ", " . $message['M_dateheure_message'] . " :";
-    echo "<p>" . $message['M_texte_message'] . "</p>";
-    echo "<br/>";
-}
+                echo '<li class="' . (($message['M_envoyeur'] === $emetteur['U_mail']) ? "me" : "you") . '">
+                <div class="entete">
+                    <h2>' . (($message['M_envoyeur'] === $emetteur['U_mail']) ? $emetteur['U_pseudo'] : $destinataire['U_pseudo']) . '</h2>
+                    <h3>' . $message['M_dateheure_message'] . '</h3>
+                </div>
+                <div class="message">
+                    ' . $message['M_texte_message'] . '
+                </div>
+            </li>';
+            }
 
-?>
+            ?>
+        </ul>
+        <form id="send" action="" method="post">
+            <input id="textarea" name="message" placeholder="Entrez votre message"></input>
+            <button type="submit" class="btn btn-success">
+                <i id="buttona" class="fas fa-paper-plane"></i>
+            </button>
 
-<form class="send-message-form" action="" method="post">
-
-    <input type="text" name="message" placeholder="Message">
-    <input type="submit" value="Envoyer">
-
-</form>
-
+        </form>
+    </main>
+</div>
 <?php
 echo view('templates/dashboard_close');
 echo view('templates/html_close');

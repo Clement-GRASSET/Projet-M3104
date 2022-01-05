@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\UtilisateurModel;
-use App\Controllers\Mailer;
 
 class Auth extends BaseController
 {

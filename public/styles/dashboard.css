@@ -73,14 +73,12 @@
 .dashbaord .content h1 {
     font-size: 50px;
     font-weight: lighter;
-    margin-bottom: 70px;
+    margin-bottom: 10px;
 }
 
 .dashbaord .content h2 {
     font-size: 25px;
     font-weight: lighter;
-    margin-top: 35px;
-    margin-bottom: 20px;
 }
 
 .dashbaord .content p {

@@ -66,17 +66,8 @@ echo view('templates/dashboard_open');
         ?>
     </select><br/>
     <?= $errors->html('typeEnergie') ?>
-    <h2>Ajouter une photo</h2>
 
-    <form action="" method="post" enctype="multipart/form-data">
-        <label for="titre">Titre de l'image</label><br/>
-        <input type="text" name="titre" id="titre"/><br/>
-        <?= $errors->html('titre') ?>
-        <label for="image">Ajouter une photo</label><br/>
-        <input type="file" name="image" id="image" accept="image/png, image/jpeg"/><br/>
-        <?= $errors->html('image') ?>
-        <input class="button" type="submit" name="add_image" value="Ajouter">
-    </form>
+    <input class="button" type="submit" value="Enregistrer">
 </form>
 
 <script>
