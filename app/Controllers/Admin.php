@@ -293,9 +293,9 @@ class Admin extends BaseController
         if ($this->request->getMethod() === 'post') {
             if (!empty($this->request->getPost('confirm'))) {
                 $discussionModel->delete(['D_idannonce'=>$id, 'D_utilisateur'=>$mail]);
-                $this->sendMail($annonce['A_proprietaire'],"Suppression des messages de votre annonce ".$annonce['A_titre']." par un Administrateur",view("mails/mail_type", [
+                $this->sendMail($mail,"Suppression des messages de votre annonce par un Administrateur",view("mails/mail_type", [
                     'titre' =>"L'Administrateur a supprimé les messafes d'une de vos annonces",
-                    'soustitre'=>"Nous sommes navré de vous l'appremdre, mais l'Administrateur a prit la décision de supprimer les messages de votre annonce nommé ".$annonce['A_titre'].".
+                    'soustitre'=>"Nous sommes navré de vous l'appremdre, mais l'Administrateur a prit la décision de supprimer les messages de votre annonce.
                                                     Cette action est irrévocable.
                                                     Cordialement, L'équipe Li Logement"]));
                 return redirect()->to('/admin/homes/'.$id);
