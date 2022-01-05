@@ -195,6 +195,7 @@ section{
     height: 100%;
     object-fit: cover;
     transition: .2s linear;
+    background-color: black;
 }
 
 .featured .box-container .box:hover .image-container img {
