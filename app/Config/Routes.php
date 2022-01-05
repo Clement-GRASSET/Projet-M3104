@@ -35,10 +35,12 @@ $routes->setAutoRoute(false);
 $routes->group('', ['filter'=>'config'], function ($routes) {
 
     $routes->get('/config', 'Config::index');
+    $routes->get('/config/register', 'Config::register');
+    $routes->post('/config/register', 'Config::register');
 
 });
 
-$routes->group('', ['filter'=>'databaseCheck'], function ($routes) {
+$routes->group('', ['filter'=>'base'], function ($routes) {
 
     $routes->get('/', 'Home::index');
     $routes->get('/homes', 'Home::homes');
@@ -52,61 +54,62 @@ $routes->group('', ['filter'=>'databaseCheck'], function ($routes) {
     $routes->post('/register', 'Auth::register_post');
     $routes->get('/logout', 'Auth::logout');
 
-    $routes->group('', ['filter'=>'login'], function ($routes) {
-        $routes->get('/account', 'Account::index');
-        $routes->get('/account/messages', 'Account::messages');
-        $routes->get('/account/messages/(:any)', 'Account::discussion/$1');
-        $routes->post('/account/messages/(:any)', 'Account::discussion/$1');
-        $routes->get('/account/homes', 'Account::homes');
-        $routes->get('/account/homes/add', 'Account::add_home');
-        $routes->post('/account/homes/add', 'Account::add_home');
-        $routes->get('/account/homes/(:any)/edit', 'Account::edit_home/$1');
-        $routes->post('/account/homes/(:any)/edit', 'Account::edit_home/$1');
-        $routes->get('/account/homes/(:any)/publish', 'Account::publish_home/$1');
-        $routes->post('/account/homes/(:any)/publish', 'Account::publish_home/$1');
-        $routes->get('/account/homes/(:any)/delete', 'Account::delete_home/$1');
-        $routes->post('/account/homes/(:any)/delete', 'Account::delete_home/$1');
-        $routes->get('/account/homes/(:any)/archive', 'Account::archive_home/$1');
-        $routes->post('/account/homes/(:any)/archive', 'Account::archive_home/$1');
-        $routes->get('/account/homes/(:any)/delete_photo/(:any)', 'Account::delete_photo/$1/$2');
-        $routes->post('/account/homes/(:any)/delete_photo/(:any)', 'Account::delete_photo/$1/$2');
-        $routes->get('/account/homes/(:any)', 'Account::home/$1');
-        $routes->post('/account/homes/(:any)', 'Account::home/$1');
-        $routes->get('/account/settings', 'Account::settings');
-        $routes->post('/account/settings', 'Account::settings');
-        $routes->get('/account/settings/delete', 'Account::delete');
-        $routes->post('/account/settings/delete', 'Account::delete');
+});
 
-        $routes->group('', ['filter'=>'admin'], function ($routes) {
+$routes->group('', ['filter'=>'login'], function ($routes) {
 
-            $routes->get('/admin', 'Admin::index');
-            $routes->get('/admin/users', 'Admin::users');
-            $routes->get('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
-            $routes->post('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
-            $routes->get('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
-            $routes->post('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
-            $routes->get('/admin/users/(:any)/block', 'Admin::user_block/$1');
-            $routes->post('/admin/users/(:any)/block', 'Admin::user_block/$1');
-            $routes->get('/admin/users/(:any)/unblock', 'Admin::user_unblock/$1');
-            $routes->post('/admin/users/(:any)/unblock', 'Admin::user_unblock/$1');
-            $routes->get('/admin/users/(:any)', 'Admin::user/$1');
-            $routes->post('/admin/users/(:any)', 'Admin::user/$1');
-            $routes->get('/admin/homes', 'Admin::homes');
-            $routes->get('/admin/homes/(:any)/delete_photo/(:any)', 'Admin::delete_photo/$1/$2');
-            $routes->post('/admin/homes/(:any)/delete_photo/(:any)', 'Admin::delete_photo/$1/$2');
-            $routes->get('/admin/homes/(:any)/messages/(:any)', 'Admin::delete_discussion/$1/$2');
-            $routes->post('/admin/homes/(:any)/messages/(:any)', 'Admin::delete_discussion/$1/$2');
-            $routes->get('/admin/homes/(:any)/block', 'Admin::block_home/$1');
-            $routes->post('/admin/homes/(:any)/block', 'Admin::block_home/$1');
-            $routes->get('/admin/homes/(:any)/unblock', 'Admin::unblock_home/$1');
-            $routes->post('/admin/homes/(:any)/unblock', 'Admin::unblock_home/$1');
-            $routes->get('/admin/homes/(:any)/delete', 'Admin::delete_home/$1');
-            $routes->post('/admin/homes/(:any)/delete', 'Admin::delete_home/$1');
-            $routes->get('/admin/homes/(:any)', 'Admin::home/$1');
+    $routes->get('/account', 'Account::index');
+    $routes->get('/account/messages', 'Account::messages');
+    $routes->get('/account/messages/(:any)', 'Account::discussion/$1');
+    $routes->post('/account/messages/(:any)', 'Account::discussion/$1');
+    $routes->get('/account/homes', 'Account::homes');
+    $routes->get('/account/homes/add', 'Account::add_home');
+    $routes->post('/account/homes/add', 'Account::add_home');
+    $routes->get('/account/homes/(:any)/edit', 'Account::edit_home/$1');
+    $routes->post('/account/homes/(:any)/edit', 'Account::edit_home/$1');
+    $routes->get('/account/homes/(:any)/publish', 'Account::publish_home/$1');
+    $routes->post('/account/homes/(:any)/publish', 'Account::publish_home/$1');
+    $routes->get('/account/homes/(:any)/delete', 'Account::delete_home/$1');
+    $routes->post('/account/homes/(:any)/delete', 'Account::delete_home/$1');
+    $routes->get('/account/homes/(:any)/archive', 'Account::archive_home/$1');
+    $routes->post('/account/homes/(:any)/archive', 'Account::archive_home/$1');
+    $routes->get('/account/homes/(:any)/delete_photo/(:any)', 'Account::delete_photo/$1/$2');
+    $routes->post('/account/homes/(:any)/delete_photo/(:any)', 'Account::delete_photo/$1/$2');
+    $routes->get('/account/homes/(:any)', 'Account::home/$1');
+    $routes->post('/account/homes/(:any)', 'Account::home/$1');
+    $routes->get('/account/settings', 'Account::settings');
+    $routes->post('/account/settings', 'Account::settings');
+    $routes->get('/account/settings/delete', 'Account::delete');
+    $routes->post('/account/settings/delete', 'Account::delete');
 
-        });
+});
 
-    });
+$routes->group('', ['filter'=>'admin'], function ($routes) {
+
+    $routes->get('/admin', 'Admin::index');
+    $routes->get('/admin/users', 'Admin::users');
+    $routes->get('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
+    $routes->post('/admin/users/(:any)/mail', 'Admin::user_mail/$1');
+    $routes->get('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
+    $routes->post('/admin/users/(:any)/delete', 'Admin::user_delete/$1');
+    $routes->get('/admin/users/(:any)/block', 'Admin::user_block/$1');
+    $routes->post('/admin/users/(:any)/block', 'Admin::user_block/$1');
+    $routes->get('/admin/users/(:any)/unblock', 'Admin::user_unblock/$1');
+    $routes->post('/admin/users/(:any)/unblock', 'Admin::user_unblock/$1');
+    $routes->get('/admin/users/(:any)', 'Admin::user/$1');
+    $routes->post('/admin/users/(:any)', 'Admin::user/$1');
+    $routes->get('/admin/homes', 'Admin::homes');
+    $routes->get('/admin/homes/(:any)/delete_photo/(:any)', 'Admin::delete_photo/$1/$2');
+    $routes->post('/admin/homes/(:any)/delete_photo/(:any)', 'Admin::delete_photo/$1/$2');
+    $routes->get('/admin/homes/(:any)/messages/(:any)', 'Admin::delete_discussion/$1/$2');
+    $routes->post('/admin/homes/(:any)/messages/(:any)', 'Admin::delete_discussion/$1/$2');
+    $routes->get('/admin/homes/(:any)/block', 'Admin::block_home/$1');
+    $routes->post('/admin/homes/(:any)/block', 'Admin::block_home/$1');
+    $routes->get('/admin/homes/(:any)/unblock', 'Admin::unblock_home/$1');
+    $routes->post('/admin/homes/(:any)/unblock', 'Admin::unblock_home/$1');
+    $routes->get('/admin/homes/(:any)/delete', 'Admin::delete_home/$1');
+    $routes->post('/admin/homes/(:any)/delete', 'Admin::delete_home/$1');
+    $routes->get('/admin/homes/(:any)', 'Admin::home/$1');
 
 });
 

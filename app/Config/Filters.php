@@ -23,10 +23,10 @@ class Filters extends BaseConfig
         'csrf'          => CSRF::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
-        'login'         => Login::class,
-        'admin'         => Admin::class,
+        'base'          => [DatabaseCheck::class],
+        'login'         => [DatabaseCheck::class, Login::class],
+        'admin'         => [DatabaseCheck::class, Login::class , Admin::class],
         'config'        => Config::class,
-        'databaseCheck' => DatabaseCheck::class,
     ];
 
     /**

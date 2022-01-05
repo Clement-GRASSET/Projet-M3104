@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use App\Classes\DatabaseUtils;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
@@ -11,8 +12,9 @@ class Config implements FilterInterface {
 
     public function before(RequestInterface $request, $arguments = null)
     {
-        throw PageNotFoundException::forPageNotFound();
-        return redirect()->to('/');
+        $databaseUtils = new DatabaseUtils();
+        if ($databaseUtils->isValid())
+            throw PageNotFoundException::forPageNotFound();
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
