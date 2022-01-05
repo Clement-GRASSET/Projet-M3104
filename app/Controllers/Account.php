@@ -382,9 +382,25 @@ class Account extends BaseController
         $mail = $this->session->user;
 
         if ($this->request->getPost('update') && $this->validate([
-            'pseudo' => 'required',
-            'nom' => 'required',
-            'prenom' => 'required',
+            'pseudo' => [
+                'rules' => 'required|is_unique[T_utilisateur.U_pseudo]',
+                'errors' => [
+                    'required' => 'Vous devez renseigner un pseudo',
+                    'is_unique' => 'Ce pseudo est déjà utilisé'
+                ]
+            ],
+            'nom' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Vous devez renseigner un nom'
+                ]
+            ],
+            'prenom' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Vous devez renseigner un prénom'
+                ]
+            ],
         ])) {
             $utilisateurModel->update($mail, [
                 'U_pseudo'=>$this->request->getPost('pseudo'),
@@ -394,8 +410,19 @@ class Account extends BaseController
         }
 
         if ($this->request->getPost('update_password') && $this->validate([
-                'password_new1' => 'required',
-                'password_new2' => 'required|matches[password_new1]',
+                'password_new1' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Vous devez renseigner un mot de passe'
+                    ]
+                ],
+                'password_new2' => [
+                    'rules' => 'required|matches[password_new1]',
+                    'errors' => [
+                        'required' => 'Vous devez confirmer le mot de passe',
+                        'matches' => 'Le mot de passe ne correspond pas'
+                    ]
+                ],
             ])) {
             $utilisateurModel->update($mail, ['U_mdp'=>hash('sha256', $this->request->getPost('password_new2'))]);
         }

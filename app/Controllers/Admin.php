@@ -22,17 +22,32 @@ class Admin extends BaseController
     public function user($mail)
     {
         $utilisateurModel = new UtilisateurModel();
+        $utilisateur = $utilisateurModel->find($mail);
+        if (empty($utilisateur)) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
         if ($this->request->getMethod() === 'post') {
             if (!empty($this->request->getPost('update'))) {
                 $validation = $this->validate([
                     'pseudo' => [
-                        'rules' => 'required',
+                        'rules' => 'required|is_unique[T_utilisateur.U_pseudo]',
+                        'errors' => [
+                            'required' => 'Vous devez renseigner un pseudo',
+                            'is_unique' => 'Ce pseudo est déjà utilisé'
+                        ]
                     ],
                     'nom' => [
                         'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Vous devez renseigner un nom'
+                        ]
                     ],
                     'prenom' => [
                         'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Vous devez renseigner un prénom'
+                        ]
                     ],
                 ]);
                 if ($validation) {
@@ -49,12 +64,8 @@ class Admin extends BaseController
                 }
             }
         }
-        $utilisateur = $utilisateurModel->find($mail);
-        if (empty($utilisateur)) {
-            throw PageNotFoundException::forPageNotFound();
-        }
 
-        $this->showView('admin/user', ['user' => $utilisateur, 'me' => $mail===$this->session->user]);
+        $this->showView('admin/user', ['user' => $utilisateur, 'me' => $mail===$this->session->user, 'errors' => new ValidationErrors((isset($this->validator))?$this->validator->getErrors():[]) ]);
     }
 
     public function user_mail($mail)

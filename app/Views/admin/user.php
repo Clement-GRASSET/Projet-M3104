@@ -14,12 +14,15 @@ echo view('templates/dashboard_open');
 
     <label for="pseudo">Pseudo</label><br/>
     <input type="text" id="pseudo" name="pseudo" placeholder="Pseudo" value="<?= $user['U_pseudo'] ?>"><br/>
+    <?= $errors->html('pseudo') ?>
 
     <label for="nom">Nom</label><br/>
     <input type="text" id="nom" name="nom" placeholder="Nom" value="<?= $user['U_nom'] ?>"><br/>
+    <?= $errors->html('nom') ?>
 
     <label for="prenom">Prénom</label><br/>
     <input type="text" id="prenom" name="prenom" placeholder="Prénom" value="<?= $user['U_prenom'] ?>"><br/>
+    <?= $errors->html('prenom') ?>
 
     <label for="admin">Administrateur</label>
     <input type="checkbox" id="admin" name="admin" <?= ($user['U_admin']) ? "checked" : "" ?> <?= ($me) ? "disabled" : "" ?>><br/>
