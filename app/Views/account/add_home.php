@@ -28,7 +28,7 @@ echo view('templates/dashboard_open');
     <?= $errors->html('chauffage') ?>
 
     <label for="superficie">Superficie</label><br/>
-    <input type="number" name="superficie" id="superficie"><br/>
+    <input type="number" step="0.01" name="superficie" id="superficie"><br/>
     <?= $errors->html('superficie') ?>
 
     <label for="description">Description</label><br/>

@@ -11,9 +11,6 @@ use App\Models\PhotoModel;
 use App\Models\TypeMaisonModel;
 use App\Models\UtilisateurModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 class Account extends BaseController
 {
@@ -26,15 +23,17 @@ class Account extends BaseController
             ]
         ],
         'loyer' => [
-            'rules' => 'required',
+            'rules' => 'required|numeric',
             'errors' => [
-                'required' => 'Vous devez renseigner un loyer'
+                'required' => 'Vous devez renseigner un loyer',
+                'numeric' => 'Vous devez entrer un nombre'
             ]
         ],
         'charges' => [
-            'rules' => 'required',
+            'rules' => 'required|numeric',
             'errors' => [
-                'required' => 'Vous devez renseigner les charges'
+                'required' => 'Vous devez renseigner les charges',
+                'numeric' => 'Vous devez entrer un nombre'
             ]
         ],
         'chauffage' => [
@@ -45,9 +44,10 @@ class Account extends BaseController
             ]
         ],
         'superficie' => [
-            'rules' => 'required',
+            'rules' => 'required|numeric',
             'errors' => [
-                'required' => 'Vous devez renseigner une superficie'
+                'required' => 'Vous devez renseigner une superficie',
+                'numeric' => 'Vous devez entrer un nombre'
             ]
         ],
         'description' => [

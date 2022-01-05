@@ -91,7 +91,7 @@ class DatabaseUtils {
         A_cout_charges decimal(14, 2) not null,
         A_type_chauffage varchar(255) not null,
         A_superficie decimal(14, 2) not null,
-        A_description varchar(255) not null,
+        A_description mediumtext not null,
         A_adresse varchar(255) not null,
         A_ville varchar(255) not null,
         A_CP varchar(5) not null,
@@ -120,7 +120,7 @@ class DatabaseUtils {
         M_idmessage serial primary key not null,
         M_dateheure_message timestamp default now() not null,
         M_envoyeur varchar(255) not null,
-        M_texte_message varchar(255) not null,
+        M_texte_message mediumtext not null,
         M_iddiscussion bigint unsigned not null
         );",
 
