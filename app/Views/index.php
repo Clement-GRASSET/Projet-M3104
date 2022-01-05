@@ -40,7 +40,7 @@
                     <img src="<?= '/images/homes/' . ((empty($annonce['A_photos'])) ? 'default.png' : $annonce['A_idannonce'].'/'.$annonce['A_photos'][0]['P_nom']) ?>" alt="">
 
                     <?php if ($isLoggedIn) {
-                        if ($annonce['A_proprietaire'] == $loggedUser['U_mail']) {
+                        if ($annonce['A_proprietaire']['U_mail'] === $loggedUser['U_mail']) {
                             echo '<div class="info"><h3>Votre annonce</h3></div>';
                         }
                     } ?>
@@ -65,7 +65,9 @@
                     </div>
                     <div class="buttons">
                         <a href="<?= base_url("/homes/".$annonce['A_idannonce']."/") ?>" class="btn">Voir l'annonce</a>
+                        <?php if (!$isLoggedIn || $annonce['A_proprietaire']['U_mail'] !== $loggedUser['U_mail']) { ?>
                         <a href="<?= base_url("/homes/".$annonce['A_idannonce']."/contact") ?>" class="btn">Contacter le propriétaire</a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
