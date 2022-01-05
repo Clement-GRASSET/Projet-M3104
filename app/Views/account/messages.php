@@ -4,7 +4,7 @@ echo view('templates/html_navbar');
 echo view('templates/dashboard_open');
 ?>
 
-<h1>Ici c'est li messagerie</h1>
+<h1>Messagerie</h1>
 
 <?php
 

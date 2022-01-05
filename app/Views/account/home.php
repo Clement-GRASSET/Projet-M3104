@@ -61,14 +61,14 @@ echo view('templates/dashboard_open');
 
         case 'en cours de rédaction': {
             echo "<p>Cette annonce n'est pas publiée</p>";
-            echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/edit") . "'>Modifier</a>";
-            echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/publish") . "'>Publier</a>";
+            echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/edit") . "'>Modifier</a> ";
+            echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/publish") . "'>Publier</a> ";
             echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/delete") . "'>Supprimer</a>";
             break;
         }
         case 'publiée': {
             echo "<p>Cette annonce est publiée</p>";
-            echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/edit") . "'>Modifier</a>";
+            echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/edit") . "'>Modifier</a> ";
             echo "<a class='button' href='" . base_url("/account/homes/".$annonce['A_idannonce']."/archive") . "'>Archiver</a>";
             break;
         }

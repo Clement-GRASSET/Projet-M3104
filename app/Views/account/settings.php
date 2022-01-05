@@ -4,7 +4,7 @@ echo view('templates/html_navbar');
 echo view('templates/dashboard_open');
 ?>
 
-<h1>Mon compte</h1>
+<h1>Paramètres du compte</h1>
 
 <h2>Modifier mes informations</h2>
 

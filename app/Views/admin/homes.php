@@ -4,9 +4,7 @@ echo view('templates/html_navbar');
 echo view('templates/dashboard_open');
 ?>
 
-<h1>Li maisons</h1>
-
-
+<h1>Annonces</h1>
 
 <?php
 

@@ -1,25 +1,12 @@
 
+.content
+{
+    display: flex;
+    flex-direction: column;
+}
+
 body{
     font-family:Arial;
-}
-#container{
-    width:auto;
-
-    padding-top: 1rem;
-    margin:0 auto;
-    font-size:0;
-    border-radius:5px;
-    overflow:hidden;
-}
-#send {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-main{
-    display:inline-block;
-    font-size:15px;
-    vertical-align:top;
 }
 
 h2,h3{
@@ -46,27 +33,30 @@ h2,h3{
 
 #chat{
     height: 500px;
-    max-width: 90%;
+    width: 100%;
     padding-left:0;
     margin:0;
     list-style-type:none;
     overflow-y:scroll;
 }
+
 #chat li{
     padding:10px 30px;
 }
+
 #chat h2,#chat h3{
     display:inline-block;
     font-size:13px;
     font-weight:normal;
 }
+
 #chat h3{
     color:#bbb;
 }
+
 #chat .entete{
     margin-bottom:5px;
 }
-
 
 #chat .message{
     padding:20px;
@@ -89,17 +79,42 @@ h2,h3{
     background-color: #525252;
 }
 
-#textarea{
-    border:solid 4px #9053c7;
+#send {
+    margin-top: 20px;
+    margin-bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+#send input[type=text] {
+    border:solid 3px #9053c7;
+    border-right: 0;
     background-color: transparent;
-    resize:none;
-    display:block;
-    width:100%;
-    height:63px;
-    border-radius:65px;
+    width: 100%;
+    border-radius: 65px 0 0 65px;
     padding:20px;
     font-size:13px;
+    display: inline;
+    max-width: unset;
 }
+
+#send button[type=submit] {
+    width: 100px;
+    background-color: #9053c7;
+    border-radius: 0 65px 65px 0;
+    color: white;
+    transition-duration: 200ms;
+}
+
+#send button[type=submit]:hover {
+    filter: brightness(0.9);
+}
+
+#send button[type=submit]:active {
+    filter: brightness(0.8);
+}
+
 #textarea::placeholder{
     color: #313131;
 }

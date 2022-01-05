@@ -4,7 +4,7 @@ echo view('templates/html_navbar');
 echo view('templates/dashboard_open');
 ?>
 
-<h1>Li utilisateurs</h1>
+<h1>Utilisateurs</h1>
 
 <?php
 
